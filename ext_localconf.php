@@ -27,4 +27,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	)
 );
 
+// extbase commandController
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = 'Tx_JccAppointments_Command_ReminderCommandController';
+
 ?>

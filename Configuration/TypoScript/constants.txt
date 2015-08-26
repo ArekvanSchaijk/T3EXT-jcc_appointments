@@ -82,7 +82,9 @@ plugin.tx_jccappointments {
 				clientCountry = 1
 				# cat=plugin.tx_jccappointments_clientdata_requirements/a/100; type=boolean; label=Client Tel:If set, this field will be required
 				clientTel = 1
-				# cat=plugin.tx_jccappointments_clientdata_requirements/a/110; type=boolean; label=Client Mail:If set, this field will be required
+				# cat=plugin.tx_jccappointments_clientdata_requirements/a/110; type=boolean; label=Client Mobile Tel:If set, this field will be required
+				clientMobileTel = 1
+				# cat=plugin.tx_jccappointments_clientdata_requirements/a/120; type=boolean; label=Client Mail:If set, this field will be required
 				clientMail = 1
 			}
 		}
@@ -103,12 +105,14 @@ plugin.tx_jccappointments {
 		sms {
 			# cat=plugin.tx_jccappointments_sms/a/010; type=boolean; label=Enable notifications:If set, SMS notifications will be enabled
 			enabled = 0
-			# cat=plugin.tx_jccappointments_sms/a/020; type=options[Mollie=mollie]; label=Provider:Supported SMS providers (see also the another configurations)
-			provider = mollie
 			# cat=plugin.tx_jccappointments_sms/a/030; type=string; label=Mollie API Login:If provider "Mollie" is set, define here the API login
 			mollie_login = 
 			# cat=plugin.tx_jccappointments_sms/a/040; type=string; label=Mollie API Password:If provider "Mollie" is set, define here the API password
 			mollie_password = 
+			# cat=plugin.tx_jccappointments_sms/a/050; type=string; label=Hour Interval:Amount of hours before appointment time
+			hour_interval = 6
+			# cat=plugin.tx_jccappointments_sms/a/060; type=string; label=Limit:Amount of sms'es send at once
+			limit = 20
 		}
 		general {
 			# cat=plugin.tx_jccappointments_general/a/010; type=int; label=Session Lifetime:Maximum age in seconds that the session will be used (if 0 set the TYPO3 configuration will be used)

@@ -49,6 +49,7 @@ plugin.tx_jccappointments {
 				clientCity = {$plugin.tx_jccappointments.settings.clientdata.requirements.clientCity}
 				clientCountry = {$plugin.tx_jccappointments.settings.clientdata.requirements.clientCountry}
 				clientTel = {$plugin.tx_jccappointments.settings.clientdata.requirements.clientTel}
+				clientMobileTel = {$plugin.tx_jccappointments.settings.clientdata.requirements.clientMobileTel}
 				clientMail = {$plugin.tx_jccappointments.settings.clientdata.requirements.clientMail}
 			}
 		}
@@ -63,9 +64,10 @@ plugin.tx_jccappointments {
 		}
 		sms {
 			enabled = {$plugin.tx_jccappointments.settings.sms.enabled}
-			provider = {$plugin.tx_jccappointments.settings.sms.provider}
 			mollie_login = {$plugin.tx_jccappointments.settings.sms.mollie_login}
 			mollie_password = {$plugin.tx_jccappointments.settings.sms.mollie_password}
+			hour_interval = {$plugin.tx_jccappointments.settings.sms.hour_interval}
+			limit = {$plugin.tx_jccappointments.settings.sms.limit}
 		}
 		general {
 			sessionLifetime = {$plugin.tx_jccappointments.settings.general.sessionLifetime}

@@ -176,10 +176,27 @@
     <f:form.textfield name="clientTel" id="clientTel" value="{data.clientData.tel}" />
   </div>
   <div>
+    <label for="clientMobileTel">{f:translate(key:'clientdata.clientMobileTel')}
+      <f:if condition="{data.requirements.clientMobileTel}">*</f:if>
+    </label>
+    <f:form.textfield name="clientMobileTel" id="clientMobileTel" value="{data.clientData.mobileTel}" />
+  </div>
+  <div>
     <label for="clientMail">{f:translate(key:'clientdata.clientMail')}
       <f:if condition="{data.requirements.clientMail}">*</f:if>
     </label>
     <f:form.textfield name="clientMail" id="clientMail" value="{data.clientData.mail}" />
+  </div>
+  <div>
+    <label for="clientSms">{f:translate(key:'clientdata.clientSms')}</label>
+    <f:if condition="{data.clientData.sms}">
+      <f:then>
+        <f:form.checkbox name="clientSms" id="clientSms" value="1" checked="checked" />
+      </f:then>
+      <f:else>
+        <f:form.checkbox name="clientSms" id="clientSms" value="1" />
+      </f:else>
+    </f:if>
   </div>
   <f:form.submit name="submit" value="{f:translate(key:'clientdata.submit')}" />
 </f:form>

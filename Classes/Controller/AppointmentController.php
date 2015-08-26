@@ -554,6 +554,7 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 			'postalCode'	=> strtoupper(str_replace(' ', '', $this->params['clientPostalCode'])),
 			'city'			=> $this->params['clientCity'],
 			'tel'			=> $this->params['clientTel'],
+			'mobileTel'		=> $this->params['clientMobileTel'],
 			'mail'			=> $this->params['clientMail'],
 		);
 		
@@ -601,6 +602,10 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 		// if country is enabled
 		if($this->settings['clientdata']['enableCountry'])
 			$clientData['country'] = $this->params['clientCountry'];
+			
+		// if sms
+		if($this->params['clientSms'] && !empty($this->params['clientSms']))
+			$clientData['sms'] = true;
 		
 		// add client data to session
 		$this->addClientDataToSession($clientData);
@@ -672,6 +677,8 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 		// country
 		if($this->settings['clientdata']['enableCountry'])
 			$bookData['clientCountry'] = $clientData['country'];
+			
+		$bookData['isClientVerified'] = 0;
 
 		// API book appointment
 		$appointment = $this->api()->bookGovAppointment(array('appDetail' => $bookData));
@@ -685,12 +692,50 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 			// add secret hash in session
 			$this->addSecretHashInSession($generatedHash);
 			
+			// API get location details
+			$location = $this->api()->getGovLocationDetails(array('locationID' => $this->getLocation()));
+			$locationData = $this->renderLocationDetailsArray($location->locaties);
+			
 			// create a new appointment object
 			$newAppointment = new Tx_JccAppointments_Domain_Model_Appointment;
 			$newAppointment->setAppId((int)$appointment->appID);
 			$newAppointment->setAppTime($startAppointmentTime);
 			$newAppointment->setSecretHash($generatedHash);
-			$newAppointment->setSms(1);
+			
+			if(isset($clientData['id']) && $clientData['id']) 
+				$newAppointment->setClientId($clientData['id']);
+			if(isset($clientData['initials']) && $clientData['initials']) 
+				$newAppointment->setClientInitials($clientData['initials']);
+			if(isset($clientData['middleName']) && $clientData['middleName']) 
+				$newAppointment->setClientInsertions($clientData['middleName']);
+			if(isset($clientData['lastName']) && $clientData['lastName']) 
+				$newAppointment->setClientLastName($clientData['lastName']);
+			if(isset($clientData['sex']) && $clientData['sex']) 
+				$newAppointment->setClientSex($clientData['sex']);
+			if(isset($clientData['dateOfBirth']) && $clientData['dateOfBirth']) 
+				$newAppointment->setClientDateOfBirth(strtotime($clientData['dateOfBirth']));
+			if(isset($clientData['street']) && $clientData['street'])
+				$newAppointment->setClientStreet($clientData['street']);
+			if(isset($clientData['number']) && $clientData['number'])
+				$newAppointment->setClientStreetNumber($clientData['number']);
+			if(isset($clientData['postalCode']) && $clientData['postalCode'])
+				$newAppointment->setClientPostalCode($clientData['postalCode']);
+			if(isset($clientData['city']) && $clientData['city'])
+				$newAppointment->setClientCity($clientData['city']);
+			if(isset($clientData['tel']) && $clientData['tel'])
+				$newAppointment->setClientPhone($clientData['tel']);
+			if(isset($clientData['mobileTel']) && $clientData['mobileTel'])
+				$newAppointment->setClientMobilePhone($clientData['mobileTel']);
+			if(isset($clientData['mail']) && $clientData['mail'])
+				$newAppointment->setClientEmail($clientData['mail']);
+			if(isset($clientData['sms']) && $clientData['sms'])
+				$newAppointment->setSms($clientData['sms']);
+			
+			$newAppointment->setLocationName($locationData['name']);
+			$newAppointment->setLocationAddress($locationData['address']);
+			$newAppointment->setLocationPostalCode($locationData['postalcode']);
+			$newAppointment->setLocationPhone($locationData['phone']);
+			
 			$this->appointmentRepository->add($newAppointment);
 			$this->persistAll();
 			
@@ -922,6 +967,18 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 			if($this->isValidation('clientTel', $clientData['tel'])):
 				if(!$clientData['tel'] || empty($clientData['tel']))
 					$this->setValidationError('validation.clientdata.no_tel');
+			endif;
+			
+			// mobile phone
+			if($this->isValidation('clientMobileTel', $clientData['mobileTel'])):
+				if(!$clientData['mobileTel'] || empty($clientData['mobileTel']))
+					$this->setValidationError('validation.clientdata.no_mobile_tel');
+			endif;
+			
+			// sms
+			if(isset($clientData['sms']) && $clientData['sms']):
+				if(!$clientData['mobileTel'] || empty($clientData['mobileTel']))
+					$this->setValidationError('validation.clientdata.sms_no_mobile_tel');
 			endif;
 
 			// email

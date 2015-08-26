@@ -69,7 +69,9 @@
       <label index="clientdata.clientCity">City</label>
       <label index="clientdata.clientCountry">Country</label>
       <label index="clientdata.clientTel">Phone</label>
+	  <label index="clientdata.clientMobileTel">Mobile Phone</label>
       <label index="clientdata.clientMail">Mail</label>
+	  <label index="clientdata.clientSms">SMS Notification</label>
       <label index="confirmation.header_clientdata">Your entered data</label>
       <label index="confirmation.description_clientdata">Check the information you entered</label>
       <label index="confirmation.header_selectedproducts">Selected products</label>
@@ -118,6 +120,8 @@
       <label index="validation.clientdata.invalid_postalcode">You entered a wrong postal code</label>
       <label index="validation.clientdata.no_city">You did not enter your city</label>
       <label index="validation.clientdata.no_tel">You did not enter your tel</label>
+	  <label index="validation.clientdata.no_mobile_tel">You did not enter your mobile tel</label>
+	  <label index="validation.clientdata.sms_no_mobile_tel">You did not enter your mobile tel (required for SMS notification)</label>
       <label index="validation.clientdata.no_mail">You did not fill in your mail address</label>
       <label index="validation.clientdata.invalid_mail">You entered a wrong mail address</label>
       <label index="validation.clientdata.no_country">You did not fill in your country</label>
@@ -200,7 +204,9 @@
       <label index="clientdata.clientCity">Plaats</label>
       <label index="clientdata.clientCountry">land</label>
       <label index="clientdata.clientTel">Telefoon</label>
+	  <label index="clientdata.clientMobileTel">Mobiele telefoon</label>
       <label index="clientdata.clientMail">Email</label>
+	  <label index="clientdata.clientSms">SMS herinnering</label>
       <label index="confirmation.header_clientdata">Uw ingevoerde gegevens</label>
       <label index="confirmation.description_clientdata">Controleer s.v.p. de ingevoerde gegevens</label>
       <label index="confirmation.header_selectedproducts">Geselecteerde producten</label>
@@ -249,6 +255,8 @@
       <label index="validation.clientdata.invalid_postalcode">U heeft een onjuiste postcode ingevuld</label>
       <label index="validation.clientdata.no_city">U heeft uw plaatsnaam niet ingevuld</label>
       <label index="validation.clientdata.no_tel">U heeft uw telefoonnummer niet ingevuld</label>
+	  <label index="validation.clientdata.no_mobile_tel">U heeft uw mobiele telefoonnummer niet ingevuld</label>
+	  <label index="validation.clientdata.sms_no_mobile_tel">U heeft uw mobiele telefoonnummer niet ingevuld (vereist voor SMS notificatie)</label>
       <label index="validation.clientdata.no_mail">U heeft uw email adres niet ingevuld</label>
       <label index="validation.clientdata.invalid_mail">U heeft een onjuist email adres ingevuld</label>
       <label index="validation.clientdata.no_country">U heeft uw land niet ingevuld</label>

@@ -56,6 +56,14 @@
       <td>{data.clientData.tel}</td>
     </tr>
     <tr>
+      <th>{f:translate(key:'clientdata.clientMobileTel')}</th>
+      <td>{data.clientData.mobileTel}</td>
+    </tr>
+    <tr>
+      <th>{f:translate(key:'clientdata.clientSms')}</th>
+      <td><f:if condition="{data.clientData.sms}"><f:then>Ja</f:then><f:else>Nee</f:else></f:if></td>
+    </tr>
+    <tr>
       <th>{f:translate(key:'clientdata.clientMail')}</th>
       <td>{data.clientData.mail}</td>
     </tr>

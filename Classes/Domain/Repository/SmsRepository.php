@@ -31,39 +31,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_JccAppointments_Domain_Repository_AppointmentRepository extends Tx_Extbase_Persistence_Repository {
-	
-	/**
-	 * Find Unsend Sms
-	 *
-	 * @param integer $interval
-	 * @param mixed $limit
-	 * @return array
-	 */
-	public function findUnsendSms($interval, $limit = false) {
-		
-		$query = $this->createQuery();
-		
-		// prepare interval
-		$interval = time() + $interval;
-		
-        $query->matching(
-			$query->logicalAnd(
-				$query->equals('sms', 1),
-				$query->equals('sms_send', 0),
-				$query->lessThanOrEqual('app_time', $interval),
-				$query->greaterThanOrEqual('app_time', time())
-			)
-		);
-		
-        $query->setOrderings(array(
-			'uid' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING
-		));
-		
-		if($limit)
-        	$query->setLimit((integer)$limit);
-			
-        return $query->execute();
-	}
+class Tx_JccAppointments_Domain_Repository_SmsRepository extends Tx_Extbase_Persistence_Repository {
+
 }
 ?>
