@@ -28,4 +28,4 @@ if (!defined('TYPO3_MODE')) {
 );
 
 // extbase commandController
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = '\TYPO3\JccAppointments\Command\ReminderCommandController';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = 'TYPO3\JccAppointments\Command\ReminderCommandController';

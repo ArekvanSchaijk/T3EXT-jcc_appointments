@@ -119,7 +119,7 @@ class ReminderCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\Comman
 						$variables = array(
 							'appointment' => $appointment
 						);
-						$view = $this->objectManager->create('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
+						$view = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
 						$view->setFormat('text');
 						$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 						$templateRootPath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']);
