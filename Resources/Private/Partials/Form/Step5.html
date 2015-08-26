@@ -1,0 +1,98 @@
+<h2>{f:translate(key:'confirmation.header_clientdata')}</h2>
+<p>{f:translate(key:'confirmation.description_clientdata')}</p>
+<table>
+  <tbody>
+    <tr>
+      <th>{f:translate(key:'clientdata.clientID')}</th>
+      <td>{data.clientData.id}</td>
+    </tr>
+    <tr>
+      <th>{f:translate(key:'clientdata.clientSex')}</th>
+      <td><f:if condition="{0:data.clientData.sex} == {0:'M'}">
+          <f:then> {f:translate(key:'clientdata.clientSexMale')} </f:then>
+          <f:else> {f:translate(key:'clientdata.clientSexFemale')} </f:else>
+        </f:if></td>
+    </tr>
+    <tr>
+      <th>{f:translate(key:'clientdata.clientName')}</th>
+      <td>{data.clientData.initials}
+        <f:if condition="{data.clientData.middleName}">{data.clientData.middleName}</f:if>
+        {data.clientData.lastName}</td>
+    </tr>
+    <tr>
+      <th>{f:translate(key:'clientdata.clientDateOfBirthConfirmation')}</th>
+      <td>{data.clientData.dateOfBirth}</td>
+    </tr>
+    <f:if condition="{data.splitAddress}">
+      <f:then>
+        <tr>
+          <th>{f:translate(key:'clientdata.clientAddressConfirmation')}</th>
+          <td>{data.clientData.street} {data.clientData.number}</td>
+        </tr>
+      </f:then>
+      <f:else>
+        <tr>
+          <th>{f:translate(key:'clientdata.clientDateOfBirthConfirmation')}</th>
+          <td>{data.clientData.address}</td>
+        </tr>
+      </f:else>
+    </f:if>
+    <tr>
+      <th>{f:translate(key:'clientdata.clientPostalCodeConfirmation')}</th>
+      <td>{data.clientData.postalCode}</td>
+    </tr>
+    <tr>
+      <th>{f:translate(key:'clientdata.clientCity')}</th>
+      <td>{data.clientData.city}</td>
+    </tr>
+    <f:if condition="{data.enableCountry}">
+      <tr>
+        <th>{f:translate(key:'clientdata.clientCountry')}</th>
+        <td>{data.clientData.country}</td>
+      </tr>
+    </f:if>
+    <tr>
+      <th>{f:translate(key:'clientdata.clientTel')}</th>
+      <td>{data.clientData.tel}</td>
+    </tr>
+    <tr>
+      <th>{f:translate(key:'clientdata.clientMail')}</th>
+      <td>{data.clientData.mail}</td>
+    </tr>
+  </tbody>
+</table>
+<h2>{f:translate(key:'confirmation.header_selectedproducts')}</h2>
+<ul>
+  <f:for each="{data.products}" as="product">
+    <li>{product.name}</li>
+  </f:for>
+</ul>
+<h2>{f:translate(key:'confirmation.header_appointmentdetails')}</h2>
+<p>{f:translate(key:'confirmation.description_appointmentdetails')}</p>
+<table>
+  <tbody>
+    <tr>
+      <th>{f:translate(key:'confirmation.date')}</th>
+      <th>{f:translate(key:'confirmation.time')}</th>
+      <th>{f:translate(key:'confirmation.location')}</th>
+    </tr>
+    <tr>
+      <td>{data.date.dayNoZero} {f:translate(key:'month.{data.date.month}')} {data.date.year}</td>
+      <td>{data.time}</td>
+      <td><p>{data.location.address}<br />
+          {data.location.postalcode} {data.location.city}
+          <f:if condition="{data.location.phone}"><br />
+            <strong>{f:translate(key:'confirmation.phone')}:</strong> {data.location.phone}</f:if>
+        </p></td>
+    </tr>
+  </tbody>
+</table>
+<div id="controls">
+  <div class="previous">
+    <f:link.action action="previousStep">{f:translate(key:'previous')}</f:link.action>
+  </div>
+  <div class="next">
+    <f:link.action action="confirmAppointment">{f:translate(key:'next')}</f:link.action>
+  </div>
+  <div class="clearboth"> </div>
+</div>

@@ -1,0 +1,194 @@
+<f:renderFlashMessages />
+<h2>{f:translate(key:'clientdata.header')}</h2>
+<p>{f:translate(key:'clientdata.description')}</p>
+<f:form action="postClientData">
+  <div>
+    <label for="clientId">{f:translate(key:'clientdata.clientID')}
+      <f:if condition="{data.requirements.clientID}">*</f:if>
+    </label>
+    <f:form.textfield name="clientId" id="clientId" value="{data.clientData.id}" />
+  </div>
+  <div>
+    <p>{f:translate(key:'clientdata.clientSex')}
+      <f:if condition="{data.requirements.clientSex}">*</f:if>
+    </p>
+    <label for="clientSexMale">{f:translate(key:'clientdata.clientSexMale')}</label>
+    <f:if condition="{0:data.clientData.sex} == {0:'M'}">
+      <f:then>
+        <f:form.radio name="clientSex" id="clientSexMale" value="M" checked="checked" />
+      </f:then>
+      <f:else>
+        <f:form.radio name="clientSex" id="clientSexMale" value="M" />
+      </f:else>
+    </f:if>
+    <label for="clientSexFemale">{f:translate(key:'clientdata.clientSexFemale')}</label>
+    <f:if condition="{0:data.clientData.sex} == {0:'F'}">
+      <f:then>
+        <f:form.radio name="clientSex" id="clientSexFemale" value="F" checked="checked" />
+      </f:then>
+      <f:else>
+        <f:form.radio name="clientSex" id="clientSexFemale" value="F" />
+      </f:else>
+    </f:if>
+  </div>
+  <div>
+    <label for="clientInitials">{f:translate(key:'clientdata.clientInitials')}
+      <f:if condition="{data.requirements.clientInitials}">*</f:if>
+    </label>
+    <f:form.textfield name="clientInitials" id="clientInitials" value="{data.clientData.initials}" />
+  </div>
+  <div>
+    <label for="clientMiddleName">{f:translate(key:'clientdata.clientMiddleName')}</label>
+    <f:form.textfield name="clientMiddleName" id="clientMiddleName" value="{data.clientData.middleName}" />
+  </div>
+  <div>
+    <label for="clientLastName">{f:translate(key:'clientdata.clientLastName')}
+      <f:if condition="{data.requirements.clientLastName}">*</f:if>
+    </label>
+    <f:form.textfield name="clientLastName" id="clientLastName" value="{data.clientData.lastName}" />
+  </div>
+  <f:if condition="{data.splitBirthday}">
+    <f:then>
+      <label>{f:translate(key:'clientdata.clientDateOfBirth')}
+        <f:if condition="{data.requirements.clientDateOfBirth}">*</f:if>
+      </label>
+      <label for="clientDayOfBirth">{f:translate(key:'clientdata.clientDayOfBirth')}</label>
+      <f:if condition="{data.birthdayDays}">
+        <f:then>
+          <select name="tx_jccappointments_pi1[clientDayOfBirth]" id="clientDayOfBirth">
+            <option value="">{f:translate(key:'clientdata.clientDayOfBirthOption')}</option>
+            <f:for each="{data.birthdayDays}" as="day">
+              <f:if condition="{0:data.clientData.dayOfBirth} == {0:day}">
+                <f:then>
+                  <option value="{day}" selected="selected">{day}</option>
+                </f:then>
+                <f:else>
+                  <option value="{day}">{day}</option>
+                </f:else>
+              </f:if>
+            </f:for>
+          </select>
+        </f:then>
+        <f:else>
+          <f:form.textfield name="clientDayOfBirth" id="clientDayOfBirth" value="{data.clientData.dayOfBirth}" />
+        </f:else>
+      </f:if>
+      <label for="clientMonthOfBirth">{f:translate(key:'clientdata.clientMonthOfBirth')}</label>
+      <f:if condition="{data.birthdayDays}">
+        <f:then>
+          <select name="tx_jccappointments_pi1[clientMonthOfBirth]" id="clientMonthOfBirth">
+            <option value="">{f:translate(key:'clientdata.clientMonthOfBirthOption')}</option>
+            <f:for each="{data.birthdayMonths}" as="month">
+              <f:if condition="{0:data.clientData.monthOfBirth} == {0:month}">
+                <f:then>
+                  <option value="{month}" selected="selected">{f:translate(key:'month.{month}')}</option>
+                </f:then>
+                <f:else>
+                  <option value="{month}">{f:translate(key:'month.{month}')}</option>
+                </f:else>
+              </f:if>
+            </f:for>
+          </select>
+        </f:then>
+        <f:else>
+          <f:form.textfield name="clientMonthOfBirth" id="clientMonthOfBirth" value="{data.clientData.monthOfBirth}" />
+        </f:else>
+      </f:if>
+      <label for="clientYearOfBirth">{f:translate(key:'clientdata.clientYearOfBirth')}</label>
+      <f:if condition="{data.birthdayYears}">
+        <f:then>
+          <select name="tx_jccappointments_pi1[clientYearOfBirth]" id="clientYearOfBirth">
+            <option value="">{f:translate(key:'clientdata.clientYearOfBirthOption')}</option>
+            <f:for each="{data.birthdayYears}" as="year">
+              <f:if condition="{0:data.clientData.yearOfBirth} == {0:year}">
+                <f:then>
+                  <option value="{year}" selected="selected">{year}</option>
+                </f:then>
+                <f:else>
+                  <option value="{year}">{year}</option>
+                </f:else>
+              </f:if>
+            </f:for>
+          </select>
+        </f:then>
+        <f:else>
+          <f:form.textfield name="clientYearOfBirth" id="clientYearOfBirth" value="{data.clientData.yearOfBirth}" />
+        </f:else>
+      </f:if>
+    </f:then>
+    <f:else>
+      <div>
+        <label for="clientDateOfBirth">{f:translate(key:'clientdata.clientDateOfBirth')}
+          <f:if condition="{data.requirements.clientDateOfBirth}">*</f:if>
+        </label>
+        <f:form.textfield name="clientDateOfBirth" id="clientDateOfBirth" value="{data.clientData.dateOfBirth}" />
+      </div>
+    </f:else>
+  </f:if>
+  <f:if condition="{data.splitAddress}">
+    <f:then>
+      <div>
+        <label for="clientStreet">{f:translate(key:'clientdata.clientStreet')}
+          <f:if condition="{data.requirements.clientAddress}">*</f:if>
+        </label>
+        <f:form.textfield name="clientStreet" id="clientStreet" value="{data.clientData.street}" />
+      </div>
+      <div>
+        <label for="clientStreetNumber">{f:translate(key:'clientdata.clientStreetNumber')}
+          <f:if condition="{data.requirements.clientAddress}">*</f:if>
+        </label>
+        <f:form.textfield name="clientStreetNumber" id="clientStreetNumber" value="{data.clientData.number}" />
+      </div>
+    </f:then>
+    <f:else>
+      <div>
+        <label for="clientAddress">{f:translate(key:'clientdata.clientAddress')}
+          <f:if condition="{data.requirements.clientAddress}">*</f:if>
+        </label>
+        <f:form.textfield name="clientAddress" id="clientAddress" value="{data.clientData.address}" />
+      </div>
+    </f:else>
+  </f:if>
+  <div>
+    <label for="clientPostalCode">{f:translate(key:'clientdata.clientPostalCode')}
+      <f:if condition="{data.requirements.clientPostalCode}">*</f:if>
+    </label>
+    <f:form.textfield name="clientPostalCode" id="clientPostalCode" value="{data.clientData.postalCode}" />
+  </div>
+  <div>
+    <label for="clientCity">{f:translate(key:'clientdata.clientCity')}
+      <f:if condition="{data.requirements.clientCity}">*</f:if>
+    </label>
+    <f:form.textfield name="clientCity" id="clientCity" value="{data.clientData.city}" />
+  </div>
+  <f:if condition="{data.enableCountry}">
+    <div>
+      <label for="clientCountry">{f:translate(key:'clientdata.clientCountry')}
+        <f:if condition="{data.requirements.clientCountry}">*</f:if>
+      </label>
+      <f:form.textfield name="clientCountry" id="clientCountry" value="{data.clientData.country}" />
+    </div>
+  </f:if>
+  <div>
+    <label for="clientTel">{f:translate(key:'clientdata.clientTel')}
+      <f:if condition="{data.requirements.clientTel}">*</f:if>
+    </label>
+    <f:form.textfield name="clientTel" id="clientTel" value="{data.clientData.tel}" />
+  </div>
+  <div>
+    <label for="clientMail">{f:translate(key:'clientdata.clientMail')}
+      <f:if condition="{data.requirements.clientMail}">*</f:if>
+    </label>
+    <f:form.textfield name="clientMail" id="clientMail" value="{data.clientData.mail}" />
+  </div>
+  <f:form.submit name="submit" value="{f:translate(key:'clientdata.submit')}" />
+</f:form>
+<div id="controls">
+  <div class="previous">
+    <f:link.action action="previousStep">{f:translate(key:'previous')}</f:link.action>
+  </div>
+  <div class="next">
+    <f:link.action action="nextStep">{f:translate(key:'next')}</f:link.action>
+  </div>
+  <div class="clearboth"> </div>
+</div>

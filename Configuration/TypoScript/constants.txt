@@ -1,0 +1,98 @@
+plugin.tx_jccappointments {
+	view {
+		# cat=plugin.tx_jccappointments/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:jcc_appointments/Resources/Private/Templates/
+		# cat=plugin.tx_jccappointments/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:jcc_appointments/Resources/Private/Partials/
+	}
+#	persistence {
+#		# cat=plugin.tx_jccappointments//a; type=string; label=Default storage PID
+#		storagePid = 
+#	}
+	settings {
+		# cat=plugin.tx_jccappointments/a/010; type=boolean; label=Dev log:Check to enable devlog
+#		devlog = 
+		css {
+			# cat=plugin.tx_jccappointments/a/020; type=boolean; label=Enable CSS:Check to enable the default stylesheet
+			file1.enabled = 1
+			# cat=plugin.tx_jccappointments/a/025; type=string; label=CSS Path:Path to the default CSS file
+			file1.path = EXT:jcc_appointments/Resources/Public/Css/Stylesheet.css
+		}
+		soap {
+			# cat=plugin.tx_jccappointments_soap/a/010; type=string; label=WSDL:Web Service Definition Language URL
+			wsdl = http://service.jccsoftware.nl/GenericGuidanceSystemService2/GenericGuidanceSystem2.asmx?wsdl
+			# cat=plugin.tx_jccappointments_soap/a/020; type=int; label=Service Unavailable Pid:Page ID where to redirect to if the SOAP service is unavailable
+			serviceUnavailablePid = 
+		}
+		location {
+			# cat=plugin.tx_jccappointments_location/a/010; type=boolean; label=Disable Locations:Check to disable the whole location step (it is required that the location ID is set too)
+			disable = 
+			# cat=plugin.tx_jccappointments_location/a/020; type=int; label=Location ID:Required configuration when locations are disabled
+			locationID = 0
+			# cat=plugin.tx_jccappointments_location/a/030; type=boolean; label=Render Opening Hours:If set, the location array will be extended with the opening hours
+			renderOpeningHours = 1
+		}
+		calendar {
+			# cat=plugin.tx_jccappointments_calendar/a/010; type=options[Default=default]; label=Calendar Mode:Choose an calendar engine
+			mode = default
+			# cat=plugin.tx_jccappointments_calendar/a/020; type=int; label="Default mode" - Range:The number of months which can be selected in order to show the available days
+			default_range = 5
+			# cat=plugin.tx_jccappointments_calendar/a/030; type=boolean; label="Default mode" - Open First Month:If set, the available days of the current month will be displayed
+			default_openfirstmonth = 1
+			# cat=plugin.tx_jccappointments_calendar/a/040; type=boolean; label="Default mode" - Inject Times:If set, days will be extended with a array containing the available times of that day
+			default_injectTimesInAvailableDays = 0
+		}
+		clientdata {
+			# cat=plugin.tx_jccappointments_clientdata/a/010; type=boolean; label=Split address:If set, the address will be splitted in street and number
+			splitAddress = 1
+			# cat=plugin.tx_jccappointments_clientdata/a/020; type=boolean; label=Split birthday:If set, the birthday will be splitted in day, month and year selection
+			splitBirthday = 1
+			# cat=plugin.tx_jccappointments_clientdata/a/030; type=boolean; label=Render Birthday Options:If set, the birthday options will be rendered
+			renderBirthdayOptions = 1
+			# cat=plugin.tx_jccappointments_clientdata/a/040; type=int; label=Birthday Start Year:Year (4 digits) to start with
+			birthdayStartYear = 1900
+			# cat=plugin.tx_jccappointments_clientdata/a/050; type=int; label=Birthday End Year:Year (4 digits) to end with OR 0 to define no end 
+			birthdayEndYear = 0
+			# cat=plugin.tx_jccappointments_clientdata/a/060; type=boolean; label=Country:If set, the country field is enabled
+			enableCountry = 0
+			requirements {
+				# cat=plugin.tx_jccappointments_clientdata_requirements/a/010; type=boolean; label=Client ID:If set, this field will be required
+				clientID = 1
+				# cat=plugin.tx_jccappointments_clientdata_requirements/a/020; type=boolean; label=Client Initials:If set, this field will be required
+				clientInitials = 1
+				# cat=plugin.tx_jccappointments_clientdata_requirements/a/030; type=boolean; label=Client Last Name:(warning! this field should always required) If set, this field will be required
+				clientLastName = 1
+				# cat=plugin.tx_jccappointments_clientdata_requirements/a/040; type=boolean; label=Client Sex:If set, this field will be required
+				clientSex = 1
+				# cat=plugin.tx_jccappointments_clientdata_requirements/a/050; type=boolean; label=Client Date Of Birth:If set, this field will be required
+				clientDateOfBirth = 1
+				# cat=plugin.tx_jccappointments_clientdata_requirements/a/060; type=boolean; label=Client Address:If set, this field will be required
+				clientAddress = 1
+				# cat=plugin.tx_jccappointments_clientdata_requirements/a/070; type=boolean; label=Client Postal Code:If set, this field will be required
+				clientPostalCode = 1
+				# cat=plugin.tx_jccappointments_clientdata_requirements/a/080; type=boolean; label=Client City:If set, this field will be required
+				clientCity = 1
+				# cat=plugin.tx_jccappointments_clientdata_requirements/a/090; type=boolean; label=Client Country:If set, this field will be required
+				clientCountry = 1
+				# cat=plugin.tx_jccappointments_clientdata_requirements/a/100; type=boolean; label=Client Tel:If set, this field will be required
+				clientTel = 1
+				# cat=plugin.tx_jccappointments_clientdata_requirements/a/110; type=boolean; label=Client Mail:If set, this field will be required
+				clientMail = 1
+			}
+		}
+		sms {
+			# cat=plugin.tx_jccappointments_sms/a/010; type=boolean; label=Enable notifications:If set, SMS notifications will be enabled
+			enabled = 0
+			# cat=plugin.tx_jccappointments_sms/a/020; type=options[Mollie=mollie]; label=Provider:Supported SMS providers (see also the another configurations)
+			provider = mollie
+			# cat=plugin.tx_jccappointments_sms/a/030; type=string; label=Mollie API Login:If provider "Mollie" is set, define here the API login
+			mollie_login = 
+			# cat=plugin.tx_jccappointments_sms/a/040; type=string; label=Mollie API Password:If provider "Mollie" is set, define here the API password
+			mollie_password = 
+		}
+		general {
+			# cat=plugin.tx_jccappointments_general/a/010; type=int; label=Succes Pid:Page ID where to redirect to if the booking is succeed
+			successPid = 
+		}
+	}
+}

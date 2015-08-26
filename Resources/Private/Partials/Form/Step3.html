@@ -1,0 +1,11 @@
+<f:renderFlashMessages />
+<f:render partial="Calendar/{data.calendarMode}Mode" arguments="{data : data}" />
+<div id="controls">
+  <div class="previous">
+    <f:link.action action="previousStep">{f:translate(key:'previous')}</f:link.action>
+  </div>
+  <div class="next">
+    <f:link.action action="nextStep">{f:translate(key:'next')}</f:link.action>
+  </div>
+  <div class="clearboth"> </div>
+</div>

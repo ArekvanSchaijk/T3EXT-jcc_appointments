@@ -1,0 +1,81 @@
+<div id="calendar_default">
+  <f:if condition="{data.months}">
+    <h2>{f:translate(key:'calendar.header_selectmonth')}</h2>
+    <div id="pickmonth">
+      <f:form action="defaultModeCalendarSelectMonth">
+        <div class="select">
+          <select name="tx_jccappointments_pi1[month]">
+            <f:for each="{data.months}" as="month">
+              <f:if condition="{0:month.key} == {0:data.activeMonthKey}">
+                <f:then>
+                  <option value="{month.year}{month.month}" selected="selected"> 
+                </f:then>
+                <f:else>
+                  <option value="{month.year}{month.month}"> 
+                </f:else>
+              </f:if>
+              <f:if condition="{0:month.year} == {0:data.year}">
+                <f:then>{f:translate(key:'month.{month.month}')}</f:then>
+                <f:else>{f:translate(key:'month.{month.month}')} - {month.year}</f:else>
+              </f:if>
+              </option>
+            </f:for>
+          </select>
+        </div>
+        <div class="submit">
+          <f:form.submit name="submit" value="Select month" />
+        </div>
+        <div class="clearboth"> </div>
+      </f:form>
+    </div>
+  </f:if>
+  <f:if condition="{data.showAvailableDays}">
+    <div id="pickday">
+      <h2>{f:translate(key:'calendar.header_selectday')}</h2>
+      <p>Data vars: [<strong>data.activeMonth</strong>={data.activeMonth}, <strong>data.activeYear</strong>={data.activeYear}, <strong>data.activeMonthKey</strong>={data.activeMonthKey}]</p>
+      <f:if condition="{data.days}">
+        <f:then>
+          <ul>
+            <f:for each="{data.days}" as="day">
+              <li>
+                <f:link.action action="defaultModeCalendarSelectDay" arguments="{year : data.activeYear, month : data.activeMonth, date : day.date}">{day.dayNoZero} {f:translate(key:'month.{day.month}')}</f:link.action>
+                <f:if condition="{day.times}">
+                  <ul>
+                    <f:for each="{day.times}" as="time">
+                      <li>
+                        <f:link.action action="chooseDateAndTime" arguments="{date : day.date, time : time}">{time}</f:link.action>
+                      </li>
+                    </f:for>
+                  </ul>
+                </f:if>
+              </li>
+            </f:for>
+          </ul>
+        </f:then>
+        <f:else>
+          <p>{f:translate(key:'message.no_available_days_in_month')}</p>
+        </f:else>
+      </f:if>
+    </div>
+  </f:if>
+  <f:if condition="{data.showAvailableTimes}">
+    <div id="picktimes">
+      <h2>{f:translate(key:'calendar.header_selecttime')}</h2>
+      <p>Data vars: [<strong>data.activeDay.date</strong>={data.activeDay.date}, <strong>data.activeDay.day</strong>={data.activeDay.day}, <strong>data.activeDay.dayNoZero</strong>={data.activeDay.dayNoZero}, <strong>data.activeDay.month</strong>={data.activeDay.month}, <strong>data.activeDay.year</strong>={data.activeDay.year}, <strong>data.activeDay.timestamp</strong>={data.activeDay.timestamp}]</p>
+      <f:if condition="{data.times}">
+        <f:then>
+          <ul>
+            <f:for each="{data.times}" as="time">
+              <li>
+                <f:link.action action="chooseDateAndTime" arguments="{date : data.activeDay.date, time : time}">{time}</f:link.action>
+              </li>
+            </f:for>
+          </ul>
+        </f:then>
+        <f:else>
+          <p>{f:translate(key:'message.no_available_times_in_day')}</p>
+        </f:else>
+      </f:if>
+    </div>
+  </f:if>
+</div>

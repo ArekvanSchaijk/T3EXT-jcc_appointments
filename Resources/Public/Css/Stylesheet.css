@@ -1,0 +1,49 @@
+#jcc_appointments .clearboth {
+	clear: both;	
+}
+#jcc_appointments .progress {
+	margin: 10px 0;	
+}
+#jcc_appointments .progress ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;	
+}
+#jcc_appointments .progress ul li {
+	float: left;
+	margin-right: 10px;
+	background-color: #bdc4ca;
+	padding: 10px;	
+}
+#jcc_appointments .progress ul li.active {
+	background-color: #8ca5b6;
+}
+#jcc_appointments #product_list ul li a {
+	float: right;	
+}
+#jcc_appointments #controls {
+	background-color: #dedede;
+	margin: 10px 0;
+	padding: 10px;	
+}
+#jcc_appointments #controls .previous {
+	float: left;	
+}
+#jcc_appointments #controls .next {
+	float: right;	
+}
+#jcc_appointments #locations {
+	margin: 10px 0;	
+}
+#jcc_appointments #locations .item {
+	width: 42%;
+	padding: 1% 2%;
+	margin: 0 2% 2% 0;
+	float: left;
+	background-color: #f2f2f2;
+}
+#jcc_appointments table td, #jcc_appointments table th {
+	padding: 3px;	
+	font-size: 12px;
+	text-align: left;
+}

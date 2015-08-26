@@ -1,0 +1,68 @@
+plugin.tx_jccappointments {
+	view {
+		templateRootPath = {$plugin.tx_jccappointments.view.templateRootPath}
+		partialRootPath = {$plugin.tx_jccappointments.view.partialRootPath}
+	}
+#	persistence {
+#		storagePid = {$plugin.tx_jccappointments.persistence.storagePid}
+#	}
+	settings {
+		css {
+			file1.enabled = {$plugin.tx_jccappointments.settings.css.file1.enabled}
+			file1.path = {$plugin.tx_jccappointments.settings.css.file1.path}
+		}
+#		devlog = {$plugin.tx_jccappointments.settings.devlog}
+		soap {
+			wsdl = {$plugin.tx_jccappointments.settings.soap.wsdl}
+			serviceUnavailablePid = {$plugin.tx_jccappointments.settings.soap.serviceUnavailablePid}
+		}
+		location {
+			disable = {$plugin.tx_jccappointments.settings.location.disable}
+			locationID = {$plugin.tx_jccappointments.settings.location.locationID}
+			renderOpeningHours = {$plugin.tx_jccappointments.settings.location.renderOpeningHours}
+		}
+		calendar {
+			mode = {$plugin.tx_jccappointments.settings.calendar.mode}
+			default_range = {$plugin.tx_jccappointments.settings.calendar.default_range}
+			default_openfirstmonth = {$plugin.tx_jccappointments.settings.calendar.default_openfirstmonth}
+			default_injectTimesInAvailableDays = {$plugin.tx_jccappointments.settings.calendar.default_injectTimesInAvailableDays}
+		}
+		clientdata {
+			splitAddress = {$plugin.tx_jccappointments.settings.clientdata.splitAddress}
+			splitBirthday = {$plugin.tx_jccappointments.settings.clientdata.splitBirthday}
+			renderBirthdayOptions = {$plugin.tx_jccappointments.settings.clientdata.renderBirthdayOptions}
+			birthdayStartYear = {$plugin.tx_jccappointments.settings.clientdata.birthdayStartYear}
+			birthdayEndYear = {$plugin.tx_jccappointments.settings.clientdata.birthdayEndYear}
+			enableCountry = {$plugin.tx_jccappointments.settings.clientdata.enableCountry}
+			requirements {
+				clientID = {$plugin.tx_jccappointments.settings.clientdata.requirements.clientID}
+				clientInitials = {$plugin.tx_jccappointments.settings.clientdata.requirements.clientInitials}
+				clientLastName = {$plugin.tx_jccappointments.settings.clientdata.requirements.clientLastName}
+				clientSex = {$plugin.tx_jccappointments.settings.clientdata.requirements.clientSex}
+				clientDateOfBirth = {$plugin.tx_jccappointments.settings.clientdata.requirements.clientDateOfBirth}
+				clientAddress = {$plugin.tx_jccappointments.settings.clientdata.requirements.clientAddress}
+				clientPostalCode = {$plugin.tx_jccappointments.settings.clientdata.requirements.clientPostalCode}
+				clientCity = {$plugin.tx_jccappointments.settings.clientdata.requirements.clientCity}
+				clientCountry = {$plugin.tx_jccappointments.settings.clientdata.requirements.clientCountry}
+				clientTel = {$plugin.tx_jccappointments.settings.clientdata.requirements.clientTel}
+				clientMail = {$plugin.tx_jccappointments.settings.clientdata.requirements.clientMail}
+			}
+		}
+		sms {
+			enabled = {$plugin.tx_jccappointments.settings.sms.enabled}
+			provider = {$plugin.tx_jccappointments.settings.sms.provider}
+			mollie_login = {$plugin.tx_jccappointments.settings.sms.mollie_login}
+			mollie_password = {$plugin.tx_jccappointments.settings.sms.mollie_password}
+		}
+		general {
+			successPid = {$plugin.tx_jccappointments.settings.general.successPid}
+		}
+	}
+}
+
+[globalVar = LIT:1 = {$plugin.tx_jccappointments.settings.css.file1.enabled}]
+	page.includeCSS {
+		jccappointments = {$plugin.tx_jccappointments.settings.css.file1.path}
+		jccappointments.media = screen, projection
+	}
+[global]

@@ -1,0 +1,44 @@
+<f:renderFlashMessages />
+<f:if condition="{data.locations}">
+  <h2>{f:translate(key:'locations.header')}</h2>
+  <p>{f:translate(key:'locations.description')}</p>
+  <div id="locations">
+    <f:for each="{data.locations}" as="location">
+      <div class="item">
+        <h2>{location.name}</h2>
+        <p>{location.address}<br />
+          {location.postalcode} {location.city}
+          <f:if condition="{location.phone}"><br />
+            <strong>{f:translate(key:'locations.phone')}:</strong> {location.phone}</f:if>
+        </p>
+        <f:if condition="{location.openingHours}">
+          <h3>{f:translate(key:'locations.header_openinghours')}</h3>
+          <ul>
+            <f:for each="{location.openingHours}" as="openingHour">
+              <li>{f:translate(key:'day.{openingHour.day}')}
+                <f:if condition="{openingHour.times}">
+                  <ul>
+                    <f:for each="{openingHour.times}" as="time">
+                      <li>{time.from}-{time.till}</li>
+                    </f:for>
+                  </ul>
+                </f:if>
+              </li>
+            </f:for>
+          </ul>
+        </f:if>
+        <f:link.action action="chooseLocation" arguments="{location : location.uid}">{f:translate(key:'locations.button_addlocation')}</f:link.action>
+      </div>
+    </f:for>
+    <div class="clearboth"> </div>
+  </div>
+</f:if>
+<div id="controls">
+  <div class="previous">
+    <f:link.action action="previousStep">{f:translate(key:'previous')}</f:link.action>
+  </div>
+  <div class="next">
+    <f:link.action action="nextStep">{f:translate(key:'next')}</f:link.action>
+  </div>
+  <div class="clearboth"> </div>
+</div>
