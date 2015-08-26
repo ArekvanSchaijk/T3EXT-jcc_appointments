@@ -25,10 +25,10 @@ namespace Ucreation\JccAppointments\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use Ucreation\JccAppointments\Utility\TemplateUtility;
 use Ucreation\JccAppointments\Exception;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * BaseController
