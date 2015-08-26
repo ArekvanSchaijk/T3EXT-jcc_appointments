@@ -1226,6 +1226,7 @@ class AppointmentController extends BaseController {
 				
 				$this->api()->deleteGovAppointment(array('appID' => $appointment->getAppId()));
 				$appointment->setClosed(TRUE);
+				$appointment->setSms(FALSE);
 				$this->appointmentRepository->update($appointment);
 				$data['cancelled'] = TRUE;
 				
