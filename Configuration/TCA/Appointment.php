@@ -6,13 +6,10 @@ if (!defined ('TYPO3_MODE')) {
 $TCA['tx_jccappointments_domain_model_appointment'] = array(
 	'ctrl' => $TCA['tx_jccappointments_domain_model_appointment']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, app_id, app_time, secret_hash, sms, sms_send, mail_send, closed, client_id, client_initials, client_insertions, client_last_name, client_sex, client_date_of_birth, client_street, client_street_number, client_postal_code, client_city, client_phone, client_mobile_phone, client_email, location_name, location_address, location_postal_code, location_phone',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, app_id, app_time, secret_hash, sms, sms_send, mail_send, closed, client_id, client_initials, client_insertions, client_last_name, client_sex, client_date_of_birth, client_street, client_street_number, client_postal_code, client_city, client_phone, client_mobile_phone, client_email, location_name, location_address, location_postal_code, location_phone',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, app_id, app_time, secret_hash, sms, sms_send, sms_send_date, mail_send, closed, client_id, client_initials, client_insertions, client_last_name, client_sex, client_date_of_birth, client_street, client_street_number, client_postal_code, client_city, client_phone, client_mobile_phone, client_email, location_name, location_address, location_postal_code, location_phone, --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
-	),
-	'palettes' => array(
-		'1' => array('showitem' => ''),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, app_id, app_time, secret_hash, sms, sms_send, sms_send_date, mail_send, closed, client_id, client_initials, client_insertions, client_last_name, client_sex, client_date_of_birth, client_street, client_street_number, client_postal_code, client_city, client_phone, client_mobile_phone, client_email, location_name, location_address, location_postal_code, location_phone'),
 	),
 	'columns' => array(
 		'sys_language_uid' => array(
@@ -53,45 +50,6 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 				'size' => 30,
 				'max' => 255,
 			)
-		),
-		'hidden' => array(
-			'exclude' => 1,
-			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
-			'config' => array(
-				'type' => 'check',
-			),
-		),
-		'starttime' => array(
-			'exclude' => 1,
-			'l10n_mode' => 'mergeIfNotBlank',
-			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.starttime',
-			'config' => array(
-				'type' => 'input',
-				'size' => 13,
-				'max' => 20,
-				'eval' => 'datetime',
-				'checkbox' => 0,
-				'default' => 0,
-				'range' => array(
-					'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-				),
-			),
-		),
-		'endtime' => array(
-			'exclude' => 1,
-			'l10n_mode' => 'mergeIfNotBlank',
-			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.endtime',
-			'config' => array(
-				'type' => 'input',
-				'size' => 13,
-				'max' => 20,
-				'eval' => 'datetime',
-				'checkbox' => 0,
-				'default' => 0,
-				'range' => array(
-					'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-				),
-			),
 		),
 		'app_id' => array(
 			'exclude' => 0,

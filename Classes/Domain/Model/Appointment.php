@@ -712,4 +712,5 @@ class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function setLocationPhone($locationPhone) {
 		$this->locationPhone = $locationPhone;
 	}
+	
 }

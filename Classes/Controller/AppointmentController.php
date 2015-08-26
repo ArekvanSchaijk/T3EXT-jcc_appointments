@@ -803,7 +803,7 @@ class AppointmentController extends BaseController {
 			if (isset($clientData['lastName']) && $clientData['lastName']) {
 				$newAppointment->setClientLastName($clientData['lastName']);
 			}
-			if (isset($clientData['sex']) && $clientData['sex'])  {
+			if (isset($clientData['sex']) && $clientData['sex']) {
 				$newAppointment->setClientSex($clientData['sex']);
 			}
 			if (isset($clientData['dateOfBirth']) && $clientData['dateOfBirth']) {
@@ -1191,7 +1191,7 @@ class AppointmentController extends BaseController {
 		if (!$this->params['secretHash'] || empty($this->params['secretHash'])) {
 		
 			$data['showError'] = self::CANCEL_NO_SECRETHASH_GIVEN;
-			
+		
 		} else {
 			
 			$data['secretHash'] = $this->params['secretHash'];
@@ -1272,7 +1272,7 @@ class AppointmentController extends BaseController {
 					$data['location'] = self::renderLocationDetailsArray($location->locaties);
 					
 					// foreach product ids and render products details array
-					foreach ($appointmentProductsIds as $productId) {		
+					foreach ($appointmentProductsIds as $productId) {
 						$product = $this->api()->getGovProductDetails(array('productID' => $productId));
 						$data['products'][] = self::renderProductDetailArray($productId, $product->out, TRUE);
 					}

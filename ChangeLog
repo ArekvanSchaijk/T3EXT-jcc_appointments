@@ -1,3 +1,8 @@
+2015-06-15  Arek van Schaijk <info@ucreation.nl>
+
+	* [BUGFIX]: #67476 - When cancelling an appointment the Initials are removed from the Appointment model
+	* [TASK]: #67477 - Cleanup of the appointment model
+
 2015-06-10  Arek van Schaijk <info@ucreation.nl>
 
 	* [BUGFIX]: #67311 - The ShowAll calendar mode sortates the months from high to low

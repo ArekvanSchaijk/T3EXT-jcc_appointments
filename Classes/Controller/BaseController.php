@@ -1331,7 +1331,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$sender = array($this->settings['confirmation']['sender']['email'] => $this->settings['confirmation']['sender']['name']);
 		
 		// client full name
-		$clientFullName = $appointment->setClientInitials();
+		$clientFullName = $appointment->getClientInitials();
 		$clientFullName .= ($appointment->getClientInsertions() ? ' '.$appointment->getClientInsertions() : NULL);
 		$clientFullName .= ($appointment->getClientLastName() ? ' '.$appointment->getClientLastName() : NULL);
 		$clientFullName = trim($clientFullName);

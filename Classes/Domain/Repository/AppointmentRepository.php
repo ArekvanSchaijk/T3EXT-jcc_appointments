@@ -57,8 +57,9 @@ class AppointmentRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 			'uid' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
 		));
 		
-		if ($limit)
+		if ($limit) {
         	$query->setLimit((integer)$limit);
+		}
 			
         return $query->execute();
 	}
