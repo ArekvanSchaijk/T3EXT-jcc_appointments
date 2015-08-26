@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\JccAppointments\Command;
+namespace Ucreation\JccAppointments\Command;
 
 /***************************************************************
  *  Copyright notice
@@ -169,7 +169,7 @@ class ReminderCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\Comman
 			$fullName = trim($fullName);
 			
 			// save sms
-			$sms = new \TYPO3\JccAppointments\Domain\Model\Sms;
+			$sms = new \Ucreation\JccAppointments\Domain\Model\Sms;
 			$sms->setRecipientName($fullName);
 			$sms->setRecipientNumber($appointment->getClientMobilePhone());
 			$sms->setSenderName($this->settings['confirmation']['sender']['name']);

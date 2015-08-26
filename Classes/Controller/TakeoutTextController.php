@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\JccAppointments\Controller;
+namespace Ucreation\JccAppointments\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -33,7 +33,7 @@ class TakeoutTextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 	/**
 	 * Takeout Text Repository
 	 *
-	 * @var \TYPO3\JccAppointments\Domain\Repository\TakeoutTextRepository
+	 * @var \Ucreation\JccAppointments\Domain\Repository\TakeoutTextRepository
 	 * @inject
 	 */
 	protected $takeoutTextRepository = NULL;

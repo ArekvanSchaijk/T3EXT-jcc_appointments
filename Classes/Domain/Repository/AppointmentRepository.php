@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\JccAppointments\Domain\Repository;
+namespace Ucreation\JccAppointments\Domain\Repository;
 
 /***************************************************************
  *  Copyright notice

@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\JccAppointments\Controller;
+namespace Ucreation\JccAppointments\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -25,7 +25,7 @@ namespace TYPO3\JccAppointments\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\JccAppointments\Exception;
+use Ucreation\JccAppointments\Exception;
 
 /**
  * AppointmentController
@@ -35,7 +35,7 @@ class AppointmentController extends BaseController {
 	/**
 	 * Appointment Repository
 	 *
-	 * @var \TYPO3\JccAppointments\Domain\Repository\AppointmentRepository
+	 * @var \Ucreation\JccAppointments\Domain\Repository\AppointmentRepository
 	 * @inject
 	 */
 	protected $appointmentRepository = NULL;
@@ -786,7 +786,7 @@ class AppointmentController extends BaseController {
 			$locationData = self::renderLocationDetailsArray($location->locaties);
 			
 			// create a new appointment object
-			$newAppointment = new \TYPO3\JccAppointments\Domain\Model\Appointment;
+			$newAppointment = new \Ucreation\JccAppointments\Domain\Model\Appointment;
 			$newAppointment->setAppId((int)$appointment->appID);
 			$newAppointment->setAppTime($startAppointmentTime);
 			$newAppointment->setSecretHash($generatedHash);

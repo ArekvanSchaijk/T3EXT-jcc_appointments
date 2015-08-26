@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\JccAppointments\Controller;
+namespace Ucreation\JccAppointments\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -27,8 +27,8 @@ namespace TYPO3\JccAppointments\Controller;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use TYPO3\JccAppointments\Utility\TemplateUtility;
-use TYPO3\JccAppointments\Exception;
+use Ucreation\JccAppointments\Utility\TemplateUtility;
+use Ucreation\JccAppointments\Exception;
 
 /**
  * BaseController
@@ -97,7 +97,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	/**
 	 * Takeout Text Repository
 	 *
-	 * @var \TYPO3\JccAppointments\Domain\Repository\TakeoutTextRepository
+	 * @var \Ucreation\JccAppointments\Domain\Repository\TakeoutTextRepository
 	 * @inject
 	 */
 	protected $takeoutTextRepository = NULL;
@@ -1322,10 +1322,10 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	/**
 	 * Send Cancelled ConfirmationMail
 	 *
-	 * @param \TYPO3\JccAppointments\Domain\Model\Appointment $appointment
+	 * @param \Ucreation\JccAppointments\Domain\Model\Appointment $appointment
 	 * @return void
 	 */
-	protected function sendCancelledConfirmationMail(\TYPO3\JccAppointments\Domain\Model\Appointment $appointment) {
+	protected function sendCancelledConfirmationMail(\Ucreation\JccAppointments\Domain\Model\Appointment $appointment) {
 		
 		// sender
 		$sender = array($this->settings['confirmation']['sender']['email'] => $this->settings['confirmation']['sender']['name']);

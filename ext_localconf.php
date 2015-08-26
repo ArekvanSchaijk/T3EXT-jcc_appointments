@@ -16,7 +16,7 @@ if (!defined('TYPO3_MODE')) {
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	'TYPO3.' . $_EXTKEY,
+	'Ucreation.' . $_EXTKEY,
 	'Pi2',
 	array(
 		'Appointment' => 'cancel'
@@ -28,7 +28,7 @@ if (!defined('TYPO3_MODE')) {
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	'TYPO3.' . $_EXTKEY,
+	'Ucreation.' . $_EXTKEY,
 	'Pi3',
 	array(
 		'TakeoutText' => 'show'
@@ -40,4 +40,4 @@ if (!defined('TYPO3_MODE')) {
 );
 
 // extbase commandController
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = 'TYPO3\JccAppointments\Command\ReminderCommandController';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = 'Ucreation\JccAppointments\Command\ReminderCommandController';
