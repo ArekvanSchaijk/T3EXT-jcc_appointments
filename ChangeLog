@@ -1,5 +1,9 @@
 2015-05-25  Arek van Schaijk <info@ucreation.nl>
 
+	* [BUGFIX]: #67133 - Wrong takeout texts variable is used in the confirmation template
+
+2015-05-25  Arek van Schaijk <info@ucreation.nl>
+
 	* [BUGFIX]: #67070 - Fatal error: Class 'TYPO3\CMS\Core\Messaging\AbstractMessage'
 	* [TASK]: #67026 - Code base cleanup
 	* [FEATURE]: #67021	- Provide an confirmation mail when using the cancelation form

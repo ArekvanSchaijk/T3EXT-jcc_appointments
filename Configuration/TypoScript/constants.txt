@@ -33,7 +33,7 @@ plugin.tx_jccappointments {
 			singleSelection = 
 			# cat=plugin.tx_jccappointments_products/a/050; type=string; label=Use TYPO3's requisites:If set, the 'takeout texts' in TYPO3 will be used instead of JCC requisites
 			takeoutText {
-				# cat=plugin.tx_jccappointments_products/a/060; type=string; label=Takeout Text TYPO3:If set, the 'takeout text' record in TYPO3 will be used instead of the JCC requisites
+				# cat=plugin.tx_jccappointments_products/a/060; type=boolean; label=Takeout Text TYPO3:If set, the 'takeout text' record in TYPO3 will be used instead of the JCC requisites
 				useTypo3Object = 0
 			}
 		}

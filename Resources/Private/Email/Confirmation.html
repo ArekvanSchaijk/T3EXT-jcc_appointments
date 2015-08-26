@@ -16,10 +16,10 @@ Dear {clientData.fullName},<br />
   </ul>
 </f:if>
 
-<f:if condition="{data.takeoutTexts}">
+<f:if condition="{takeoutTexts}">
   <h2>{f:translate(key:'confirmation.header_takeouttexts')}</h2>
   <ul>
-    <f:for each="{data.takeoutTexts}" as="takeoutText">
+    <f:for each="{takeoutTexts}" as="takeoutText">
       <li>
         <h3>{takeoutText.name}</h3>
         <f:format.raw>{takeoutText.requisites}</f:format.raw>
