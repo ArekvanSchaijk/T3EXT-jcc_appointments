@@ -24,6 +24,8 @@ namespace Ucreation\JccAppointments\Domain\Model;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+ 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
  * Class TakeoutText
@@ -31,7 +33,7 @@ namespace Ucreation\JccAppointments\Domain\Model;
  * @package Ucreation\JccAppointments
  * @author Arek van Schaijk <info@ucreation.nl>
  */
-class TakeoutText extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class TakeoutText extends AbstractEntity {
 
 	/**
 	 * @var integer

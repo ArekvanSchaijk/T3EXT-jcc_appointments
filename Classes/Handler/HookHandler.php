@@ -26,6 +26,7 @@ namespace Ucreation\JccAppointments\Handler;
  ***************************************************************/
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
  * Class HookHandler
@@ -62,7 +63,7 @@ class HookHandler {
 			// gets the configuration manager interface
 			$configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
 			// get jcc_appointments configuration
-			$configuration = $configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK, 'JccAppointments');
+			$configuration = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK, 'JccAppointments');
 			// sets the settings
 			$this->settings = $configuration['settings'];	
 		}

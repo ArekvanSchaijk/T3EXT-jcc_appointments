@@ -25,13 +25,17 @@ namespace Ucreation\JccAppointments\Command;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+
 /**
  * Class ReminderCommandController
  *
  * @package Ucreation\JccAppointments
  * @author Arek van Schaijk <info@ucreation.nl>
  */
-class ReminderCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandController {
+class ReminderCommandController extends CommandController {
 	
 	/**
 	 * @var string
@@ -69,7 +73,7 @@ class ReminderCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\Comman
         $this->configurationManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
 		
 		// import settings
-       	$this->settings = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
+       	$this->settings = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
 		
 		// import repositories
 		$this->appointmentRepository = $this->objectManager->get('TYPO3\\JccAppointments\\Domain\\Repository\\AppointmentRepository');
@@ -111,8 +115,8 @@ class ReminderCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\Comman
 						);
 						$view = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
 						$view->setFormat('text');
-						$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-						$templateRootPath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']);
+						$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+						$templateRootPath = GeneralUtility::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']);
 						$templatePathAndFilename = $templateRootPath.'Sms/Reminder.html';
 						$view->setTemplatePathAndFilename($templatePathAndFilename);
 						$view->assignMultiple($variables);

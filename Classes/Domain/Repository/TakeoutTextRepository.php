@@ -25,12 +25,14 @@ namespace Ucreation\JccAppointments\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Extbase\Persistence\Repository;
+
 /**
  * Class TakeoutTextRepository
  *
  * @package Ucreation\JccAppointments
  * @author Arek van Schaijk <info@ucreation.nl>
  */
-class TakeoutTextRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class TakeoutTextRepository extends Repository {
 	
 }

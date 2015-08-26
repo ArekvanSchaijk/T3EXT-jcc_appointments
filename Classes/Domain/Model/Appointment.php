@@ -25,13 +25,15 @@ namespace Ucreation\JccAppointments\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+
 /**
  * Class Appointment
  *
  * @package Ucreation\JccAppointments
  * @author Arek van Schaijk <info@ucreation.nl>
  */
-class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Appointment extends AbstractEntity {
 
 	/**
 	 * @var integer

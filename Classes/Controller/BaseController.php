@@ -29,6 +29,7 @@ use Ucreation\JccAppointments\Utility\TemplateUtility;
 use Ucreation\JccAppointments\Exception;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
  * Class BaseController
@@ -36,7 +37,7 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  * @package Ucreation\JccAppointments
  * @author Arek van Schaijk <info@ucreation.nl>
  */
-class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+class BaseController extends ActionController {
 	
 	/**
 	 * @const integer

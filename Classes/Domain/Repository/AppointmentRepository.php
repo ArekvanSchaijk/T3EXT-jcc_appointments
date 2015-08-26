@@ -25,13 +25,16 @@ namespace Ucreation\JccAppointments\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Extbase\Persistence\Repository;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+
 /**
  * Class AppointmentRepository
  *
  * @package Ucreation\JccAppointments
  * @author Arek van Schaijk <info@ucreation.nl>
  */
-class AppointmentRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class AppointmentRepository extends Repository {
 	
 	/**
 	 * Find Unsend Sms
@@ -57,7 +60,7 @@ class AppointmentRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		);
 		
         $query->setOrderings(array(
-			'uid' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+			'uid' => QueryInterface::ORDER_DESCENDING
 		));
 		
 		if ($limit) {
