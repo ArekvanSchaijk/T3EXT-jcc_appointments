@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\JccAppointments\Handler;
+namespace Ucreation\JccAppointments\Handler;
 
 /***************************************************************
  *  Copyright notice
@@ -26,9 +26,13 @@ namespace TYPO3\JccAppointments\Handler;
  ***************************************************************/
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
- * HookHandler
+ * Class HookHandler
+ *
+ * @package Ucreation\JccAppointments
+ * @author Arek van Schaijk <info@ucreation.nl>
  */
 class HookHandler {
 
@@ -59,7 +63,7 @@ class HookHandler {
 			// gets the configuration manager interface
 			$configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
 			// get jcc_appointments configuration
-			$configuration = $configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK, 'JccAppointments');
+			$configuration = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK, 'JccAppointments');
 			// sets the settings
 			$this->settings = $configuration['settings'];	
 		}
@@ -125,6 +129,7 @@ class HookHandler {
 	/**
 	 * TCA Product Name
 	 *
+	 * @global array $TYPO3_CONF_VARS
 	 * @param array $parameters
 	 * @return array
 	 */

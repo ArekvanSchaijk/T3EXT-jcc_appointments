@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\JccAppointments\Domain\Model;
+namespace Ucreation\JccAppointments\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
@@ -24,11 +24,16 @@ namespace TYPO3\JccAppointments\Domain\Model;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+ 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
- * TakeoutText
+ * Class TakeoutText
+ *
+ * @package Ucreation\JccAppointments
+ * @author Arek van Schaijk <info@ucreation.nl>
  */
-class TakeoutText extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class TakeoutText extends AbstractEntity {
 
 	/**
 	 * @var integer
@@ -41,7 +46,7 @@ class TakeoutText extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $text = '';
 	
 	/**
-	 * Gets the product id
+	 * Get Product Id
 	 *
 	 * @return integer
 	 */
@@ -50,7 +55,7 @@ class TakeoutText extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 	
 	/**
-	 * Sets the product id
+	 * Set Product Id
 	 *
 	 * @param integer $productId
 	 * @return void
@@ -60,7 +65,7 @@ class TakeoutText extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 	
 	/**
-	 * Gets the text
+	 * Get Text
 	 *
 	 * @return string
 	 */
@@ -69,7 +74,7 @@ class TakeoutText extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 	
 	/**
-	 * Sets the text
+	 * Set Text
 	 *
 	 * @param string $text
 	 * @return void

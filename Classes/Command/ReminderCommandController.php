@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\JccAppointments\Command;
+namespace Ucreation\JccAppointments\Command;
 
 /***************************************************************
  *  Copyright notice
@@ -25,14 +25,17 @@ namespace TYPO3\JccAppointments\Command;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+
 /**
- * ReminderCommandController
+ * Class ReminderCommandController
  *
- * @package jcc_appointments
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
+ * @package Ucreation\JccAppointments
+ * @author Arek van Schaijk <info@ucreation.nl>
  */
-class ReminderCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandController {
+class ReminderCommandController extends CommandController {
 	
 	/**
 	 * @var string
@@ -60,7 +63,8 @@ class ReminderCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\Comman
 	protected $smsRepository;
 
     /**
-     * Initialize the controller.
+     * Initialize Command
+	 *
      * @return void
      */
     protected function initializeCommand() {
@@ -69,11 +73,11 @@ class ReminderCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\Comman
         $this->configurationManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
 		
 		// import settings
-       	$this->settings = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
+       	$this->settings = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
 		
 		// import repositories
-		$this->appointmentRepository = $this->objectManager->get('TYPO3\\JccAppointments\\Domain\\Repository\\AppointmentRepository');
-		$this->smsRepository = $this->objectManager->get('TYPO3\\JccAppointments\\Domain\\Repository\\SmsRepository');
+		$this->appointmentRepository = $this->objectManager->get('Ucreation\\JccAppointments\\Domain\\Repository\\AppointmentRepository');
+		$this->smsRepository = $this->objectManager->get('Ucreation\\JccAppointments\\Domain\\Repository\\SmsRepository');
     }
 
     /**
@@ -111,8 +115,8 @@ class ReminderCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\Comman
 						);
 						$view = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
 						$view->setFormat('text');
-						$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-						$templateRootPath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']);
+						$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+						$templateRootPath = GeneralUtility::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']);
 						$templatePathAndFilename = $templateRootPath.'Sms/Reminder.html';
 						$view->setTemplatePathAndFilename($templatePathAndFilename);
 						$view->assignMultiple($variables);
@@ -169,7 +173,7 @@ class ReminderCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\Comman
 			$fullName = trim($fullName);
 			
 			// save sms
-			$sms = new \TYPO3\JccAppointments\Domain\Model\Sms;
+			$sms = new \Ucreation\JccAppointments\Domain\Model\Sms;
 			$sms->setRecipientName($fullName);
 			$sms->setRecipientNumber($appointment->getClientMobilePhone());
 			$sms->setSenderName($this->settings['confirmation']['sender']['name']);

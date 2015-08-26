@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\JccAppointments\Utility;
+namespace Ucreation\JccAppointments\Utility;
 
 /***************************************************************
  *  Copyright notice
@@ -25,11 +25,14 @@ namespace TYPO3\JccAppointments\Utility;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\JccAppointments\Exception;
+use Ucreation\JccAppointments\Exception;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * TemplateUtility
+ * Class TemplateUtility
+ *
+ * @package Ucreation\JccAppointments
+ * @author Arek van Schaijk <info@ucreation.nl>
  */
 class TemplateUtility {
 	

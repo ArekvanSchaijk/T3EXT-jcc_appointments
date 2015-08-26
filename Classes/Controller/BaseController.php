@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\JccAppointments\Controller;
+namespace Ucreation\JccAppointments\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -25,15 +25,19 @@ namespace TYPO3\JccAppointments\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use Ucreation\JccAppointments\Utility\TemplateUtility;
+use Ucreation\JccAppointments\Exception;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use TYPO3\JccAppointments\Utility\TemplateUtility;
-use TYPO3\JccAppointments\Exception;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
- * BaseController
+ * Class BaseController
+ *
+ * @package Ucreation\JccAppointments
+ * @author Arek van Schaijk <info@ucreation.nl>
  */
-class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+class BaseController extends ActionController {
 	
 	/**
 	 * @const integer
@@ -97,7 +101,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	/**
 	 * Takeout Text Repository
 	 *
-	 * @var \TYPO3\JccAppointments\Domain\Repository\TakeoutTextRepository
+	 * @var \Ucreation\JccAppointments\Domain\Repository\TakeoutTextRepository
 	 * @inject
 	 */
 	protected $takeoutTextRepository = NULL;
@@ -159,7 +163,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	/**
 	 * Api
 	 *
-	 * @return SoapClient $api
+	 * @return SoapClient
 	 */
 	protected function api() {
 		
@@ -186,29 +190,23 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	/**
 	 * Get User Data
 	 *
+	 * @global \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $TSFE
 	 * @return void
 	 */
 	protected function getUserSession() {
-		
-		/**
-		 * @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
-		 */
 		global $TSFE;
-		
 		return $TSFE->fe_user->getKey('ses', self::$extKey);
 	}
 	
 	/**
 	 * Set User Data
 	 *
+	 * @global \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $TSFE
 	 * @param array $data
 	 * @return void
 	 */
 	protected function setUserSession($data) {
 		
-		/**
-		 * @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
-		 */
 		global $TSFE;
 		
 		// sets the timestamp (calculated the age of the session)
@@ -664,13 +662,11 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	/**
 	 * Bind General Data
 	 *
+	 * @global \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $TSFE
 	 * @return void
 	 */
 	protected function bindGeneralData() {
 		
-		/**
-		 * @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
-		 */
 		global $TSFE;
 		
 		// binds the baseurl
@@ -859,7 +855,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * Is Month Allowed
 	 *
 	 * @param string $key
-	 * @param null/array $monthArray
+	 * @param mixed $monthArray
 	 * @return boolean
 	 */
 	protected function isMonthAllowed($key, $monthArray = NULL) {
@@ -1322,10 +1318,10 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	/**
 	 * Send Cancelled ConfirmationMail
 	 *
-	 * @param \TYPO3\JccAppointments\Domain\Model\Appointment $appointment
+	 * Ucreation\JccAppointments\Domain\Model\Appointment $appointment
 	 * @return void
 	 */
-	protected function sendCancelledConfirmationMail(\TYPO3\JccAppointments\Domain\Model\Appointment $appointment) {
+	protected function sendCancelledConfirmationMail(\Ucreation\JccAppointments\Domain\Model\Appointment $appointment) {
 		
 		// sender
 		$sender = array($this->settings['confirmation']['sender']['email'] => $this->settings['confirmation']['sender']['name']);
@@ -1562,15 +1558,13 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	/**
 	 * Get Frontend Uri
 	 *
+	 * @global \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $TSFE
 	 * @param integer $pageUid
 	 * @param array $additionalParams
 	 * @return string
 	 */
 	protected function getFrontendUri($pageUid, array $additionalParams = array()) {
 		
-		/**
-		 * @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
-		 */
 		global $TSFE;
 		
 		// website baseurl

@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\JccAppointments\Controller;
+namespace Ucreation\JccAppointments\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -25,15 +25,18 @@ namespace TYPO3\JccAppointments\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
- * TakeoutTextController
+ * Class TakeoutTextController
+ *
+ * @package Ucreation\JccAppointments
+ * @author Arek van Schaijk <info@ucreation.nl>
  */
 class TakeoutTextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 	
 	/**
-	 * Takeout Text Repository
-	 *
-	 * @var \TYPO3\JccAppointments\Domain\Repository\TakeoutTextRepository
+	 * @var \Ucreation\JccAppointments\Domain\Repository\TakeoutTextRepository
 	 * @inject
 	 */
 	protected $takeoutTextRepository = NULL;
@@ -47,7 +50,7 @@ class TakeoutTextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 		$takeoutTexts = array();
 		if ($this->settings['selection']) {
 			if (strpos($this->settings['selection'], ',') !== FALSE) {
-				$uids = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->settings['selection']);
+				$uids = GeneralUtility::trimExplode(',', $this->settings['selection']);
 				foreach ($uids as $uid) {
 					if ($takeoutText = $this->takeoutTextRepository->findOneByUid($uid)) {
 						$takeoutTexts[] = $takeoutText;	

@@ -98,7 +98,7 @@ $TCA['tx_jccappointments_domain_model_takeouttext'] = array(
 			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_takeouttext.product_id',
 			'config' => array(
 				'type' => 'select',
-				'itemsProcFunc' => 'TYPO3\JccAppointments\Handler\HookHandler->addTcaProductSelection',
+				'itemsProcFunc' => 'Ucreation\JccAppointments\Handler\HookHandler->addTcaProductSelection',
 				'items' => array(
 					0 => array(
 						'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_takeouttext.product_id.0',

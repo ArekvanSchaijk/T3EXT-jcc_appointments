@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\JccAppointments\Domain\Model;
+namespace Ucreation\JccAppointments\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
@@ -25,73 +25,64 @@ namespace TYPO3\JccAppointments\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+
 /**
- * Sms
+ * Class Sms
+ *
+ * @package Ucreation\JccAppointments
+ * @author Arek van Schaijk <info@ucreation.nl>
  */
-class Sms extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Sms extends AbstractEntity {
 
 	/**
-	 * recipientName
-	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $recipientName;
 
 	/**
-	 * recipientNumber
-	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $recipientNumber;
 
 	/**
-	 * senderName
-	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $senderName;
 
 	/**
-	 * message
-	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $message;
 
 	/**
-	 * appId
-	 *
-	 * @var \integer
+	 * @var integer
 	 */
 	protected $appId;
 
 	/**
-	 * status
-	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $status;
 
 	/**
-	 * sendDate
-	 *
-	 * @var \integer
+	 * @var integer
 	 */
 	protected $sendDate;
 
 	/**
-	 * Returns the recipientName
+	 * Get Recipient Name
 	 *
-	 * @return \string $recipientName
+	 * @return string
 	 */
 	public function getRecipientName() {
 		return $this->recipientName;
 	}
 
 	/**
-	 * Sets the recipientName
+	 * Set Recipient Name
 	 *
-	 * @param \string $recipientName
+	 * @param string $recipientName
 	 * @return void
 	 */
 	public function setRecipientName($recipientName) {
@@ -99,18 +90,18 @@ class Sms extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
-	 * Returns the recipientNumber
+	 * Get Recipient Number
 	 *
-	 * @return \string $recipientNumber
+	 * @return string
 	 */
 	public function getRecipientNumber() {
 		return $this->recipientNumber;
 	}
 
 	/**
-	 * Sets the recipientNumber
+	 * Set Recipient Number
 	 *
-	 * @param \string $recipientNumber
+	 * @param string $recipientNumber
 	 * @return void
 	 */
 	public function setRecipientNumber($recipientNumber) {
@@ -118,18 +109,18 @@ class Sms extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
-	 * Returns the senderName
+	 * Get Sender Name
 	 *
-	 * @return \string $senderName
+	 * @return string
 	 */
 	public function getSenderName() {
 		return $this->senderName;
 	}
 
 	/**
-	 * Sets the senderName
+	 * Set Sender Name
 	 *
-	 * @param \string $senderName
+	 * @param string $senderName
 	 * @return void
 	 */
 	public function setSenderName($senderName) {
@@ -137,18 +128,18 @@ class Sms extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
-	 * Returns the message
+	 * Get Message
 	 *
-	 * @return \string $message
+	 * @return string
 	 */
 	public function getMessage() {
 		return $this->message;
 	}
 
 	/**
-	 * Sets the message
+	 * Set Message
 	 *
-	 * @param \string $message
+	 * @param string $message
 	 * @return void
 	 */
 	public function setMessage($message) {
@@ -156,18 +147,18 @@ class Sms extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
-	 * Returns the appId
+	 * Get App Id
 	 *
-	 * @return \integer $appId
+	 * @return integer
 	 */
 	public function getAppId() {
 		return $this->appId;
 	}
 
 	/**
-	 * Sets the appId
+	 * Set App Id
 	 *
-	 * @param \integer $appId
+	 * @param integer $appId
 	 * @return void
 	 */
 	public function setAppId($appId) {
@@ -175,18 +166,18 @@ class Sms extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
-	 * Returns the status
+	 * Get Status
 	 *
-	 * @return \string $status
+	 * @return string
 	 */
 	public function getStatus() {
 		return $this->status;
 	}
 
 	/**
-	 * Sets the status
+	 * Set Status
 	 *
-	 * @param \string $status
+	 * @param string $status
 	 * @return void
 	 */
 	public function setStatus($status) {
@@ -194,18 +185,18 @@ class Sms extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
-	 * Returns the sendDate
+	 * Get Send Date
 	 *
-	 * @return \integer $sendDate
+	 * @return integer
 	 */
 	public function getSendDate() {
 		return $this->sendDate;
 	}
 
 	/**
-	 * Sets the sendDate
+	 * Set Send Date
 	 *
-	 * @param \integer $sendDate
+	 * @param integer $sendDate
 	 * @return void
 	 */
 	public function setSendDate($sendDate) {
