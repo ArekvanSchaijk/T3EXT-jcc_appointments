@@ -113,14 +113,7 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 		$this->params = $this->request->getArguments();
 		
 		// checks if the session is expired
-		if(
-			// checks if the setting is set
-			$this->settings['general']['sessionLifetime'] &&
-			// checks if the timestamp is available
-			$this->session['timestamp'] &&
-			// calculated if the session is expired
-			time() - $this->session['timestamp'] > $this->settings['general']['sessionLifetime']
-		) {
+		if($this->isUserSessionExpired()) {
 			
 			// removes the current session
 			$this->removeUserSession();
@@ -133,6 +126,30 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 			$this->redirect(NULL);
 			exit;
 		}
+	}
+	
+	/**
+	 * Is Session Expired
+	 *
+	 * @return boolean
+	 */
+	protected function isUserSessionExpired() {
+		
+		$isExpired = false;
+		
+		if(
+			// checks if the setting is set
+			$this->settings['general']['sessionLifetime'] &&
+			// checks if the timestamp is available
+			$this->session['timestamp'] &&
+			// calculated if the session is expired
+			time() - $this->session['timestamp'] > $this->settings['general']['sessionLifetime']
+		) {
+			
+			$isExpired = true;
+		}	
+			
+		return $isExpired;
 	}
 
 	/**
