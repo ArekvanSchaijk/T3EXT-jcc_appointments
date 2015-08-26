@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext "jcc_appointments".
 #
-# Auto generated 09-08-2015 19:06
+# Auto generated 12-08-2015 22:01
 #
 # Manual updates:
 # Only the data in the array - everything else is removed by next
@@ -15,7 +15,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'description' => 'This extension provides a Appointment module based on the JCC API',
 	'category' => 'plugin',
 	'shy' => 0,
-	'version' => '1.6.0',
+	'version' => '1.6.1',
 	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
