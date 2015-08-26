@@ -21,9 +21,9 @@ plugin.tx_jccappointments {
 		products {
 			# cat=plugin.tx_jccappointments_products/a/010; type=boolean; label=Enable Allowed:If set, only allowed product ids will be displayed (otherwise all products will be displayed)
 			enableDisplayByAllowed = 
-			# cat=plugin.tx_jccappointments_products/a/020; type=string; label=Allowed Product Ids:Comma seperated list of product that are allowed (this will only work if you set the Enable Allowed flag)
+			# cat=plugin.tx_jccappointments_products/a/020; type=string; label=Allowed Product Ids:Comma seperated list of products that are allowed (this will only work if you set the Enable Allowed flag)
 			allowed = 
-			# cat=plugin.tx_jccappointments_products/a/030; type=string; label=Exclude Product Ids:Comma seperated list of product that need to be excluded
+			# cat=plugin.tx_jccappointments_products/a/030; type=string; label=Exclude Product Ids:Comma seperated list of products that need to be excluded
 			excluded = 
 		}
 		location {
@@ -81,6 +81,20 @@ plugin.tx_jccappointments {
 				# cat=plugin.tx_jccappointments_clientdata_requirements/a/110; type=boolean; label=Client Mail:If set, this field will be required
 				clientMail = 1
 			}
+		}
+		confirmation {
+			# cat=plugin.tx_jccappointments_confirmation/a/010; type=boolean; label=Enable Confirmation Email:If set, a confirmation email will be send
+			enable = 
+			# cat=plugin.tx_jccappointments_confirmation/a/020; type=string; label=Template Path:Path to the template email file
+			templatePath = EXT:jcc_appointments/Resources/Private/Email/Confirmation.html
+			sender {
+				# cat=plugin.tx_jccappointments_confirmation/a/030; type=string; label=Senders name:Name of the sender
+				name = Company Name N.V.
+				# cat=plugin.tx_jccappointments_confirmation/a/040; type=string; label=Senders email:Email of the sender
+				email = no-reply@company-name.com
+			}
+			# cat=plugin.tx_jccappointments_confirmation/a/050; type=string; label=Subject:The subject of the email
+			subject = Confirmation of your appointment
 		}
 		sms {
 			# cat=plugin.tx_jccappointments_sms/a/010; type=boolean; label=Enable notifications:If set, SMS notifications will be enabled

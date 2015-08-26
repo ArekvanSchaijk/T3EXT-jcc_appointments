@@ -655,12 +655,16 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 		// country
 		if($this->settings['clientdata']['enableCountry'])
 			$bookData['clientCountry'] = $clientData['country'];
-		
+
 		// API book appointment
 		$appointment = $this->api()->bookGovAppointment(array('appDetail' => $bookData));
 		
 		// updatestatus : 0 = booking succesfull
 		if($appointment->updateStatus == 0) {
+			
+			// if confirmation is enabled send the confirmation mail
+			if($this->settings['confirmation']['enable'])
+				$this->sendConfirmationMail();
 			
 			// remove user session
 			$this->removeUserSession();

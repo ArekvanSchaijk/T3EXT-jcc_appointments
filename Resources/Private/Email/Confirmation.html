@@ -1,0 +1,38 @@
+Dear {clientData.fullName},<br />
+<br />
+<h2>Ordered products:</h2>
+<f:if condition="{products}">
+  <ul>
+    <f:for each="{products}" as="product">
+      <li>
+        <h3>{product.name}</h3>
+        <f:if condition="{product.requisites}">
+          <p>
+            <f:format.raw>{product.requisites}</f:format.raw>
+          </p>
+        </f:if>
+      </li>
+    </f:for>
+  </ul>
+</f:if>
+<f:if condition="{location}">
+  <h2>Location</h2>
+  <h3>{location.name}</h3>
+  <p>{location.address}<br />
+    {location.postalcode} {location.city}<br>
+    <strong>Phone</strong> {location.phone} </p>
+</f:if>
+<f:if condition="{date}">
+  <h2>Date</h2>
+  <p>Date: {date.date}<br />
+    Day: {date.day}<br />
+    dayNoZero: {date.dayNoZero}<br />
+    month: {date.month}<br />
+    year: {date.year}<br />
+    dayOfTheWeek: {date.dayOfTheWeek}<br />
+    timestamp: {date.timestamp} </p>
+</f:if>
+<f:if condition="{time}">
+  <h2>Time</h2>
+  <p>{time}</p>
+</f:if>

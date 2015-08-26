@@ -49,6 +49,15 @@ plugin.tx_jccappointments {
 				clientMail = {$plugin.tx_jccappointments.settings.clientdata.requirements.clientMail}
 			}
 		}
+		confirmation {
+			enable = {$plugin.tx_jccappointments.settings.confirmation.enable}
+			templatePath = {$plugin.tx_jccappointments.settings.confirmation.templatePath} 
+			sender {
+				name = {$plugin.tx_jccappointments.settings.confirmation.sender.name}
+				email = {$plugin.tx_jccappointments.settings.confirmation.sender.email}
+			}
+			subject = {$plugin.tx_jccappointments.settings.confirmation.subject}
+		}
 		sms {
 			enabled = {$plugin.tx_jccappointments.settings.sms.enabled}
 			provider = {$plugin.tx_jccappointments.settings.sms.provider}

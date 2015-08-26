@@ -209,8 +209,8 @@
       <label index="message.no_available_days_in_month">Er is geen dag beschikbaar deze maand om een afspraak te maken</label>
       <label index="message.no_available_times_in_day">Er is op deze dag geen tijd meer beschikbaar om een afspraak te maken</label>
       <label index="validation.product_doesnt_exist">Dit product bestaat niet</label>
-      <label index="validation.no_product_selected">U moet minimaal 1 product selecteren</label>
-      <label index="validation.no_location_selected">u moet een afhaallocatie opgeven</label>
+      <label index="validation.no_product_selected">U dient tenminste één product selecteren</label>
+      <label index="validation.no_location_selected">u dient een afhaallocatie opgeven</label>
       <label index="validation.no_day_or_time_selected">U heeft geen dag of tijd geselecteerd</label>
 	  <label index="validation.calendar_no_month_selected">U heeft geen maand geselecteerd</label>
 	  <label index="validation.calendar_no_day_selected">U heeft geen dag geselecteerd</label>

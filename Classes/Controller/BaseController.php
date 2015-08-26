@@ -206,6 +206,26 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	}
 	
 	/**
+	 * Get Products And Render Requisites
+	 *
+	 * @return array
+	 */
+	protected function getProductsAndRenderRequisites() {
+		
+		$productArray = array();
+		
+		// foreach session products
+		foreach($this->session['products'] as $product) {
+			
+			$product['requisites'] = $this->cleanProductRequisites(base64_decode($product['requisites']));
+			$productArray[] = $product;
+		}
+		
+		
+		return $productArray;
+	}
+	
+	/**
 	 * Remove Product Key From Session
 	 *
 	 * @param integer $key
@@ -888,7 +908,7 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 		if($progress[$currentStep])
 			$progress[$currentStep]['active'] = true;
 			
-		// remove the location step when it is disabled by settings 
+		// remove the location step when its disabled by settings 
 		if(!$this->isLocation())
 			unset($progress[2]);
 		
@@ -1114,6 +1134,36 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	}
 	
 	/**
+	 * Send Confirmation Mail
+	 *
+	 * @return void
+	 */
+	protected function sendConfirmationMail() {
+		
+		// sender
+		$sender = array($this->settings['confirmation']['sender']['email'] => $this->settings['confirmation']['sender']['name']);
+		
+		// recipients
+		$recipients = array($this->session['clientData']['mail'] => $this->session['clientData']['fullName']);
+		
+		// API get location details
+		$location = $this->api()->getGovLocationDetails(array('locationID' => $this->getLocation()));
+		
+		// variables
+		$variables = array(
+			'products'		=> $this->getProductsAndRenderRequisites(),
+			'clientData'	=> $this->session['clientData'],	
+			'location'		=> $this->renderLocationDetailsArray($location->locaties),
+			'date'			=> $this->getDayArray(),
+			'time'			=> $this->getDayTime(),
+		);
+
+		// send mail
+		if(!$this->sendMail($sender, $recipients, $this->settings['confirmation']['subject'], $this->settings['confirmation']['templatePath'], $variables))
+			throw new Exception('The confirmation email could not be sent');
+	}
+	
+	/**
 	 * Convert Date Compound Format As Time String
 	 *
 	 * @param string $timeFormat
@@ -1258,5 +1308,65 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	    t3lib_utility_Http::redirect($url);
 		exit;
 	}
+	
+	/**
+	 * Clean Product Requisites
+	 *
+	 * @param string $html
+	 * @return string
+	 */
+	protected function cleanProductRequisites($html) {
+		
+		$html = strip_tags($html);
+		$html = str_ireplace(
+			array(
+				'&nbsp;',
+			),
+			array(
+				' ',
+			),
+			$html
+		);
+		$html = nl2br(trim($html));
+		
+		return $html;
+	}
+	
+	/**
+	 * Send Mail
+	 *
+	 * @param array $recipients
+	 * @param array $sender
+	 * @param string $subject
+	 * @param string $templatePath
+	 * @param array $variables
+	 * @return boolean 
+	 */
+    protected function sendMail(array $sender, array $recipients, $subject, $templatePath, array $variables) {
+		
+		$emailView = $this->objectManager->create('Tx_Fluid_View_StandaloneView');
+		$emailView->setFormat('html');
+		$emailView->setTemplatePathAndFilename(t3lib_div::getFileAbsFileName($templatePath));
+		$emailView->setLayoutRootPath($layoutRootPath);
+		$emailView->setPartialRootPath($partialRootPath);
+		$emailView->assignMultiple($variables);
+		$emailBody = $emailView->render();
+		$mail = t3lib_div::makeInstance('t3lib_mail_Message');
+		$mail->setFrom($sender)
+			  ->setTo($recipients)
+			  ->setSubject($subject)
+			  ->setReturnPath($this->settings['email']['returnPath'])
+			  ->setBody($emailBody);
+		
+		// Plain text example
+		$mail->setBody($emailBody, 'text/plain');
+		
+		// HTML Email
+		$mail->setBody($emailBody, 'text/html');
+		
+		$mail->send();
+		
+		return $mail->isSent();
+    }
 }
 ?>
