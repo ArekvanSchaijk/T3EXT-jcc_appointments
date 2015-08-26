@@ -667,7 +667,7 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 		if($clientData['middleName']) {
 			$bookData['clientLastname'] .= $clientData['middleName'].' ';
 		}
-		$bookData['clientLastName'] .= $clientData['lastName'];
+		$bookData['clientLastname'] .= $clientData['lastName'];
 		
 		// country
 		if($this->settings['clientdata']['enableCountry'])
