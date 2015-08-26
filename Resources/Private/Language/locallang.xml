@@ -188,9 +188,9 @@
       <label index="confirmation.header_appointmentdetails">Afspraak details</label>
       <label index="confirmation.description_appointmentdetails">Uw afspraak</label>
       <label index="confirmation.date">Datum</label>
-      <label index="confirmation.time">Time</label>
+      <label index="confirmation.time">Tijd</label>
       <label index="confirmation.location">Locatie</label>
-      <label index="confirmation.phone">Phone</label>
+      <label index="confirmation.phone">Telefoon</label>
       <label index="calendar.header_selectmonth">Selecteer een maand:</label>
       <label index="calendar.header_selectday">Selecteer een dag:</label>
       <label index="calendar.header_selecttime">Selecteer een tijd:</label>
