@@ -167,7 +167,7 @@
       <label index="clientdata.clientSexMale">Man</label>
       <label index="clientdata.clientSexFemale">Vrouw</label>
       <label index="clientdata.clientName">Naam</label>
-      <label index="clientdata.clientMiddleName">tussenvoegsel</label>
+      <label index="clientdata.clientMiddleName">Tussenvoegsel(s)</label>
       <label index="clientdata.clientLastName">Achternaam</label>
       <label index="clientdata.clientInitials">Voorletters</label>
       <label index="clientdata.clientDateOfBirth">Geboortedatum</label>
@@ -188,7 +188,7 @@
       <label index="clientdata.clientCity">Plaats</label>
       <label index="clientdata.clientCountry">land</label>
       <label index="clientdata.clientTel">Telefoon</label>
-      <label index="clientdata.clientMail">E-mail</label>
+      <label index="clientdata.clientMail">Email</label>
       <label index="confirmation.header_clientdata">Uw ingevoerde gegevens</label>
       <label index="confirmation.description_clientdata">Controleer s.v.p. de ingevoerde gegevens</label>
       <label index="confirmation.header_selectedproducts">Geselecteerde producten</label>
@@ -202,6 +202,7 @@
       <label index="calendar.header_selectday">Selecteer een dag:</label>
       <label index="calendar.header_selecttime">Selecteer een tijd:</label>
       <label index="calendar.select">Selecteer</label>
+	  <label index="calendar.empty_selectbox_value">-- selecteer --</label>
 	  <label index="calendar.select_month">Selecteer maand</label>
 	  <label index="calendar.select_day">Selecteer dag</label>
 	  <label index="calendar.select_time">Selecteer tijd</label>
@@ -221,8 +222,8 @@
       <label index="validation.clientdata.no_clientdata_given">U heeft geen persoonlijke gegevens ingevoerd</label>
       <label index="validation.clientdata.no_id">U heeft het nummer van uw ID bewijs niet ingevoerd</label>
       <label index="validation.clientdata.invalid_id">het BSN nummer is ongeldig</label>
-      <label index="validation.clientdata.no_sex_checked">You did not select your sex</label>
-      <label index="validation.clientdata.invalid_sex">The value of the given sex is invalid</label>
+      <label index="validation.clientdata.no_sex_checked">U heeft geen geslacht gekozen</label>
+      <label index="validation.clientdata.invalid_sex">Ongeldige waarde voor geslacht</label>
       <label index="validation.clientdata.no_initials">U heeft uw initialen niet ingevoerd</label>
       <label index="validation.clientdata.no_lastName">U heeft uw achternaam niet ingevoerd</label>
       <label index="validation.clientdata.no_birthday">U heeft uw geboortedatum niet (juist) ingevuld</label>
