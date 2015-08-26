@@ -3,18 +3,19 @@ plugin.tx_jccappointments {
 		templateRootPath = {$plugin.tx_jccappointments.view.templateRootPath}
 		partialRootPath = {$plugin.tx_jccappointments.view.partialRootPath}
 	}
-#	persistence {
-#		storagePid = {$plugin.tx_jccappointments.persistence.storagePid}
-#	}
 	settings {
 		css {
 			file1.enabled = {$plugin.tx_jccappointments.settings.css.file1.enabled}
 			file1.path = {$plugin.tx_jccappointments.settings.css.file1.path}
 		}
-#		devlog = {$plugin.tx_jccappointments.settings.devlog}
 		soap {
 			wsdl = {$plugin.tx_jccappointments.settings.soap.wsdl}
 			serviceUnavailablePid = {$plugin.tx_jccappointments.settings.soap.serviceUnavailablePid}
+		}
+		products {
+			enableDisplayByAllowed = {$plugin.tx_jccappointments.settings.products.enableDisplayByAllowed}
+			allowed = {$plugin.tx_jccappointments.settings.products.allowed}
+			excluded = {$plugin.tx_jccappointments.settings.products.excluded}
 		}
 		location {
 			disable = {$plugin.tx_jccappointments.settings.location.disable}

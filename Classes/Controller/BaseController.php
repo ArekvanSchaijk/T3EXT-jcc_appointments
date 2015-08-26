@@ -934,7 +934,49 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 			}
 		}
 		
+		// if the settings 'enableDisplayByAllowed' is set, we should remove unallowed items from the array
+		if($this->settings['products']['enableDisplayByAllowed']) {
+			
+			$allowed = $this->renderCommaSeperatedList($this->settings['products']['allowed']);
+			
+			foreach($productsArray as $key => $value) {
+			
+				if(!in_array($value['uid'], $allowed))
+					unset($productsArray[$key]);
+			}
+		}
+		
+		// remove excluded products
+		$excluded = $this->renderCommaSeperatedList($this->settings['products']['excluded']);
+		
+		if($excluded) {
+			
+			foreach($productsArray as $key => $value) {
+			
+				if(in_array($value['uid'], $excluded))
+					unset($productsArray[$key]);
+			}	
+		}
+		
+		
 		return $productsArray;
+	}
+	
+	/**
+	 * Render Comma Seperated List
+	 *
+	 * @param string $list
+	 * @return array
+	 */
+	protected function renderCommaSeperatedList($list) {
+
+		$listArray = array();
+		$list = trim(str_ireplace(' ', '', $list), ',');
+		
+		if(!empty($list))
+			$listArray = explode(',', $list);
+		
+		return $listArray;
 	}
 	
 	/**

@@ -5,13 +5,7 @@ plugin.tx_jccappointments {
 		# cat=plugin.tx_jccappointments/file; type=string; label=Path to template partials (FE)
 		partialRootPath = EXT:jcc_appointments/Resources/Private/Partials/
 	}
-#	persistence {
-#		# cat=plugin.tx_jccappointments//a; type=string; label=Default storage PID
-#		storagePid = 
-#	}
 	settings {
-		# cat=plugin.tx_jccappointments/a/010; type=boolean; label=Dev log:Check to enable devlog
-#		devlog = 
 		css {
 			# cat=plugin.tx_jccappointments/a/020; type=boolean; label=Enable CSS:Check to enable the default stylesheet
 			file1.enabled = 1
@@ -23,6 +17,14 @@ plugin.tx_jccappointments {
 			wsdl = http://service.jccsoftware.nl/GenericGuidanceSystemService2/GenericGuidanceSystem2.asmx?wsdl
 			# cat=plugin.tx_jccappointments_soap/a/020; type=int; label=Service Unavailable Pid:Page ID where to redirect to if the SOAP service is unavailable
 			serviceUnavailablePid = 
+		}
+		products {
+			# cat=plugin.tx_jccappointments_products/a/010; type=boolean; label=Enable Allowed:If set, only allowed product ids will be displayed (otherwise all products will be displayed)
+			enableDisplayByAllowed = 
+			# cat=plugin.tx_jccappointments_products/a/020; type=string; label=Allowed Product Ids:Comma seperated list of product that are allowed (this will only work if you set the Enable Allowed flag)
+			allowed = 
+			# cat=plugin.tx_jccappointments_products/a/030; type=string; label=Exclude Product Ids:Comma seperated list of product that need to be excluded
+			excluded = 
 		}
 		location {
 			# cat=plugin.tx_jccappointments_location/a/010; type=boolean; label=Disable Locations:Check to disable the whole location step (it is required that the location ID is set too)
