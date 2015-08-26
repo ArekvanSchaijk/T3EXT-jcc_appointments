@@ -35,36 +35,26 @@ namespace TYPO3\JccAppointments\Command;
 class ReminderCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandController {
 	
 	/**
-	 * Ext Key
-	 *
 	 * @var string
 	 */
 	protected $extKey = 'jccappointments';
 
     /**
-     * Settings
-	 *
      * @var array
      */
     protected $settings = array();
 	
 	/**
-	 * Configuration Manager
-	 *
 	 * @var mixed
 	 */
 	protected $configurationManager;
 	
 	/**
-	 * Appointment Repository
-	 *
 	 * @var mixed
 	 */
 	protected $appointmentRepository;
 	
 	/**
-	 * Sms Repository
-	 *
 	 * @var mixed
 	 */
 	protected $smsRepository;
@@ -97,7 +87,7 @@ class ReminderCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\Comman
 		$this->initializeCommand();
 		
 		// if sms notifications are enabled
-		if($this->settings['sms']['enabled']) {
+		if ($this->settings['sms']['enabled']) {
 		
 			// prepare interval
 			$interval = $this->settings['sms']['hour_interval'] * 60 * 60;
@@ -108,12 +98,12 @@ class ReminderCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\Comman
 			// find appointments that should receive a sms message
 			$appointments = $this->appointmentRepository->findUnsendSms($interval, $limit);
 			
-			if($appointments) {
+			if ($appointments) {
 				
 				// loop through appointments
-				foreach($appointments as $appointment) {
+				foreach ($appointments as $appointment) {
 					
-					if($appointment->getClientMobilePhone()) {
+					if ($appointment->getClientMobilePhone()) {
 						
 						// render message
 						$variables = array(
@@ -161,7 +151,7 @@ class ReminderCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\Comman
 		$result = $this->_httpPost('https://api.messagebird.com/api/sms', $postData);
 		
 		// if message was send succesfully
-		if($result == '01') {
+		if ($result == '01') {
 			
 			// update appointment
 			$appointment->setSmsSend(TRUE);	
@@ -170,11 +160,11 @@ class ReminderCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\Comman
 			
 			// prepare name
 			$fullName = '';
-			if($appointment->getClientInitials())
+			if ($appointment->getClientInitials())
 				$fullName = $appointment->getClientInitials().' ';
-			if($appointment->getClientInsertions())
+			if ($appointment->getClientInsertions())
 				$fullName .= $appointment->getClientInsertions().' ';
-			if($appointment->getClientLastName())
+			if ($appointment->getClientLastName())
 				$fullName .= $appointment->getClientLastName();
 			$fullName = trim($fullName);
 			

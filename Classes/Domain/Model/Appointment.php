@@ -27,10 +27,6 @@ namespace TYPO3\JccAppointments\Domain\Model;
 
 /**
  * Appointment
- *
- * @package jcc_appointments
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
 class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 

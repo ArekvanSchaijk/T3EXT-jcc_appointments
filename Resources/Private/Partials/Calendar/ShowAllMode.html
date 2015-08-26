@@ -1,0 +1,55 @@
+<div id="calendar_showall">
+  <f:if condition="{data.availableMonthsDays}">
+    <f:then>
+      <div id="pickday">
+        <h2>{f:translate(key:'calendar.header_selectday')}</h2>
+        <f:for each="{data.availableMonthsDays}" as="month">
+          <h3>{f:translate(key:'month.{month.month}')} - {month.year}</h3>
+          <ul>
+            <f:for each="{month.availableDays}" as="day">
+              <f:if condition="{0:day.date} == {0:data.activeDay.date}">
+                <f:then>
+                  <li class="active">
+                    <f:link.action action="showAllModeCalendarSelectDay" arguments="{date : day.date}">{day.dayNoZero} {f:translate(key:'month.{day.month}')}</f:link.action>
+                  </li>
+                </f:then>
+                <f:else>
+                  <li>
+                    <f:link.action action="showAllModeCalendarSelectDay" arguments="{date : day.date}">{day.dayNoZero} {f:translate(key:'month.{day.month}')}</f:link.action>
+                  </li>
+                </f:else>
+              </f:if>
+            </f:for>
+          </ul>
+        </f:for>
+      </div>
+    </f:then>
+    <f:else>
+      <div class="notification">
+        <p>{f:translate(key:'message.no_available_days')}</p>
+      </div>
+    </f:else>
+  </f:if>
+  <f:if condition="{data.showAvailableTimes}">
+    <div id="picktimes">
+      <h2>{f:translate(key:'calendar.header_selecttime')}</h2>
+      <p>Data vars: [<strong>data.activeDay.date</strong>={data.activeDay.date}, <strong>data.activeDay.day</strong>={data.activeDay.day}, <strong>data.activeDay.dayNoZero</strong>={data.activeDay.dayNoZero}, <strong>data.activeDay.month</strong>={data.activeDay.month}, <strong>data.activeDay.year</strong>={data.activeDay.year}, <strong>data.activeDay.timestamp</strong>={data.activeDay.timestamp}]</p>
+      <f:if condition="{data.times}">
+        <f:then>
+          <ul>
+            <f:for each="{data.times}" as="time">
+              <li>
+                <f:link.action action="chooseDateAndTime" arguments="{date : data.activeDay.date, time : time}">{time}</f:link.action>
+              </li>
+            </f:for>
+          </ul>
+        </f:then>
+        <f:else>
+          <div class="notification">
+            <p>{f:translate(key:'message.no_available_times_in_day')}</p>
+          </div>
+        </f:else>
+      </f:if>
+    </div>
+  </f:if>
+</div>

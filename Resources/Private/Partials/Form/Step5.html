@@ -61,7 +61,10 @@
     </tr>
     <tr>
       <th>{f:translate(key:'clientdata.clientSms')}</th>
-      <td><f:if condition="{data.clientData.sms}"><f:then>Ja</f:then><f:else>Nee</f:else></f:if></td>
+      <td><f:if condition="{data.clientData.sms}">
+          <f:then>Ja</f:then>
+          <f:else>Nee</f:else>
+        </f:if></td>
     </tr>
     <tr>
       <th>{f:translate(key:'clientdata.clientMail')}</th>
@@ -69,12 +72,26 @@
     </tr>
   </tbody>
 </table>
+
 <h2>{f:translate(key:'confirmation.header_selectedproducts')}</h2>
 <ul>
   <f:for each="{data.products}" as="product">
     <li>{product.name}</li>
   </f:for>
 </ul>
+
+<f:if condition="{data.takeoutTexts}">
+  <h2>{f:translate(key:'confirmation.header_takeouttexts')}</h2>
+  <ul>
+    <f:for each="{data.takeoutTexts}" as="takeoutText">
+      <li>
+        <h3>{takeoutText.name}</h3>
+        <f:format.raw>{takeoutText.requisites}</f:format.raw>
+      </li>
+    </f:for>
+  </ul>
+</f:if>
+
 <h2>{f:translate(key:'confirmation.header_appointmentdetails')}</h2>
 <p>{f:translate(key:'confirmation.description_appointmentdetails')}</p>
 <table>
@@ -82,16 +99,20 @@
     <tr>
       <th>{f:translate(key:'confirmation.date')}</th>
       <th>{f:translate(key:'confirmation.time')}</th>
+      <th>{f:translate(key:'confirmation.endTime')}</th>
       <th>{f:translate(key:'confirmation.location')}</th>
     </tr>
     <tr>
       <td>{data.date.dayNoZero} {f:translate(key:'month.{data.date.month}')} {data.date.year}</td>
       <td>{data.time}</td>
-      <td><p>{data.location.address}<br />
-          {data.location.postalcode} {data.location.city}
-          <f:if condition="{data.location.phone}"><br />
-            <strong>{f:translate(key:'confirmation.phone')}:</strong> {data.location.phone}</f:if>
-        </p></td>
+      <td>{data.endTime}</td>
+      <td><ul>
+          <li><strong>{f:translate(key:'confirmation.location.name')}</strong>: {data.location.name}</li>
+          <li><strong>{f:translate(key:'confirmation.location.address')}</strong>: {data.location.address}</li>
+          <li><strong>{f:translate(key:'confirmation.location.postalcode')}</strong>: {data.location.postalcode}</li>
+          <li><strong>{f:translate(key:'confirmation.location.city')}</strong>: {data.location.city}</li>
+          <li><strong>{f:translate(key:'confirmation.location.phone')}</strong>: {data.location.phone}</li>
+        </ul></td>
     </tr>
   </tbody>
 </table>

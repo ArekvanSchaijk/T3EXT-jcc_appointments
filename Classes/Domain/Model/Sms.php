@@ -27,10 +27,6 @@ namespace TYPO3\JccAppointments\Domain\Model;
 
 /**
  * Sms
- *
- * @package jcc_appointments
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
 class Sms extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 

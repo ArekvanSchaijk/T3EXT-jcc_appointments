@@ -27,10 +27,6 @@ namespace TYPO3\JccAppointments\Domain\Repository;
 
 /**
  * SmsRepository
- *
- * @package jcc_appointments
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
 class SmsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 

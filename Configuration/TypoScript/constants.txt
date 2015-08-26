@@ -31,6 +31,11 @@ plugin.tx_jccappointments {
 			excluded = 
 			# cat=plugin.tx_jccappointments_products/a/040; type=string; label=Single Selection:Comma seperated list of products that can't be added more than once
 			singleSelection = 
+			# cat=plugin.tx_jccappointments_products/a/050; type=string; label=Use TYPO3's requisites:If set, the 'takeout texts' in TYPO3 will be used instead of JCC requisites
+			takeoutText {
+				# cat=plugin.tx_jccappointments_products/a/060; type=string; label=Takeout Text TYPO3:If set, the 'takeout text' record in TYPO3 will be used instead of the JCC requisites
+				useTypo3Object = 0
+			}
 		}
 		products_multiselect {
 			# cat=plugin.tx_jccappointments_products_multiselect/a/010; type=boolean; label=Enable MultiSelect:If set, this option allows to select the amount of a products to be ordered at once
@@ -49,7 +54,7 @@ plugin.tx_jccappointments {
 			renderOpeningHours = 1
 		}
 		calendar {
-			# cat=plugin.tx_jccappointments_calendar/a/010; type=options[Default=default,Selection=selection]; label=Calendar Mode:Choose an calendar engine
+			# cat=plugin.tx_jccappointments_calendar/a/010; type=options[Default=default,Selection=selection,ShowAll=showAll]; label=Calendar Mode:Choose an calendar engine
 			mode = default
 			# cat=plugin.tx_jccappointments_calendar/a/020; type=int; label=Range:The number of months which can be selected in order to show the available days
 			range = 5
@@ -57,6 +62,8 @@ plugin.tx_jccappointments {
 			default_openfirstmonth = 1
 			# cat=plugin.tx_jccappointments_calendar/a/040; type=boolean; label="Default mode" - Inject Times:If set, days will be extended with a array containing the available times of that day
 			default_injectTimesInAvailableDays = 0
+			# cat=plugin.tx_jccappointments_calendar/a/050; type=integer; label="ShowAll mode" - Limit in days:If set, the given days are the limit to plan ahead 
+			showAll_limitInDays = 0
 		}
 		clientdata {
 			# cat=plugin.tx_jccappointments_clientdata/a/010; type=boolean; label=Split address:If set, the address will be splitted in street and number
@@ -101,7 +108,7 @@ plugin.tx_jccappointments {
 		confirmation {
 			# cat=plugin.tx_jccappointments_confirmation/a/010; type=boolean; label=Enable Confirmation Email:If set, a confirmation email will be send
 			enable = 
-			# cat=plugin.tx_jccappointments_confirmation/a/020; type=string; label=Template Path:Path to the template email file
+			# cat=plugin.tx_jccappointments_confirmation/a/020; type=string; label=Template Path:Path to the template file
 			templatePath = EXT:jcc_appointments/Resources/Private/Email/Confirmation.html
 			sender {
 				# cat=plugin.tx_jccappointments_confirmation/a/030; type=string; label=Senders name:Name of the sender
@@ -111,6 +118,22 @@ plugin.tx_jccappointments {
 			}
 			# cat=plugin.tx_jccappointments_confirmation/a/050; type=string; label=Subject:The subject of the email
 			subject = Confirmation of your appointment
+			# cat=plugin.tx_jccappointments_confirmation/a/060; type=boolean; label=Use Fluid Template Subject:If set, the subject will be rendered from a template	
+			useFluidTemplateSubject = 0
+			# cat=plugin.tx_jccappointments_confirmation/a/070; type=string; label=Subject Template Path:Path to the template
+			subjectTemplatePath = EXT:jcc_appointments/Resources/Private/Email/Subject.html
+			cancellation {
+				# cat=plugin.tx_jccappointments_confirmation_cancellation/a/010; type=boolean; label=Enable Cancel Confirmation Email:If set, a confirmation email will be send when a appointment is cancelled 
+				enable = 
+				# cat=plugin.tx_jccappointments_confirmation_cancellation/a/020; type=string; label=Template Path:Path to the template file
+				templatePath = EXT:jcc_appointments/Resources/Private/Email/Cancellation/Confirmation.html
+				# cat=plugin.tx_jccappointments_confirmation_cancellation/a/030; type=string; label=Subject:The subject of the email
+				subject = Your appointment is succesfully cancelled
+				# cat=plugin.tx_jccappointments_confirmation_cancellation/a/040; type=boolean; label=Use Fluid Template Subject:If set, the subject will be rendered from a template	
+				useFluidTemplateSubject = 0
+				# cat=plugin.tx_jccappointments_confirmation_cancellation/a/050; type=string; label=Subject Template Path:Path to the template
+				subjectTemplatePath = EXT:jcc_appointments/Resources/Private/Email/Cancellation/Subject.html
+			}
 		}
 		sms {
 			# cat=plugin.tx_jccappointments_sms/a/010; type=boolean; label=Enable notifications:If set, SMS notifications will be enabled

@@ -1,10 +1,10 @@
 <?php
-namespace TYPO3\JccAppointments\Domain\Repository;
+namespace TYPO3\JccAppointments;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013 Arek van Schaijk <info@ucreation.nl>, Ucreation
+ *  (c) 2015 Arek van Schaijk <info@ucreation.nl>, Ucreation
  *  
  *  All rights reserved
  *
@@ -26,40 +26,8 @@ namespace TYPO3\JccAppointments\Domain\Repository;
  ***************************************************************/
 
 /**
- * AppointmentRepository
+ * Exception
  */
-class AppointmentRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class Exception extends \TYPO3\CMS\Core\Exception {
 	
-	/**
-	 * Find Unsend Sms
-	 *
-	 * @param integer $interval
-	 * @param mixed $limit
-	 * @return array
-	 */
-	public function findUnsendSms($interval, $limit = FALSE) {
-		
-		$query = $this->createQuery();
-		
-		// prepare interval
-		$interval = time() + $interval;
-		
-        $query->matching(
-			$query->logicalAnd(
-				$query->equals('sms', 1),
-				$query->equals('sms_send', 0),
-				$query->lessThanOrEqual('app_time', $interval),
-				$query->greaterThanOrEqual('app_time', time())
-			)
-		);
-		
-        $query->setOrderings(array(
-			'uid' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
-		));
-		
-		if ($limit)
-        	$query->setLimit((integer)$limit);
-			
-        return $query->execute();
-	}
 }

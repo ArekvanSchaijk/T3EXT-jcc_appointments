@@ -25,17 +25,15 @@ namespace TYPO3\JccAppointments\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\JccAppointments\Exception;
+
 /**
  * AppointmentController
- *
- * @package jcc_appointments
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
 class AppointmentController extends BaseController {
 	
 	/**
-	 * appointmentRepository
+	 * Appointment Repository
 	 *
 	 * @var \TYPO3\JccAppointments\Domain\Repository\AppointmentRepository
 	 * @inject
@@ -52,6 +50,7 @@ class AppointmentController extends BaseController {
 		// prepare current step
 		$this->prepareCurrentStep();
 		
+
 		// view allocations
 		$this->view->assign('step', $this->getCurrentStep());
 		$this->view->assign('data', $this->getData());
@@ -66,17 +65,17 @@ class AppointmentController extends BaseController {
 	public function step1Action() {
 		
 		// get all available products when no products are selected yet
-		if(!$this->isProductsInSession()) {
+		if (!$this->isProductsInSession()) {
 			
 			// API get available products
 			$availableProducts = $this->api()->getGovAvailableProducts();
 			
 			// validate if we have products returned
-			if($availableProducts->products && count($availableProducts->products) > 0):
+			if ($availableProducts->products && count($availableProducts->products) > 0) {
 				$availableProducts = $this->renderProductArray($availableProducts->products);
-			else:
+			} else {
 				$availableProducts = NULL;
-			endif;
+			}
 			
 		// get available products by product
 		} else {
@@ -85,11 +84,11 @@ class AppointmentController extends BaseController {
 			$availableProducts = $this->api()->getGovAvailableProductsByProduct(array('ProductNr' => $firstAddedProduct['uid']));
 			
 			// validate if we have products returned
-			if($availableProducts->products && count($availableProducts->products) > 0):
+			if ($availableProducts->products && count($availableProducts->products) > 0) {
 				$availableProducts = $this->renderProductArray($availableProducts->products);
-			else:
+			} else {
 				$availableProducts = NULL;
-			endif;
+			}
 			
 			$this->data('selectedProducts', $this->getSessionProducts());
 		}
@@ -98,8 +97,9 @@ class AppointmentController extends BaseController {
 		$this->data('multiSelect', $this->settings['products_multiselect']['enabled']);
 		
 		// if multi select is enabled we have to render the max amount items array
-		if($this->settings['products_multiselect']['enabled'])
+		if ($this->settings['products_multiselect']['enabled']) {
 			$this->data('multiSelectItems', $this->renderMultiSelectItemsArray());
+		}
 	}
 	
 	/**
@@ -110,39 +110,34 @@ class AppointmentController extends BaseController {
 	public function addProductAction() {
 		
 		// validate product ID 
-		if(!$this->params['product'] || empty($this->params['product']) || !ctype_digit($this->params['product'])) {
-			$this->addFlashMessage('validation.product_doesnt_exist');			
+		if (!$this->params['product'] || empty($this->params['product']) || !ctype_digit($this->params['product'])) {
+			$this->addFrontendFlashMessage('validation.product_doesnt_exist');			
 		} else {
 			
 			// checks product that cant be selected more than once
-			if(!$this->checkProductsThatCantBeSelectedMoreThanOnce($this->params['product'])) {
-				$this->addFlashMessage('validation.product_already_exists');				
+			if (!$this->checkProductsThatCantBeSelectedMoreThanOnce($this->params['product'])) {
+				$this->addFrontendFlashMessage('validation.product_already_exists');				
 			} else {
 			
 				// API get product details
 				$product = $this->api()->getGovProductDetails(array('productID' => $this->params['product']));
 				
 				// check if the product exist
-				if(!$product->out) {
-					$this->addFlashMessage('validation.product_doesnt_exist');					
+				if (!$product->out) {
+					$this->addFrontendFlashMessage('validation.product_doesnt_exist');					
 				} else {
 					
 					// add multiple products
-					if($this->params['multiSelect'] && $this->params['amount'] > 1) {
+					if ($this->params['multiSelect'] && $this->params['amount'] > 1) {
 					
 						// validate the amount
-						if(!ctype_digit($this->params['amount']) || $this->params['amount'] > $this->settings['products_multiselect']['maxAmount']) {
-							$this->addFlashMessage('validation.product_amount_not_allowed');							
+						if (!ctype_digit($this->params['amount']) || $this->params['amount'] > $this->settings['products_multiselect']['maxAmount']) {
+							$this->addFrontendFlashMessage('validation.product_amount_not_allowed');							
 						} else {
 							
 							$curItem = 1;
-							while($curItem <= $this->params['amount']) {
-								
-					
-								
-								// add product to session
-								$this->addProductToSession($this->params['product'], $product->out);
-								
+							while ($curItem <= $this->params['amount']) {
+								$this->addProductToSession($this->params['product'], $product->out);								
 								$curItem++;	
 							}	
 						}
@@ -167,12 +162,9 @@ class AppointmentController extends BaseController {
 	 * @return void
 	 */
 	public function removeProductAction() {
-		
-		// remove product key from session
-		if(ctype_digit($this->params['productKey']))
+		if (ctype_digit($this->params['productKey'])) {
 			$this->removeProductKeyFromSession($this->params['productKey']);
-
-		// redirect back to the form action
+		}
 		$this->redirect(NULL);
 	}
 	
@@ -198,15 +190,14 @@ class AppointmentController extends BaseController {
 	public function chooseLocationAction() {
 		
 		// validate given location
-		if($this->params['location'] && !empty($this->params['location']) && ctype_digit($this->params['location'])) {
+		if ($this->params['location'] && !empty($this->params['location']) && ctype_digit($this->params['location'])) {
 			
 			// API get location details
 			$location = $this->api()->getGovLocationDetails(array('locationID' => $this->params['location']));
 			$location = $location->locaties;
 			
 			// check if the choosen location exist
-			if($location->locationDesc) {
-				
+			if ($location->locationDesc) {
 				$this->addLocationToSession($this->params['location']);
 			}
 		}
@@ -226,6 +217,7 @@ class AppointmentController extends BaseController {
 		$this->prepareCalendarMode();
 		
 		$this->data('calendarMode', ucfirst($this->settings['calendar']['mode']));
+		$this->data('duration', $this->getProductsDuration());
 	}
 	
 	/**
@@ -239,19 +231,19 @@ class AppointmentController extends BaseController {
 		$months = $this->buildMonthArray();
 		
 		// if there is no month selected yet we have and the configuration "open first month" is set we have to redirect 
-		if($this->settings['calendar']['default_openfirstmonth'] && (!$this->params['year'] || !$this->params['month']))
+		if ($this->settings['calendar']['default_openfirstmonth'] && (!$this->params['year'] || !$this->params['month']))
 			$this->redirect('defaultModeCalendarSelectMonth', NULL, NULL, array('month' => date('Ym')));
 		
-		if(
+		if (
 			// validate given year
-			$this->validateYear($this->params['year'])
+			self::validateYear($this->params['year'])
 			// validate given month
-			&& $this->validateMonth($this->params['month'])
+			&& self::validateMonth($this->params['month'])
 		) {
 			
 			// if the month is allowed
-			if(!$this->isMonthAllowed($this->params['year'].$this->params['month'], $months)) {
-				$this->addFlashMessage('validation.calendar_invalid_month');
+			if (!$this->isMonthAllowed($this->params['year'].$this->params['month'], $months)) {
+				$this->addFrontendFlashMessage('validation.calendar_invalid_month');
 			} else {
 
 				$this->data('showAvailableDays', TRUE);
@@ -269,7 +261,7 @@ class AppointmentController extends BaseController {
 				));
 				
 				// if there are available days
-				if($availableDays->dates) {
+				if ($availableDays->dates) {
 					
 					$availableDays = $this->renderAvailableDaysArray($availableDays->dates);
 					
@@ -277,11 +269,11 @@ class AppointmentController extends BaseController {
 					$this->data('days', $availableDays);
 					
 					// if date is set we should serve the available times of that date
-					if($this->params['date'] && $this->validateDate($this->params['date']) && $this->isDateAllowed($this->params['date'], $availableDays)) {
+					if ($this->params['date'] && self::validateDate($this->params['date']) && self::isDateAllowed($this->params['date'], $availableDays)) {
 						
 						$this->data('times', $this->getAvailableTimesByDate($this->params['date']));
 						$this->data('showAvailableTimes', TRUE);
-						$this->data('activeDay', $this->getActiveDayByDate($this->params['date'], $availableDays));
+						$this->data('activeDay', self::getActiveDayByDate($this->params['date'], $availableDays));
 					}
 				}
 			}
@@ -301,16 +293,16 @@ class AppointmentController extends BaseController {
 		// build month array
 		$months = $this->buildMonthArray();
 		
-		if(
+		if (
 			// validate given year
-			$this->validateYear($this->params['year'])
+			self::validateYear($this->params['year'])
 			// validate given month
-			&& $this->validateMonth($this->params['month'])
+			&& self::validateMonth($this->params['month'])
 		) {
 			
 			// if the month is allowed
-			if(!$this->isMonthAllowed($this->params['year'].$this->params['month'], $months)) {
-				$this->addFlashMessage('validation.calendar_invalid_month');
+			if (!$this->isMonthAllowed($this->params['year'].$this->params['month'], $months)) {
+				$this->addFrontendFlashMessage('validation.calendar_invalid_month');
 			} else {
 
 				$this->data('showAvailableDays', TRUE);
@@ -328,7 +320,7 @@ class AppointmentController extends BaseController {
 				));
 				
 				// if there are available days
-				if($availableDays->dates) {
+				if ($availableDays->dates) {
 					
 					$availableDays = $this->renderAvailableDaysArray($availableDays->dates);
 					
@@ -336,11 +328,11 @@ class AppointmentController extends BaseController {
 					$this->data('days', $availableDays);
 					
 					// if date is set we should serve the available times of that date
-					if($this->params['date'] && $this->validateDate($this->params['date']) && $this->isDateAllowed($this->params['date'], $availableDays)) {
+					if ($this->params['date'] && self::validateDate($this->params['date']) && self::isDateAllowed($this->params['date'], $availableDays)) {
 						
 						$this->data('times', $this->getAvailableTimesByDate($this->params['date']));
 						$this->data('showAvailableTimes', TRUE);
-						$this->data('activeDay', $this->getActiveDayByDate($this->params['date'], $availableDays));
+						$this->data('activeDay', self::getActiveDayByDate($this->params['date'], $availableDays));
 					}
 				}
 			}
@@ -348,6 +340,63 @@ class AppointmentController extends BaseController {
 		
 		$this->data('months', $months);
 		$this->data('year', date('Y'));
+	}
+	
+	/**
+	 * Show All Mode Calendar Action
+	 *
+	 * @return void
+	 */
+	public function showAllModeCalendarAction() {
+		
+		// calculates the end time
+		$endDate = date('Y-m-d', strtotime(date('Y-m-d', mktime()) . ' + 365 day'));
+		if ($this->settings['calendar']['showAll_limitInDays']) {
+			$endTimestamp = time() + ($this->settings['calendar']['showAll_limitInDays'] * 86400);
+			$endDate = date('Y-m-d', $endTimestamp);
+		}
+		
+		// gets all available days
+		$availableDays = $this->api()->getGovAvailableDays(array(
+			'locationID'	=> $this->getLocation(),
+			'productID'		=> $this->getProductIdList(),
+			'startDate'		=> date('Y-m-d'),
+			'endDate'		=> $endDate,
+			'appDuration'	=> $this->getProductsDuration(),
+		));
+		
+		// if there are available dates
+		if ($availableDays->dates) {
+			
+			// renders the response
+			$availableDays = $this->renderAvailableDaysArray($availableDays->dates);
+			$monthsArray = array();
+			
+			foreach ($availableDays as $day) {
+				
+				if (!$monthsArray[$day['year'].$day['month']]) {
+					$monthTimestamp = strtotime($day['year'].'-'.$day['month']);
+					$monthsArray[$day['year'].$day['month']] = array(
+						'month' => $day['month'],
+						'year' => $day['year'],
+						'timestamp' => $monthTimestamp,
+						'availableDays' => array(),
+					);
+				}
+				$monthsArray[$day['year'].$day['month']]['availableDays'][] = $day;
+			}
+			
+			// if date is set we should serve the available times of that date
+			if ($this->params['date'] && self::validateDate($this->params['date']) && self::isDateAllowed($this->params['date'], $availableDays)) {
+				
+				$this->data('times', $this->getAvailableTimesByDate($this->params['date']));
+				$this->data('showAvailableTimes', TRUE);
+				$this->data('activeDay', self::getActiveDayByDate($this->params['date'], $availableDays));
+			}
+			
+			// render available days array
+			$this->data('availableMonthsDays', $monthsArray);
+		}
 	}
 	
 	/**
@@ -360,21 +409,21 @@ class AppointmentController extends BaseController {
 		$returnedArguments = NULL;
 		
 		// check if there is a month selected
-		if(!$this->params['month']) {
-			$this->addFlashMessage('validation.calendar_no_month_selected');
+		if (!$this->params['month']) {
+			$this->addFrontendFlashMessage('validation.calendar_no_month_selected');
 		} else {
 			
 			// validate given year month
-			if(!$this->validateYearMonth($this->params['month'])) {
-				$this->addFlashMessage('validation.calendar_invalid_month');
+			if (!self::validateYearMonth($this->params['month'])) {
+				$this->addFrontendFlashMessage('validation.calendar_invalid_month');
 			} else {
 				
 				// build month array
 				$months = $this->buildMonthArray();
 				
 				// the selected month isnt accepted
-				if(!$this->isMonthAllowed($this->params['month'], $months)) {
-					$this->addFlashMessage('validation.calendar_invalid_month');
+				if (!$this->isMonthAllowed($this->params['month'], $months)) {
+					$this->addFrontendFlashMessage('validation.calendar_invalid_month');
 				} else {
 				
 					$postedMonth = str_split($this->params['month'], 4);
@@ -396,45 +445,62 @@ class AppointmentController extends BaseController {
 	protected function defaultModeCalendarSelectDayAction() {
 		
 		// checks if there is a date selected
-		if(!$this->params['date']) {
+		if (!$this->params['date']) {
 			
-			$this->addFlashMessage('validation.calendar_no_day_selected');
+			$this->addFrontendFlashMessage('validation.calendar_no_day_selected');
 			$this->redirect(NULL, NULL, NULL, array('year' => $this->params['year'], 'month' => $this->params['month']));
 			
 		} else {
 			
-			if(
-				// validate given date
-				$this->validateDate($this->params['date'])
-				// validate given year
-				&& $this->validateYear($this->params['year'])
-				// validate given month
-				&& $this->validateMonth($this->params['month'])
+			// validate given date
+			if (self::validateDate($this->params['date'])
+					// validate given year
+					&& self::validateYear($this->params['year'])
+						// validate given month
+						&& self::validateMonth($this->params['month'])
 			) {
-				
 				$this->redirect(NULL, NULL, NULL, array('year' => $this->params['year'], 'month' => $this->params['month'], 'date' => $this->params['date']));
-			
 			} else {
-				
-				$this->addFlashMessage('validation.calendar_invalid_day');
+				$this->addFrontendFlashMessage('validation.calendar_invalid_day');
 			}
-			
-			// reselect the current month/year when the arguments are given
-			if(
-				// validate given year
-				$this->validateYear($this->params['year'])
-				// validate given month
-				&& $this->validateMonth($this->params['month'])
-			) {
-			
+
+			// validate given year
+			if (self::validateYear($this->params['year'])
+					// validate given month
+					&& self::validateMonth($this->params['month'])
+			) {	
 				$this->redirect('defaultModeCalendarSelectMonth', NULL, NULL, array('month' => $this->params['year'].$this->params['month']));
-				
 			} else {
-			
-				// redirect back to the form action
 				$this->redirect(NULL);	
 			}
 		}
+	}
+	
+	/**
+	 * Show All Mode Calendar Select Day Action
+	 *
+	 * @return void
+	 */
+	public function showAllModeCalendarSelectDayAction() {
+		// checks if there is a date selected
+		if (!$this->params['date']) {
+			
+			$this->addFrontendFlashMessage('validation.calendar_no_day_selected');
+			$this->redirect(NULL);
+			
+		} else {
+			
+			// validate given date
+			if (self::validateDate($this->params['date'])) {
+				
+				$this->redirect(NULL, NULL, NULL, array('date' => $this->params['date']));
+				
+			} else {
+				
+				$this->addFrontendFlashMessage('validation.calendar_invalid_day');
+				$this->redirect(NULL);
+			}
+		}	
 	}
 	
 	/**
@@ -446,31 +512,31 @@ class AppointmentController extends BaseController {
 		
 		$returnArguments = NULL;
 		// generates some returnment arguments
-		if($this->params['date'] && strtotime($this->params['date'])):
+		if ($this->params['date'] && strtotime($this->params['date'])) {
 			$returnArguments['year'] = date('Y', strtotime($this->params['date']));
 			$returnArguments['month'] = date('m', strtotime($this->params['date']));
 			$returnArguments['date'] = $this->params['date'];
-		endif;
+		}
 		
 		// checks if there is a time selected
-		if(!$this->params['time']) {
+		if (!$this->params['time']) {
 			
-			$this->addFlashMessage('validation.calendar_no_time_selected');
+			$this->addFrontendFlashMessage('validation.calendar_no_time_selected');
 			$this->redirect(NULL, NULL, NULL, $returnArguments);
 				
 		} else {
 			
 			// validate given date
-			if(!$this->validateDate($this->params['date'])) {
+			if (!self::validateDate($this->params['date'])) {
 				
-				$this->addFlashMessage('validation.calendar_invalid_day');
+				$this->addFrontendFlashMessage('validation.calendar_invalid_day');
 				unset($returnArguments['date']);
 				$this->redirect(NULL, NULL, NULL, $returnArguments);
 			
 			// validate given time
-			} else if(!$this->validateTime($this->params['time'])) {
+			} else if (!self::validateTime($this->params['time'])) {
 				
-				$this->addFlashMessage('validation.calendar_invalid_time');
+				$this->addFrontendFlashMessage('validation.calendar_invalid_time');
 				$this->redirect(NULL, NULL, NULL, $returnArguments);
 			
 			} else {
@@ -481,20 +547,19 @@ class AppointmentController extends BaseController {
 				$times = $this->getAvailableTimesByDate($this->params['date']);
 				
 				// walk trough the times array and 
-				foreach($times as $time) {
+				foreach ($times as $time) {
 					
 					// match time with the given time
-					if($time == $this->params['time']) {
-						
+					if ($time == $this->params['time']) {
 						$dayAndTimeAllowed = TRUE;
 						break;
 					}
 				}
 				
 				// if day and time are not allwoed
-				if(!$dayAndTimeAllowed) {
+				if (!$dayAndTimeAllowed) {
 				
-					$this->addFlashMessage('validation.calendar_day_and_time_not_available');
+					$this->addFrontendFlashMessage('validation.calendar_day_and_time_not_available');
 					$this->redirect(NULL);
 					
 				} else {
@@ -522,26 +587,24 @@ class AppointmentController extends BaseController {
 		$this->data('requirements', $this->settings['clientdata']['requirements']);
 		
 		// if is client data in session
-		if($this->isClientDataInSession()) {
-			
-			// get client data
+		if ($this->isClientDataInSession()) {
 			$this->data('clientData', $this->getClientData());
 		}
 		
 		$this->data('splitBirthday', $this->settings['clientdata']['splitBirthday']);
 		
 		// if the birthday is splitted
-		if($this->settings['clientdata']['splitBirthday'] && $this->settings['clientdata']['renderBirthdayOptions']) {
+		if ($this->settings['clientdata']['splitBirthday'] && $this->settings['clientdata']['renderBirthdayOptions']) {
 			
 			$endYear = date('Y');
 			
 			// if a end date is configured
-			if($this->settings['clientdata']['birthdayEndYear'])
+			if ($this->settings['clientdata']['birthdayEndYear'])
 				$endYear = $this->settings['clientdata']['birthdayEndYear'];
 				
 			// list of months with leading zero
 			$birthdayMonths = range(1, 12);
-			foreach($birthdayMonths as $key => $value) {
+			foreach ($birthdayMonths as $key => $value) {
 				$birthdayMonths[$key] = str_pad($value, 2, 0, STR_PAD_LEFT);
 			}
 			
@@ -573,52 +636,57 @@ class AppointmentController extends BaseController {
 		
 		// full name
 		$clientData['fullName'] = '';
-		if($this->params['clientInitials'] && !empty($this->params['clientInitials']))
+		if ($this->params['clientInitials'] && !empty($this->params['clientInitials'])) {
 			$clientData['fullName'] .= $this->params['clientInitials'];
+		}
 			
-		if($this->params['clientMiddleName'] && !empty($this->params['clientMiddleName']))
+		if ($this->params['clientMiddleName'] && !empty($this->params['clientMiddleName'])) {
 			$clientData['fullName'] .= ' '.$this->params['clientMiddleName'];
+		}
 			
-		if($this->params['clientLastName'] && !empty($this->params['clientLastName']))
+		if ($this->params['clientLastName'] && !empty($this->params['clientLastName'])) {
 			$clientData['fullName'] .= ' '.$this->params['clientLastName'];
+		}
 		$clientData['fullName'] = trim($clientData['fullName']);
 		
 		// if split address
-		if($this->settings['clientdata']['splitAddress']):
+		if ($this->settings['clientdata']['splitAddress']) {
 			$clientData['street'] = $this->params['clientStreet'];
 			$clientData['number'] = $this->params['clientStreetNumber'];
 			$clientData['address'] = trim($this->params['clientStreet'].' '.$this->params['clientStreetNumber']);
-		else:
+		} else {
 			$clientData['address'] = $this->params['clientAddress'];
-		endif;
+		}
 		
 		// if split birthday
-		if($this->settings['clientdata']['splitBirthday']) {
+		if ($this->settings['clientdata']['splitBirthday']) {
 			$clientData['dayOfBirth'] = str_pad($this->params['clientDayOfBirth'], 2, 0, STR_PAD_LEFT);
 			$clientData['monthOfBirth'] = str_pad($this->params['clientMonthOfBirth'], 2, 0, STR_PAD_LEFT);
 			$clientData['yearOfBirth'] = $this->params['clientYearOfBirth'];
 			$clientData['dateOfBirth'] = '';
 			
-			if($this->params['clientDayOfBirth'] && !empty($this->params['clientDayOfBirth'])):
+			if ($this->params['clientDayOfBirth'] && !empty($this->params['clientDayOfBirth'])) {
 				$clientData['dateOfBirth'] .= str_pad($this->params['clientDayOfBirth'], 2, 0, STR_PAD_LEFT);
-			endif;
-			if($this->params['clientMonthOfBirth'] && !empty($this->params['clientMonthOfBirth'])):
+			}
+			if ($this->params['clientMonthOfBirth'] && !empty($this->params['clientMonthOfBirth'])) {
 				$clientData['dateOfBirth'] .= '-'.str_pad($this->params['clientMonthOfBirth'], 2, 0, STR_PAD_LEFT);
-			endif;
-			if($this->params['clientYearOfBirth'] && !empty($this->params['clientYearOfBirth'])):
+			}
+			if ($this->params['clientYearOfBirth'] && !empty($this->params['clientYearOfBirth'])) {
 				$clientData['dateOfBirth'] .= '-'.$this->params['clientYearOfBirth'];
-			endif;
+			}
 		} else {
 			$clientData['dateOfBirth'] = $this->params['clientDateOfBirth'];
 		}
 		
 		// if country is enabled
-		if($this->settings['clientdata']['enableCountry'])
+		if ($this->settings['clientdata']['enableCountry']) {
 			$clientData['country'] = $this->params['clientCountry'];
+		}
 			
 		// if sms
-		if($this->params['clientSms'] && !empty($this->params['clientSms']))
+		if ($this->params['clientSms'] && !empty($this->params['clientSms'])) {
 			$clientData['sms'] = TRUE;
+		}
 		
 		// add client data to session
 		$this->addClientDataToSession($clientData);
@@ -633,18 +701,21 @@ class AppointmentController extends BaseController {
 	 * @return void
 	 */
 	public function step5Action() {
-		
+
 		$this->data('clientData', $this->getClientData());
 		$this->data('products', $this->getProducts());
+		$this->data('takeoutTexts', $this->getTakeoutTexts());
 		$this->data('splitAddress', $this->settings['clientdata']['splitAddress']);
 		$this->data('enableCountry', $this->settings['clientdata']['enableCountry']);
 		
 		// API get location details
 		$location = $this->api()->getGovLocationDetails(array('locationID' => $this->getLocation()));
-		$this->data('location', $this->renderLocationDetailsArray($location->locaties));
+		
+		$this->data('location', self::renderLocationDetailsArray($location->locaties));
 		
 		$this->data('date', $this->getDayArray());
 		$this->data('time', $this->getDayTime());
+		$this->data('endTime', $this->getDayEndTime());
 	}
 	
 	/**
@@ -655,8 +726,9 @@ class AppointmentController extends BaseController {
 	public function confirmAppointmentAction() {
 		
 		// this action can only be called when the current step is 5
-		if($this->getCurrentStep() != 5)
-			throw new \Exception('Access denied for this action');
+		if ($this->getCurrentStep() != 5) {
+			throw new Exception('Access denied for this action');
+		}
 			
 		// get client data
 		$clientData = $this->getClientData();
@@ -682,14 +754,15 @@ class AppointmentController extends BaseController {
 		
 		// client last name
 		$bookData['clientLastName'] = '';
-		if($clientData['middleName']) {
+		if ($clientData['middleName']) {
 			$bookData['clientLastName'] .= $clientData['middleName'].' ';
 		}
 		$bookData['clientLastName'] .= $clientData['lastName'];
 		
 		// country
-		if($this->settings['clientdata']['enableCountry'])
+		if ($this->settings['clientdata']['enableCountry']) {
 			$bookData['clientCountry'] = $clientData['country'];
+		}
 			
 		$bookData['isClientVerified'] = 0;
 
@@ -697,17 +770,17 @@ class AppointmentController extends BaseController {
 		$appointment = $this->api()->bookGovAppointment(array('appDetail' => $bookData));
 		
 		// updatestatus : 0 = booking succesfull
-		if($appointment->updateStatus == 0) {
+		if ($appointment->updateStatus == 0) {
 			
 			// make secret hash
-			$generatedHash = $this->makeSecretHash($appointment->appID);
+			$generatedHash = self::makeSecretHash($appointment->appID);
 			
 			// add secret hash in session
 			$this->addSecretHashInSession($generatedHash);
 			
 			// API get location details
 			$location = $this->api()->getGovLocationDetails(array('locationID' => $this->getLocation()));
-			$locationData = $this->renderLocationDetailsArray($location->locaties);
+			$locationData = self::renderLocationDetailsArray($location->locaties);
 			
 			// create a new appointment object
 			$newAppointment = new \TYPO3\JccAppointments\Domain\Model\Appointment;
@@ -715,34 +788,48 @@ class AppointmentController extends BaseController {
 			$newAppointment->setAppTime($startAppointmentTime);
 			$newAppointment->setSecretHash($generatedHash);
 			
-			if(isset($clientData['id']) && $clientData['id']) 
+			if (isset($clientData['id']) && $clientData['id']) {
 				$newAppointment->setClientId($clientData['id']);
-			if(isset($clientData['initials']) && $clientData['initials']) 
+			}
+			if (isset($clientData['initials']) && $clientData['initials']) {
 				$newAppointment->setClientInitials($clientData['initials']);
-			if(isset($clientData['middleName']) && $clientData['middleName']) 
+			}
+			if (isset($clientData['middleName']) && $clientData['middleName']) {
 				$newAppointment->setClientInsertions($clientData['middleName']);
-			if(isset($clientData['lastName']) && $clientData['lastName']) 
+			}
+			if (isset($clientData['lastName']) && $clientData['lastName']) {
 				$newAppointment->setClientLastName($clientData['lastName']);
-			if(isset($clientData['sex']) && $clientData['sex']) 
+			}
+			if (isset($clientData['sex']) && $clientData['sex'])  {
 				$newAppointment->setClientSex($clientData['sex']);
-			if(isset($clientData['dateOfBirth']) && $clientData['dateOfBirth']) 
+			}
+			if (isset($clientData['dateOfBirth']) && $clientData['dateOfBirth']) {
 				$newAppointment->setClientDateOfBirth(strtotime($clientData['dateOfBirth']));
-			if(isset($clientData['street']) && $clientData['street'])
+			}
+			if (isset($clientData['street']) && $clientData['street']) {
 				$newAppointment->setClientStreet($clientData['street']);
-			if(isset($clientData['number']) && $clientData['number'])
+			}
+			if (isset($clientData['number']) && $clientData['number']) {
 				$newAppointment->setClientStreetNumber($clientData['number']);
-			if(isset($clientData['postalCode']) && $clientData['postalCode'])
+			}
+			if (isset($clientData['postalCode']) && $clientData['postalCode']) {
 				$newAppointment->setClientPostalCode($clientData['postalCode']);
-			if(isset($clientData['city']) && $clientData['city'])
+			}
+			if (isset($clientData['city']) && $clientData['city']) {
 				$newAppointment->setClientCity($clientData['city']);
-			if(isset($clientData['tel']) && $clientData['tel'])
+			}
+			if (isset($clientData['tel']) && $clientData['tel']) {
 				$newAppointment->setClientPhone($clientData['tel']);
-			if(isset($clientData['mobileTel']) && $clientData['mobileTel'])
+			}
+			if (isset($clientData['mobileTel']) && $clientData['mobileTel']) {
 				$newAppointment->setClientMobilePhone($clientData['mobileTel']);
-			if(isset($clientData['mail']) && $clientData['mail'])
+			}
+			if (isset($clientData['mail']) && $clientData['mail']) {
 				$newAppointment->setClientEmail($clientData['mail']);
-			if(isset($clientData['sms']) && $clientData['sms'])
+			}
+			if (isset($clientData['sms']) && $clientData['sms']) {
 				$newAppointment->setSms($clientData['sms']);
+			}
 			
 			$newAppointment->setLocationName($locationData['name']);
 			$newAppointment->setLocationAddress($locationData['address']);
@@ -750,23 +837,24 @@ class AppointmentController extends BaseController {
 			$newAppointment->setLocationPhone($locationData['phone']);
 			
 			$this->appointmentRepository->add($newAppointment);
-			$this->persistAll();
+			$this->persistenceManager->persistAll();	
 			
 			// if confirmation is enabled send the confirmation mail
-			if($this->settings['confirmation']['enable'])
+			if ($this->settings['confirmation']['enable']) {
 				$this->sendConfirmationMail();
+			}
 			
 			// remove user session
 			$this->removeUserSession();
 			
 			// redirect to the succes pid
-			if(!$this->settings['general']['successPid']) {
+			if (!$this->settings['general']['successPid']) {
 				
-				throw new \Exception('Misconfiguration: There is no successPid given');
+				throw new Exception('Misconfiguration: There is no successPid given');
 				
 			} else {
 				
-				$this->pageRedirect($this->settings['general']['successPid']);
+				self::pageRedirect($this->settings['general']['successPid']);
 			}
 			
 		} else {
@@ -775,13 +863,13 @@ class AppointmentController extends BaseController {
 			$this->removeUserSession();
 			
 			// redirect to the failed pid
-			if(!$this->settings['general']['failedPid']) {
+			if (!$this->settings['general']['failedPid']) {
 				
-				throw new \Exception('Misconfiguration: There is no failedPid given');
+				throw new Exception('Misconfiguration: There is no failedPid given');
 				
 			} else {
 				
-				$this->pageRedirect($this->settings['general']['failedPid']);
+				self::pageRedirect($this->settings['general']['failedPid']);
 			}
 		}
 	}
@@ -792,10 +880,9 @@ class AppointmentController extends BaseController {
 	 * @return void
 	 */
 	public function validateStep1Action() {
-		
-		// if there are no products in session
-		if(!$this->isProductsInSession())
+		if (!$this->isProductsInSession()) {
 			$this->setValidationError('validation.no_product_selected');
+		}
 	}
 	
 	/**
@@ -804,10 +891,9 @@ class AppointmentController extends BaseController {
 	 * @return void
 	 */
 	public function validateStep2Action() {
-		
-		// if there are no products in session
-		if(!$this->isLocationInSession())
+		if (!$this->isLocationInSession()) {
 			$this->setValidationError('validation.no_location_selected');
+		}
 	}
 	
 	/**
@@ -816,10 +902,9 @@ class AppointmentController extends BaseController {
 	 * @return void
 	 */
 	public function validateStep3Action() {
-		
-		// if there are no products in session
-		if(!$this->isDayInSession() || !$this->isDayTimeInSession())
+		if (!$this->isDayInSession() || !$this->isDayTimeInSession()) {
 			$this->setValidationError('validation.no_day_or_time_selected');
+		}
 	}
 	
 	/**
@@ -830,7 +915,7 @@ class AppointmentController extends BaseController {
 	public function validateStep4Action() {
 		
 		// if client data does not exists
-		if(!$this->isClientDataInSession()) {
+		if (!$this->isClientDataInSession()) {
 
 			$this->setValidationError('validation.clientdata.no_clientdata_given');
 			
@@ -840,47 +925,51 @@ class AppointmentController extends BaseController {
 			$clientData = $this->getClientData();
 			
 			// id
-			if($this->isValidation('clientID', $clientData['id'])):
-				if(!$clientData['id'] || empty($clientData['id'])):
+			if ($this->isValidation('clientID', $clientData['id'])) {
+				if (!$clientData['id'] || empty($clientData['id'])) {
 					$this->setValidationError('validation.clientdata.no_id');
-				else:
-					if(strlen($clientData['id']) != 9 || !ctype_digit($clientData['id']))
+				} else {
+					if (strlen($clientData['id']) != 9 || !ctype_digit($clientData['id'])) {
 						$this->setValidationError('validation.clientdata.invalid_id');
-				endif;
-			endif;
+					}
+				}
+			}
 			
 			// sex
-			if($this->isValidation('clientSex', $clientData['sex'])):
-				if(!$clientData['sex'] || empty($clientData['sex'])):
+			if ($this->isValidation('clientSex', $clientData['sex'])) {
+				if (!$clientData['sex'] || empty($clientData['sex'])) {
 					$this->setValidationError('validation.clientdata.no_sex_checked');
-				else:
-					if($clientData['sex'] != 'M' && $clientData['sex'] != 'F')
+				} else {
+					if ($clientData['sex'] != 'M' && $clientData['sex'] != 'F') {
 						$this->setValidationError('validation.clientdata.invalid_sex');
-				endif;
-			endif;
+					}
+				}
+			}
 			
 			// initials
-			if($this->isValidation('clientInitials', $clientData['initials'])):
-				if(!$clientData['initials'] || empty($clientData['initials']))
+			if ($this->isValidation('clientInitials', $clientData['initials'])) {
+				if (!$clientData['initials'] || empty($clientData['initials'])) {
 					$this->setValidationError('validation.clientdata.no_initials');
-			endif;
+				}
+			}
 			
 			// last name
-			if($this->isValidation('clientLastName', $clientData['lastName'])):
-				if(!$clientData['lastName'] || empty($clientData['lastName']))
+			if ($this->isValidation('clientLastName', $clientData['lastName'])) {
+				if (!$clientData['lastName'] || empty($clientData['lastName'])) {
 					$this->setValidationError('validation.clientdata.no_lastName');
-			endif;
+				}
+			}
 			
-			if($this->isValidation('clientDateOfBirth', $clientData['dateOfBirth'])):
+			if ($this->isValidation('clientDateOfBirth', $clientData['dateOfBirth'])) {
 			
 				// splitted birthday
-				if($this->settings['clientdata']['splitBirthday']) {
+				if ($this->settings['clientdata']['splitBirthday']) {
 					
-					if(empty($clientData['dayOfBirth']) || empty($clientData['monthOfBirth']) || empty($clientData['yearOfBirth'])):
+					if (empty($clientData['dayOfBirth']) || empty($clientData['monthOfBirth']) || empty($clientData['yearOfBirth'])) {
 						$this->setValidationError('validation.clientdata.no_birthday');	
-					else:
+					} else {
 						$birthdayTimestamp = strtotime($clientData['dateOfBirth']);
-						if(
+						if (
 							// day of birth
 							!ctype_digit($clientData['dayOfBirth']) || strlen($clientData['dayOfBirth']) > 2
 							// month of birth
@@ -900,59 +989,63 @@ class AppointmentController extends BaseController {
 						) {
 							$this->setValidationError('validation.clientdata.invalid_birthday');
 						}
-					endif;
+					}
 					
 				// non splitted birthday
 				} else {
 					
 					// is empty birthdate
-					if(empty($clientData['dateOfBirth'])):
+					if (empty($clientData['dateOfBirth'])) {
 						$this->setValidationError('validation.clientdata.no_birthday');	
-					else:
+					} else {
 						// validate given birthdate string
-						if(!strtotime($clientData['dateOfBirth']))
+						if (!strtotime($clientData['dateOfBirth'])) {
 							$this->setValidationError('validation.clientdata.invalid_birthday');
-					endif;
+						}
+					}
 				}
-			endif;
+			}
 
-			if($this->isValidation('clientAddress', $clientData['address'])):
+			if ($this->isValidation('clientAddress', $clientData['address'])) {
 
 				// splitted address
-				if($this->settings['clientdata']['splitAddress']) {
+				if ($this->settings['clientdata']['splitAddress']) {
 				
 					// street (without number)
-					if(!$clientData['street'] || empty($clientData['street']))
+					if (!$clientData['street'] || empty($clientData['street'])) {
 						$this->setValidationError('validation.clientdata.no_street');
+					}
 					
 					// number
-					if(!$clientData['number'] || empty($clientData['number'])):
+					if (!$clientData['number'] || empty($clientData['number'])) {
 						$this->setValidationError('validation.clientdata.no_number');
-					else:
-						if(!preg_match('#[0-9]#', $clientData['number']))
+					} else {
+						if (!preg_match('#[0-9]#', $clientData['number'])) {
 							$this->setValidationError('validation.clientdata.invalid_number');
-					endif;
+						}
+					}
 					
 				// non splitted address
 				} else {
 					
 					// address
-					if(!$clientData['address'] || empty($clientData['address'])):
+					if (!$clientData['address'] || empty($clientData['address'])) {
 						$this->setValidationError('validation.clientdata.no_address');
-					else:
-						if(strlen($clientData['address']) <= 4 || !preg_match('#[0-9]#', $clientData['address']))
+					} else {
+						if (strlen($clientData['address']) <= 4 || !preg_match('#[0-9]#', $clientData['address'])) {
 							$this->setValidationError('validation.clientdata.invalid_address');
-					endif;
+						}
+					}
 				}
-			endif;
-			
+			}
+
 			// postal code
-			if($this->isValidation('clientPostalCode', $clientData['postalCode'])):
-				if(!$clientData['postalCode'] && empty($clientData['postalCode'])):
+			if ($this->isValidation('clientPostalCode', $clientData['postalCode'])) {
+				if (!$clientData['postalCode'] && empty($clientData['postalCode'])) {
 					$this->setValidationError('validation.clientdata.no_postalcode');
-				else:
+				} else {
 					$postalcode = str_split($clientData['postalCode'], 4);
-					if(
+					if (
 						strlen($clientData['postalCode']) != 6
 						|| strlen($postalcode[0]) != 4
 						|| strlen($postalcode[1]) != 2
@@ -961,48 +1054,54 @@ class AppointmentController extends BaseController {
 					) {
 						$this->setValidationError('validation.clientdata.invalid_postalcode');
 					}
-				endif;
-			endif;
+				}
+			}
 			
 			// city
-			if($this->isValidation('clientCity', $clientData['city'])):
-				if(!$clientData['city'] || empty($clientData['city']))
+			if ($this->isValidation('clientCity', $clientData['city'])) {
+				if (!$clientData['city'] || empty($clientData['city'])) {
 					$this->setValidationError('validation.clientdata.no_city');
-			endif;
+				}
+			}
 			
 			// country
-			if($this->isValidation('clientCountry', $clientData['country'])):
-				if($this->settings['clientdata']['enableCountry'] && (!$clientData['country'] || empty($clientData['country'])))
+			if ($this->isValidation('clientCountry', $clientData['country'])) {
+				if ($this->settings['clientdata']['enableCountry'] && (!$clientData['country'] || empty($clientData['country']))) {
 					$this->setValidationError('validation.clientdata.no_country');
-			endif;
+				}
+			}
 			
 			// phone
-			if($this->isValidation('clientTel', $clientData['tel'])):
-				if(!$clientData['tel'] || empty($clientData['tel']))
+			if ($this->isValidation('clientTel', $clientData['tel'])) {
+				if (!$clientData['tel'] || empty($clientData['tel'])) {
 					$this->setValidationError('validation.clientdata.no_tel');
-			endif;
+				}
+			}
 			
 			// mobile phone
-			if($this->isValidation('clientMobileTel', $clientData['mobileTel'])):
-				if(!$clientData['mobileTel'] || empty($clientData['mobileTel']))
+			if ($this->isValidation('clientMobileTel', $clientData['mobileTel'])) {
+				if (!$clientData['mobileTel'] || empty($clientData['mobileTel'])) {
 					$this->setValidationError('validation.clientdata.no_mobile_tel');
-			endif;
+				}
+			}
 			
 			// sms
-			if(isset($clientData['sms']) && $clientData['sms']):
-				if(!$clientData['mobileTel'] || empty($clientData['mobileTel']))
+			if (isset($clientData['sms']) && $clientData['sms']) {
+				if (!$clientData['mobileTel'] || empty($clientData['mobileTel'])) {
 					$this->setValidationError('validation.clientdata.sms_no_mobile_tel');
-			endif;
+				}
+			}
 
 			// email
-			if($this->isValidation('clientMail', $clientData['mail'])):
-				if(!$clientData['mail'] || empty($clientData['mail'])):
+			if ($this->isValidation('clientMail', $clientData['mail'])) {
+				if (!$clientData['mail'] || empty($clientData['mail'])) {
 					$this->setValidationError('validation.clientdata.no_mail');
-				else:
-					if(!filter_var($clientData['mail'], FILTER_VALIDATE_EMAIL))
+				} else {
+					if (!filter_var($clientData['mail'], FILTER_VALIDATE_EMAIL)) {
 						$this->setValidationError('validation.clientdata.invalid_mail');
-				endif;
-			endif;
+					}
+				}
+			}
 		}
 	}
 	
@@ -1027,7 +1126,7 @@ class AppointmentController extends BaseController {
 	public function backwardModificationStep3Action() {
 		
 		$selectedDayTime = $this->session['day'];
-		unset($this->session['day'], $this->session['time']);
+		unset($this->session['day'], $this->session['time'], $this->session['endTime']);
 		
 		// save session data
 		$this->saveSessionData();
@@ -1050,7 +1149,7 @@ class AppointmentController extends BaseController {
 		$this->prepareNextStep();
 		
 		// is step validated
-		if($this->isStepValidated())
+		if ($this->isStepValidated())
 			$this->forwardStep();
 		
 		// redirect back to the form action
@@ -1086,7 +1185,7 @@ class AppointmentController extends BaseController {
 		$data['cancelled'] = FALSE;
 		
 		// there is no secret hash given
-		if(!$this->params['secretHash'] || empty($this->params['secretHash'])) {
+		if (!$this->params['secretHash'] || empty($this->params['secretHash'])) {
 		
 			$data['showError'] = self::CANCEL_NO_SECRETHASH_GIVEN;
 			
@@ -1098,32 +1197,39 @@ class AppointmentController extends BaseController {
 			$appointment = $this->appointmentRepository->findOneBySecretHash($this->params['secretHash']);
 				
 			// the secret hash is invalid because there is no related appointment founded
-			if(!$appointment) {
+			if (!$appointment) {
 				
 				$data['showError'] = self::CANCEL_INVALID_SECRETHASH;
 				
 			} else {
 				
 				// the appointment is already cancelled or expired
-				if($appointment->isClosed())
+				if ($appointment->isClosed()) {
 					$data['showError'] = self::CANCEL_ALREADY_CLOSED;
+				}
 					
 				// appointment is already expired so its impossible to cancel it
-				if($appointment->getAppTime() <= time())
+				if ($appointment->getAppTime() <= time()) {
 					$data['showError'] = self::CANCEL_APPOINTMENT_EXPIRED;
+				}
 			}
 		}
 		
 		// get appointment details
-		if(!$data['showError']) {
+		if (!$data['showError']) {
 			
 			// cancelling confirmed
-			if($this->params['confirm']) {
+			if ($this->params['confirm']) {
 				
 				$this->api()->deleteGovAppointment(array('appID' => $appointment->getAppId()));
 				$appointment->setClosed(TRUE);
 				$this->appointmentRepository->update($appointment);
 				$data['cancelled'] = TRUE;
+				
+				// if confirmation is enabled send the confirmation mail
+				if ($this->settings['confirmation']['cancellation']['enable'] && $appointment->getClientEmail()) {
+					$this->sendCancelledConfirmationMail($appointment);
+				}
 								
 			// cancelling not confirmed
 			} else {
@@ -1133,7 +1239,7 @@ class AppointmentController extends BaseController {
 				$appointmentDetails = $appointmentDetails->appointment;
 	
 				// we have to check if the object appointment contains the product ID's because the API wil always return this object either if the appId is invalid
-				if(!$appointmentDetails->productID) {
+				if (!$appointmentDetails->productID) {
 					
 					$data['showError'] = self::CANCEL_INVALID_SECRETHASH;
 					
@@ -1160,13 +1266,12 @@ class AppointmentController extends BaseController {
 					
 					// appointment location
 					$location = $this->api()->getGovLocationDetails(array('locationID' => $appointmentDetails->locationID));
-					$data['location'] = $this->renderLocationDetailsArray($location->locaties);
+					$data['location'] = self::renderLocationDetailsArray($location->locaties);
 					
 					// foreach product ids and render products details array
-					foreach($appointmentProductsIds as $productId) {
-						
+					foreach ($appointmentProductsIds as $productId) {		
 						$product = $this->api()->getGovProductDetails(array('productID' => $productId));
-						$data['products'][] = $this->renderProductDetailArray($productId, $product->out, TRUE);
+						$data['products'][] = self::renderProductDetailArray($productId, $product->out, TRUE);
 					}
 				}
 			}
@@ -1174,4 +1279,5 @@ class AppointmentController extends BaseController {
 		
 		$this->view->assign('data', $data);
 	}
+	
 }

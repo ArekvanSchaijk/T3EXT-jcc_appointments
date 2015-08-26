@@ -26,75 +26,81 @@ namespace TYPO3\JccAppointments\Controller;
  ***************************************************************/
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\JccAppointments\Utility\TemplateUtility;
+use TYPO3\JccAppointments\Exception;
 
 /**
  * BaseController
- *
- * @package jcc_appointments
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
 class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 	
 	/**
-	 * @var SoapClient $api
+	 * @const integer
+	 */
+	const	CANCEL_NO_SECRETHASH_GIVEN	= 1,
+			CANCEL_INVALID_SECRETHASH	= 2,
+			CANCEL_APPOINTMENT_EXPIRED	= 3,
+			CANCEL_ALREADY_CLOSED		= 4;
+	
+	/**
+	 * @var SoapClient
 	 */ 
 	protected $api;
 	
 	/**
-	 * @var array $userSession
+	 * @var array
 	 */
 	protected $session;
 	
 	/**
-	 * @var array $data
+	 * @var array
 	 */
 	protected $data = array();
 	
 	/**
-	 * @var string $extKey
+	 * @var string
 	 */
-	protected $extKey = 'tx_jccappointments';
+	static protected $extKey = 'tx_jccappointments';
 	
 	/**
-	 * @var string $extensionName
+	 * @var string
 	 */
-	protected $extensionName = 'JccAppointments';
+	static protected $extName = 'JccAppointments';
 	
 	/**
-	 * @var integer $steps
+	 * @var integer
 	 */
 	protected $steps = 5;
 	
 	/**
-	 * @var boolean $stepValidation
+	 * @var boolean
 	 */
 	protected $stepValidation = TRUE;
 	
 	/**
-	 * @var array $params
+	 * @var array
 	 */
 	protected $params;
 	
 	/**
-	 * @const integer CANCEL_NO_SECRETHASH_GIVEN
+	 * @var array
 	 */
-	const CANCEL_NO_SECRETHASH_GIVEN = 1;
+	protected $takeoutTexts = NULL;
 	
 	/**
-	 * @const integer CANCEL_INVALID_SECRETHASH
+	 * @var TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface
+	 * @inject
 	 */
-	const CANCEL_INVALID_SECRETHASH = 2;
+	protected $persistenceManager = NULL;
 	
 	/**
-	 * @const integer CANCEL_APPOINTMENT_EXPIRED
+	 * Takeout Text Repository
+	 *
+	 * @var \TYPO3\JccAppointments\Domain\Repository\TakeoutTextRepository
+	 * @inject
 	 */
-	const CANCEL_APPOINTMENT_EXPIRED = 3;
-	
-	/**
-	 * @const integer CANCEL_ALREADY_CLOSED
-	 */
-	const CANCEL_ALREADY_CLOSED = 4;
+	protected $takeoutTextRepository = NULL;
 	
 	/**
 	 * Constructor
@@ -102,7 +108,6 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return void
 	 */
 	public function __construct() {
-		
 		$this->session = $this->getUserSession();
 	}
 	
@@ -116,14 +121,15 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$this->params = $this->request->getArguments();
 		
 		// checks if the session is expired
-		if($this->isUserSessionExpired()) {
+		if ($this->isUserSessionExpired()) {
 			
 			// removes the current session
 			$this->removeUserSession();
 			
 			// adds a flash message
-			if($this->settings['general']['sessionExpiredMessage'])		
-				$this->addFlashMessage('session.expired.message');	
+			if ($this->settings['general']['sessionExpiredMessage']) {		
+				$this->addFrontendFlashMessage('session.expired.message');
+			}
 				
 			// redirects to step 1
 			$this->redirect(NULL);
@@ -136,23 +142,18 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 *
 	 * @return boolean
 	 */
-	protected function isUserSessionExpired() {
-		
-		$isExpired = FALSE;
-		
-		if(
-			// checks if the setting is set
-			$this->settings['general']['sessionLifetime'] &&
-			// checks if the timestamp is available
-			$this->session['timestamp'] &&
-			// calculated if the session is expired
-			time() - $this->session['timestamp'] > $this->settings['general']['sessionLifetime']
+	protected function isUserSessionExpired() {	
+		// checks if the setting is set
+		if ($this->settings['general']['sessionLifetime']
+				// checks if the timestamp is available
+				&& $this->session['timestamp']
+					// calculated if the session is expired
+					&& time() - $this->session['timestamp'] > $this->settings['general']['sessionLifetime']
 		) {
-			
-			$isExpired = TRUE;
+			return TRUE;
 		}	
 			
-		return $isExpired;
+		return FALSE;
 	}
 
 	/**
@@ -163,22 +164,18 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	protected function api() {
 		
 		// initialize SoapClient if not loaded yet
-		if(!$this->api) {
+		if (!$this->api) {
 			
 			try {
 			
 				$this->api = new \SoapClient($this->settings['soap']['wsdl']);
-				
+
 			} catch(SoapFault $e) {
-				
 				// if the "service unavailable" page id is set we have to forward trough it
-				if($this->settings['soap']['serviceUnavailablePid']) {
-					
-					$this->pageRedirect($this->settings['soap']['serviceUnavailablePid']);
-				
+				if ($this->settings['soap']['serviceUnavailablePid']) {
+					self::pageRedirect($this->settings['soap']['serviceUnavailablePid']);
 				} else {
-					
-					throw new \Exception('The SOAP service is currently unavailable');
+					throw new Exception('The SOAP service is currently unavailable');
 				}
 			}
 		}
@@ -193,10 +190,12 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 */
 	protected function getUserSession() {
 		
-		/** @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $TSFE */
+		/**
+		 * @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
+		 */
 		global $TSFE;
 		
-		return $TSFE->fe_user->getKey('ses', $this->extKey);
+		return $TSFE->fe_user->getKey('ses', self::$extKey);
 	}
 	
 	/**
@@ -207,16 +206,19 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 */
 	protected function setUserSession($data) {
 		
-		/** @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $TSFE */
+		/**
+		 * @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
+		 */
 		global $TSFE;
 		
 		// sets the timestamp (calculated the age of the session)
-		if(!is_null($data))
+		if (!is_null($data)) {
 			$data['timestamp'] = time();
+		}
 		
 		$this->session = $data;
 		
-		$TSFE->fe_user->setKey('ses', $this->extKey, $data);
+		$TSFE->fe_user->setKey('ses', self::$extKey, $data);
 		$TSFE->fe_user->storeSessionData();
 	}
 	
@@ -226,10 +228,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return void
 	 */
 	protected function removeUserSession() {
-		
 		$this->session = NULL;
-		
-		// save session data
 		$this->saveSessionData();
 	}
 	
@@ -239,7 +238,6 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return void
 	 */
 	protected function saveSessionData() {
-		
 		$this->setUserSession($this->session);
 	}
 	
@@ -253,11 +251,12 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	protected function addProductToSession($productId, $product) {
 	
 		// define `products` as array if it doesnt exist yet
-		if(!$this->session['products'])
+		if (!$this->session['products']) {
 			$this->session['products'] = array();
+		}
 			
 		// add product
-		$this->session['products'][] = $this->renderProductDetailArray($productId, $product);
+		$this->session['products'][] = self::renderProductDetailArray($productId, $product);
 
 		// save session data
 		$this->saveSessionData();
@@ -274,14 +273,15 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$canBeChosen = TRUE;
 		
 		// get products that can't be selected more than once
-		if($singleSelection = GeneralUtility::trimExplode(',', $this->settings['products']['singleSelection'], TRUE)) {
+		if ($singleSelection = GeneralUtility::trimExplode(',', $this->settings['products']['singleSelection'], TRUE)) {
 			
 			// get product list from the current session
 			$productsInSession = explode(',', $this->getProductIdList());
 			
 			// check if the product id is marked as product that cannot be selected more than once and already exists in the current session
-			if(in_array($productId, $singleSelection) && in_array($productId, $productsInSession))
+			if (in_array($productId, $singleSelection) && in_array($productId, $productsInSession)) {
 				$canBeChosen = FALSE;
+			}
 		}
 		
 		return $canBeChosen;
@@ -294,8 +294,8 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @param object $product
 	 * @return array
 	 */
-	protected function renderProductDetailArray($productId, $product, $encodeRequisites = FALSE) {
-		
+	static protected function renderProductDetailArray($productId, $product, $encodeRequisites = FALSE) {
+
 		$productDetails = array(
 			'uid'			=> $productId,
 			'name'			=> $product->description,
@@ -303,8 +303,9 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			'requisites'	=> $product->requisites,
 		);
 		
-		if($encodeRequisites)
-			$productDetails['requisites'] = $this->cleanProductRequisites(base64_decode($productDetails['requisites']));
+		if ($encodeRequisites) {
+			$productDetails['requisites'] = self::cleanProductRequisites(base64_decode($productDetails['requisites']));
+		}
 		
 		return $productDetails;
 	}
@@ -315,7 +316,6 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return array
 	 */
 	protected function getProducts() {
-		
 		return $this->session['products'];	
 	}
 	
@@ -329,14 +329,54 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$productArray = array();
 		
 		// foreach session products
-		foreach($this->session['products'] as $product) {
-			
-			$product['requisites'] = $this->cleanProductRequisites(base64_decode($product['requisites']));
+		foreach ($this->session['products'] as $product) {
+			$product['requisites'] = self::cleanProductRequisites(base64_decode($product['requisites']));
 			$productArray[] = $product;
 		}
 		
-		
 		return $productArray;
+	}
+	
+	/**
+	 * Get Takeout Texts
+	 *
+	 * @return array
+	 */
+	protected function getTakeoutTexts() {
+		// lazy loading
+		if (is_null($this->takeoutTexts)) {
+			$this->takeoutTexts = array();
+			// use 'takeout text' object
+			if ($this->settings['products']['takeoutText']['useTypo3Object']) {
+				$takeoutTextArray = array();
+				$takeoutTexts = $this->takeoutTextRepository->findAll()->toArray();
+				if ($takeoutTexts) {
+					foreach ($takeoutTexts as $takeoutText) {
+						$productId = $takeoutText->getProductId();
+						if ($productId) {
+							$takeoutTextArray[$productId] = $takeoutText->getText();	
+						}
+					}
+				}
+				foreach ($this->session['products'] as $product) {
+					if (!isset($this->takeoutTexts[$product['uid']]) && $takeoutTextArray[$product['uid']]) {
+						$product['requisites'] = $takeoutTextArray[$product['uid']];
+						$this->takeoutTexts[$product['uid']] = $product;
+					}
+				}
+			// use jcc requisites
+			} else {
+				foreach ($this->session['products'] as $product) {
+					if (!isset($this->takeoutTexts[$product['uid']])) {
+						$product['requisites'] = self::cleanProductRequisites(base64_decode($product['requisites']));
+						if ($product['requisites']) {
+							$this->takeoutTexts[$product['uid']] = $product;	
+						}
+					}
+				}
+			}
+		}
+		return $this->takeoutTexts;
 	}
 	
 	/**
@@ -346,7 +386,6 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return void
 	 */
 	protected function removeProductKeyFromSession($key) {
-		
 		unset($this->session['products'][$key]);
 		$this->saveSessionData();
 	}
@@ -357,14 +396,10 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return boolean
 	 */
 	protected function isProductsInSession() {
-		
-		$isProducts = FALSE;
-		
-		// check session if products exists
-		if($this->session['products'] && count($this->session['products']) > 0)
-			$isProducts = TRUE;
-			
-		return $isProducts;
+		if ($this->session['products'] && count($this->session['products']) > 0) {
+			return TRUE;
+		}
+		return FALSE;
 	}
 	
 	/**
@@ -377,15 +412,13 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$productList = '';
 		
 		// foreach products
-		foreach($this->session['products'] as $product) {
-			
+		foreach ($this->session['products'] as $product) {
 			$productList .= $product['uid'].',';	
 		}
 		
 		// right trim seperator
 		$productList = rtrim($productList, ',');
 
-		
 		return $productList;
 	}
 	
@@ -394,8 +427,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * 
 	 * @return integer
 	 */
-	protected function getFirstProductFromSession() {
-		
+	protected function getFirstProductFromSession() {		
 		return array_shift(array_values($this->session['products']));
 	}
 	
@@ -405,7 +437,6 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return array
 	 */
 	protected function getSessionProducts() {
-		
 		return $this->session['products'];
 	}
 	
@@ -419,7 +450,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $productsDuration = 0;
 
         // foreach products
-        foreach($this->session['products'] as $product) {
+        foreach ($this->session['products'] as $product) {
 
             // append product duration to total productsDuration
             $productsDuration += $product['duration'];
@@ -435,10 +466,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return void
 	 */
 	protected function addLocationToSession($locationUid) {
-		
 		$this->session['location'] = $locationUid;
-		
-		// save session data
 		$this->saveSessionData();
 	}
 	
@@ -448,14 +476,10 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return boolean
 	 */
 	protected function isLocationInSession() {
-		
-		$isLocation = FALSE;
-		
-		// check session if location exist
-		if($this->session['location'])
-			$isLocation = TRUE;
-			
-		return $isLocation;
+		if ($this->session['location']) {
+			return TRUE;
+		}
+		return FALSE;
 	}
 	
 	/**
@@ -463,8 +487,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 *
 	 * @return integer
 	 */
-	protected function getLocation() {
-		
+	protected function getLocation() {		
 		return $this->session['location'];
 	}
 	
@@ -475,10 +498,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return void
 	 */
 	protected function addDayToSession($day) {
-		
 		$this->session['day'] = $day;
-		
-		// save session data
 		$this->saveSessionData();
 	}
 	
@@ -488,14 +508,10 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return boolean
 	 */
 	protected function isDayInSession() {
-		
-		$isDay = FALSE;
-		
-		// determine if the day is set in the session
-		if($this->session['day'])
-			$isDay = TRUE;
-			
-		return $isDay;	
+		if ($this->session['day']) {
+			return TRUE;
+		}	
+		return FALSE;	
 	}
 	
 	/**
@@ -504,7 +520,6 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return string
 	 */
 	protected function getDay() {
-	
 		return $this->session['day'];
 	}
 	
@@ -537,27 +552,22 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return void
 	 */
 	protected function addDayTimeToSession($time) {
-		
 		$this->session['time'] = $time;
-		
-		// save session data
-		$this->saveSessionData();	
+		$durationInSeconds = $this->getProductsDuration() * 60;
+		$this->session['endTime'] = date('H:i', strtotime($time) + $durationInSeconds);
+		$this->saveSessionData();
 	}
-	
+
 	/**
 	 * Is Day Time In Session
 	 *
 	 * @return boolean
 	 */
 	protected function isDayTimeInSession() {
-		
-		$isDayTime = FALSE;
-		
-		// determine if the day is set in the session
-		if($this->session['time'])
-			$isDayTime = TRUE;
-			
-		return $isDayTime;	
+		if ($this->session['time']) {
+			return TRUE;
+		}
+		return FALSE;	
 	}
 	
 	/**
@@ -566,8 +576,16 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return string
 	 */
 	protected function getDayTime() {
-		
 		return $this->session['time'];	
+	}
+	
+	/**
+	 * Get Day End Time
+	 *
+	 * @return string
+	 */
+	protected function getDayEndTime() {
+		return $this->session['endTime'];	
 	}
 	
 	/**
@@ -577,10 +595,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return void
 	 */
 	protected function addClientDataToSession($clientData) {
-		
 		$this->session['clientData'] = $clientData;
-		
-		// save session data
 		$this->saveSessionData();
 	}
 	
@@ -589,15 +604,11 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 *
 	 * @return boolean
 	 */
-	protected function isClientDataInSession() {
-		
-		$isClientData = FALSE;
-		
-		// determine if the client data is set in the session
-		if($this->session['clientData'])
-			$isClientData = TRUE;
-			
-		return $isClientData;
+	protected function isClientDataInSession() {	
+		if ($this->session['clientData']) {
+			return TRUE;	
+		}
+		return FALSE;
 	}
 	
 	/**
@@ -606,7 +617,6 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return array
 	 */
 	protected function getClientData() {
-		
 		return $this->session['clientData'];
 	}
 
@@ -617,10 +627,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return void
 	 */	
 	protected function addSecretHashInSession($secretHash) {
-		
 		$this->session['secretHash'] = $secretHash;
-		
-		// save session data
 		$this->saveSessionData();
 	}
 	
@@ -630,7 +637,6 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return integer
 	 */
 	protected function getSecretHash() {
-		
 		return $this->session['secretHash'];
 	}
 	
@@ -642,7 +648,6 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return void
 	 */
 	protected function data($key, $value) {
-		
 		$this->data[$key] = $value;	
 	}
 	
@@ -652,10 +657,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return array
 	 */
 	protected function getData() {
-		
-		// bind some general data which can be used in the template to get general things working
 		$this->bindGeneralData();
-
 		return $this->data;	
 	}
 	
@@ -666,7 +668,9 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 */
 	protected function bindGeneralData() {
 		
-		/** @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $TSFE */
+		/**
+		 * @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
+		 */
 		global $TSFE;
 		
 		// binds the baseurl
@@ -682,13 +686,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return integer
 	 */
 	protected function getCurrentStep() {
-		
-		$currentStep = 1;
-		// determine and validate the current step in the user session
-		if($this->session['step'])
-			$currentStep = $this->session['step'];
-		
-		return $currentStep;
+		return ($this->session['step'] ? $this->session['step'] : 1);
 	}
 	
 	/**
@@ -697,11 +695,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return void
 	 */
 	protected function prepareCurrentStep() {
-		
-		// current step function
 		$currentStepFunction = 'step'.$this->getCurrentStep().'Action';
-		
-		// call the current step function
 		$this->$currentStepFunction();
 	}
 	
@@ -711,13 +705,10 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return void
 	 */
 	protected function prepareNextStep() {
-		
-		// current validation function
 		$validateFunction = 'validateStep'.$this->getCurrentStep().'Action';
-		
-		// call $validateFunction if exist
-		if(method_exists($this, $validateFunction))
+		if (method_exists($this, $validateFunction)) {
 			$this->$validateFunction();
+		}
 	}
 	
 	/**
@@ -726,13 +717,10 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return void
 	 */
 	protected function prepareCalendarMode() {
-		
-		// calendar mode function
 		$calendarModeFunction = $this->settings['calendar']['mode'].'ModeCalendarAction';
-		
-		// call $calendarModeFunction if exist
-		if(method_exists($this, $calendarModeFunction))
-			$this->$calendarModeFunction();		
+		if (method_exists($this, $calendarModeFunction)) {
+			$this->$calendarModeFunction();
+		}
 	}
 	
 	/**
@@ -746,20 +734,20 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		
 		$i = 0;		
 		// loop the amount of month numbers
-		while($i < $this->settings['calendar']['range']) {
+		while ($i < $this->settings['calendar']['range']) {
 			
 			// get current year and month
-			if($i == 0):
+			if ($i == 0) {
 				$year = date('Y');
 				$month = date ('m');	
-			else:
-				if($month == 12):
+			} else {
+				if ($month == 12) {
 					$year = $year + 1;
 					$month = 1;
-				else:
+				} else {
 					$month = $month + 1;
-				endif;
-			endif;
+				}
+			}
 			$month = str_pad($month, 2, 0, STR_PAD_LEFT);
 			$monthArray[] = array(
 				'year'	=> $year,
@@ -783,12 +771,12 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$newDatesArray = array();
 		
 		// if $dates is not a array make one of it
-		if(!is_array($dates))
+		if (!is_array($dates))
 			$dates = array($dates);
 		
 		$i = 0;
 		// foreach $dates
-		foreach($dates as $date) {
+		foreach ($dates as $date) {
 			
 			$timestamp = strtotime($date);
 			
@@ -804,9 +792,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			);
 			
 			// inject times in available days
-			if($this->settings['calendar']['default_injectTimesInAvailableDays']) {
-				
-				// get available times of a day
+			if ($this->settings['calendar']['default_injectTimesInAvailableDays']) {
 				$newDatesArray[$i]['times'] = $this->getAvailableTimesByDate($date);
 			}
 			
@@ -834,8 +820,9 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		));
 		
 		// render times array
-		if($times->times)
-			$newTimesArray = $this->renderTimesArray($times->times);
+		if ($times->times) {
+			$newTimesArray = self::renderTimesArray($times->times);
+		}
 		
 		return $newTimesArray;
 	}
@@ -846,23 +833,22 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @param object times
 	 * @return array
 	 */
-	protected function renderTimesArray($times) {
+	static protected function renderTimesArray($times) {
 		
 		$newTimesArray = array();
 		
-		if($times) {
+		if ($times) {
 			
 			// handles $times as an array
-			if(is_array($times)) {
+			if (is_array($times)) {
 						
-				foreach($times as $time) {
-					$newTimesArray[] = $this->convertDateCompoundFormatAsTimeString($time);
+				foreach ($times as $time) {
+					$newTimesArray[] = self::convertDateCompoundFormatAsTimeString($time);
 				}
-				
+
 			// there is just a single time availble
 			} else {
-				
-				$newTimesArray[] = $this->convertDateCompoundFormatAsTimeString($times);
+				$newTimesArray[] = self::convertDateCompoundFormatAsTimeString($times);
 			}
 		}
 			
@@ -878,25 +864,17 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 */
 	protected function isMonthAllowed($key, $monthArray = NULL) {
 		
-		// if $monthArray is NULL build month array
-		if(is_null($monthArray)) {
-			
-			// build month array
+		if (is_null($monthArray)) {
 			$monthArray = $this->buildMonthArray();	
 		}
 		
-		$allowed = FALSE;
-		// lets loop trough the month array and check if the given month is accepted
-		foreach($monthArray as $month) {
-			
-			// match the key of the month with the given argument
-			if($month['key'] == $key) {
-				$allowed = TRUE;
-				break;
+		foreach ($monthArray as $month) {
+			if ($month['key'] == $key) {
+				return TRUE;
 			}
 		}
 		
-		return $allowed;
+		return FALSE;
 	}
 	
 	/**
@@ -906,22 +884,13 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @param array $daysArray
 	 * @return void
 	 */
-	protected function isDateAllowed($date, $daysArray) {
-	
-		$allowed = FALSE;
-		
-		// lets loop trough the days array and check if the given date is accepted
-		foreach($daysArray as $day) {
-			
-			// match the date with the given date
-			if($day['date'] == $date) {
-				$allowed = TRUE;
-				break;	
-			}
-			
-		}
-		
-		return $allowed;
+	static protected function isDateAllowed($date, $daysArray) {
+		foreach ($daysArray as $day) {
+			if ($day['date'] == $date) {
+				return TRUE;
+			}			
+		}		
+		return FALSE;
 	}
 	
 	/**
@@ -931,15 +900,15 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @param array $daysArray
 	 * @return array
 	 */
-	protected function getActiveDayByDate($date, $daysArray) {
+	static protected function getActiveDayByDate($date, $daysArray) {
 		
 		$activeDay = NULL;
 		
 		// lets loop trough the days array and check if the given date is accepted
-		foreach($daysArray as $day) {
+		foreach ($daysArray as $day) {
 			
 			// match the date with the given date
-			if($day['date'] == $date) {
+			if ($day['date'] == $date) {
 				$activeDay = $day;
 				break;	
 			}
@@ -964,8 +933,9 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$backwardModificationFunction = 'backwardModificationStep'.$previousStep.'Action';
 		
 		// call $backwardModificationFunction  if exist
-		if(method_exists($this, $backwardModificationFunction))
+		if (method_exists($this, $backwardModificationFunction)) {
 			$this->$backwardModificationFunction();
+		}
 	}
 	
 	/**
@@ -980,12 +950,12 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$nextStep = $currentStep;
 		
 		// validate if the next step can be processed
-		if($currentStep + 1 <= $this->steps)
+		if ($currentStep + 1 <= $this->steps) {
 			$nextStep = $nextStep + 1;
+		}
 		
 		// turn on the location step if the current step is 1 and locations are disabled
-		if($currentStep == 1 && !$this->isLocation()) {
-			
+		if ($currentStep == 1 && !$this->isLocation()) {
 			$nextStep = 3;
 			$this->session['location'] = $this->settings['location']['locationID'];
 		}
@@ -1008,12 +978,14 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$previousStep = $currentStep;
 		
 		// validate if the previous step can be processed
-		if($currentStep > 1)
+		if ($currentStep > 1) {
 			$previousStep = $previousStep - 1;
-			
+		}
+		
 		// turn on the location step if the current step is 3 and locations are disabled
-		if($currentStep == 3 && !$this->isLocation())
+		if ($currentStep == 3 && !$this->isLocation()) {
 			$previousStep = 1;
+		}
 			
 		$this->session['step'] = $previousStep;
 		
@@ -1033,28 +1005,30 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		
 		$i = 1;
 		// generate progress array
-		while($i <= $this->steps) {
+		while ($i <= $this->steps) {
 			
 			$progress[$i] = array(
 				'step'		=> $i,
-				'label'		=> \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('progress.step'. $i, $this->extensionName),
+				'label'		=> LocalizationUtility::translate('progress.step'. $i, self::$extName),
 				'active'	=> FALSE,
 				'completed' => FALSE,
 			);
 			
-			if($currentStep > $i)
+			if ($currentStep > $i) {
 				$progress[$i]['completed'] = TRUE;
-			
+			}
 			$i++;
 		}
 		
 		// set current step on active
-		if($progress[$currentStep])
+		if ($progress[$currentStep]) {
 			$progress[$currentStep]['active'] = TRUE;
-			
+		}
+		
 		// remove the location step when its disabled by settings 
-		if(!$this->isLocation())
+		if (!$this->isLocation()) {
 			unset($progress[2]);
+		}
 		
 		return $progress;
 	}
@@ -1065,14 +1039,10 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return boolean
 	 */
 	protected function isLocation() {
-		
-		$isLocation = TRUE;
-		
-		// returns FALSE when the location step is disabled and the locationID is given
-		if($this->settings['location']['disable'] && !empty($this->settings['location']['locationID']))
-			$isLocation = FALSE;
-		
-		return $isLocation;	
+		if ($this->settings['location']['disable'] && !empty($this->settings['location']['locationID'])) {
+			return FALSE;
+		}
+		return TRUE;	
 	}
 	
 	/**
@@ -1085,10 +1055,10 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		
 		$productsArray = array();
 
-		if($products) {
+		if ($products) {
 
 			// render a new product array
-			foreach($products as $product) {
+			foreach ($products as $product) {
 				
 				$productsArray[] = array(
 					'uid'	=> $product->productId,
@@ -1099,26 +1069,28 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		}
 		
 		// if the settings 'enableDisplayByAllowed' is set, we should remove unallowed items from the array
-		if($this->settings['products']['enableDisplayByAllowed']) {
+		if ($this->settings['products']['enableDisplayByAllowed']) {
 			
 			$allowed = GeneralUtility::trimExplode(',', $this->settings['products']['allowed'], TRUE);
 			
-			foreach($productsArray as $key => $value) {
+			foreach ($productsArray as $key => $value) {
 			
-				if(!in_array($value['uid'], $allowed))
+				if (!in_array($value['uid'], $allowed)) {
 					unset($productsArray[$key]);
+				}
 			}
 		}
 		
 		// remove excluded products
 		$excluded = GeneralUtility::trimExplode(',', $this->settings['products']['excluded'], TRUE);
 		
-		if($excluded) {
+		if ($excluded) {
 			
-			foreach($productsArray as $key => $value) {
+			foreach ($productsArray as $key => $value) {
 			
-				if(in_array($value['uid'], $excluded))
+				if (in_array($value['uid'], $excluded)) {
 					unset($productsArray[$key]);
+				}
 			}
 		}
 		
@@ -1126,12 +1098,13 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$excludedMultiSelectProducts = GeneralUtility::trimExplode(',', $this->settings['products_multiselect']['excluded'], TRUE);
 		
 		// check if multi select is enabled and if there are products to be excluded from the multiselect feature
-		if($this->settings['products_multiselect']['enabled'] && $excludedMultiSelectProducts) {
+		if ($this->settings['products_multiselect']['enabled'] && $excludedMultiSelectProducts) {
 
-			foreach($productsArray as $key => $value) {
+			foreach ($productsArray as $key => $value) {
 			
-				if(in_array($value['uid'], $excludedMultiSelectProducts))
+				if (in_array($value['uid'], $excludedMultiSelectProducts)) {
 					$productsArray[$key]['excludeFromMultiSelect'] = TRUE;
+				}
 			}
 		}
 		
@@ -1146,11 +1119,12 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	protected function renderMultiSelectItemsArray() {
 		
 		// fallback when the value of this setting is incorrect
-		if(!ctype_digit($this->settings['products_multiselect']['maxAmount']) || $this->settings['products_multiselect']['maxAmount'] == 0)
+		if (!ctype_digit($this->settings['products_multiselect']['maxAmount']) || $this->settings['products_multiselect']['maxAmount'] == 0) {
 			$this->settings['products_multiselect']['maxAmount'] = 4;
-				
+		}
+		
 		$multiSelectItems = array();
-		foreach(range(1, $this->settings['products_multiselect']['maxAmount']) as $item) {
+		foreach (range(1, $this->settings['products_multiselect']['maxAmount']) as $item) {
 			$multiSelectItems[$item] = $item;	
 		}
 		
@@ -1169,16 +1143,16 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$newLocationArray = array();
 		
 		// single location
-		if(!is_array($locations)):
+		if (!is_array($locations)) {
 			$locationsArray[] = $locations;
 		// multiple locations
-		else:
+		} else {
 			$locationsArray = $locations;
-		endif;
+		}
 		
 		$i = 0;
 		// handle locations and render a new location array
-		foreach($locationsArray as $location) {
+		foreach ($locationsArray as $location) {
 			
 			// API get location details
 			$locationDetails = $this->api()->getGovLocationDetails(array('locationID' => $location->locationID));
@@ -1195,10 +1169,8 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			);
 			
 			// check settings if we have to extend the location array with their opening hours
-			if($this->settings['location']['renderOpeningHours']) {
-				
-				// render opening hours by location
-				$newLocationArray[$i]['openingHours'] = $this->renderOpeningHoursByLocation($location);
+			if ($this->settings['location']['renderOpeningHours']) {
+				$newLocationArray[$i]['openingHours'] = self::renderOpeningHoursByLocation($location);
 			}
 			
 			$i++;
@@ -1213,7 +1185,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @param object $location
 	 * @return void
 	 */
-	protected function renderLocationDetailsArray($location) {
+	static protected function renderLocationDetailsArray($location) {
 		
 		$newLocationArray = array(
 			'name'			=> $location->locationDesc,
@@ -1232,18 +1204,18 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @param object $location
 	 * @return array
 	 */
-	protected function renderOpeningHoursByLocation($location) {
+	static protected function renderOpeningHoursByLocation($location) {
 		
 		$openingHoursArray = array();
 		
-		if($location->locationOpeningHours) {
+		if ($location->locationOpeningHours) {
 			
 			// loop opening hours days
-			foreach($location->locationOpeningHours as $openingHours) {
+			foreach ($location->locationOpeningHours as $openingHours) {
 
 				$openingHoursArray[] = array(
 					'day'	=> $openingHours->day,
-					'times'	=> $this->renderTimesByOpeningHours($openingHours),
+					'times'	=> self::renderTimesByOpeningHours($openingHours),
 				);
 			}
 		}
@@ -1257,34 +1229,34 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @param object $times
 	 * @return void
 	 */
-	protected function renderTimesByOpeningHours($times) {
+	static protected function renderTimesByOpeningHours($times) {
 		
 		$timesArray = array();
 		
 		// from time 1 / till time 1
-		if(strpos($times->fromTime1, '0001-01-01T00:00:00.0000000') === FALSE) {
+		if (strpos($times->fromTime1, '0001-01-01T00:00:00.0000000') === FALSE) {
 			
 			$timesArray[] = array(
-				'from'	=> $this->convertDateCompoundFormatAsTimeString($times->fromTime1),
-				'till'	=> $this->convertDateCompoundFormatAsTimeString($times->tillTime1),
+				'from'	=> self::convertDateCompoundFormatAsTimeString($times->fromTime1),
+				'till'	=> self::convertDateCompoundFormatAsTimeString($times->tillTime1),
 			);
 		}
 		
 		// from time 2 / till time 2
-		if(strpos($times->fromTime2, '0001-01-01T00:00:00.0000000') === FALSE) {
+		if (strpos($times->fromTime2, '0001-01-01T00:00:00.0000000') === FALSE) {
 			
 			$timesArray[] = array(
-				'from'	=> $this->convertDateCompoundFormatAsTimeString($times->fromTime2),
-				'till'	=> $this->convertDateCompoundFormatAsTimeString($times->tillTime2),
+				'from'	=> self::convertDateCompoundFormatAsTimeString($times->fromTime2),
+				'till'	=> self::convertDateCompoundFormatAsTimeString($times->tillTime2),
 			);
 		}
 		
 		// from time 3 / till time 3
-		if(strpos($times->fromTime3, '0001-01-01T00:00:00.0000000') === FALSE) {
+		if (strpos($times->fromTime3, '0001-01-01T00:00:00.0000000') === FALSE) {
 			
 			$timesArray[] = array(
-				'from'	=> $this->convertDateCompoundFormatAsTimeString($times->fromTime3),
-				'till'	=> $this->convertDateCompoundFormatAsTimeString($times->tillTime3),
+				'from'	=> self::convertDateCompoundFormatAsTimeString($times->fromTime3),
+				'till'	=> self::convertDateCompoundFormatAsTimeString($times->tillTime3),
 			);
 		}
 		
@@ -1310,8 +1282,8 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		// cancel link
 		$cancel = FALSE;
 		$cancelUrl = '';
-		if($this->settings['general']['enableCancelling'] && $this->settings['general']['cancelPid']) {
-			
+		
+		if ($this->settings['general']['enableCancelling'] && $this->settings['general']['cancelPid']) {
 			$cancel = TRUE;
 			$cancelUrl = $this->getFrontendUri($this->settings['general']['cancelPid'], array('tx_jccappointments_pi2' => array('secretHash' => $this->getSecretHash())));
 		}
@@ -1319,17 +1291,75 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		// variables
 		$variables = array(
 			'products'		=> $this->getProductsAndRenderRequisites(),
+			'takeoutTexts'	=> $this->getTakeoutTexts(),
 			'clientData'	=> $this->session['clientData'],	
-			'location'		=> $this->renderLocationDetailsArray($location->locaties),
+			'location'		=> self::renderLocationDetailsArray($location->locaties),
 			'date'			=> $this->getDayArray(),
 			'time'			=> $this->getDayTime(),
+			'endTime'		=> $this->getDayEndTime(),
 			'cancel'		=> $cancel,
 			'cancelUrl'		=> $cancelUrl,
 		);
-
+		
+		// subject
+		$subject = $this->settings['confirmation']['subject'];
+		if ($this->settings['confirmation']['useFluidTemplateSubject']) {
+			$subject = TemplateUtility::render(
+				array(
+					TemplateUtility::CONFIG_TEMPLATEFILEPATH => $this->settings['confirmation']['subjectTemplatePath'],
+				),
+				$variables
+			);
+			$subject = trim($subject);
+		}
+		
 		// send mail
-		if(!$this->sendMail($sender, $recipients, $this->settings['confirmation']['subject'], $this->settings['confirmation']['templatePath'], $variables))
-			throw new \Exception('The confirmation email could not be sent');
+		if (!$this->sendMail($sender, $recipients, $subject, $this->settings['confirmation']['templatePath'], $variables)) {
+			throw new Exception('The confirmation email could not be sent');
+		}
+	}
+	
+	/**
+	 * Send Cancelled ConfirmationMail
+	 *
+	 * @param \TYPO3\JccAppointments\Domain\Model\Appointment $appointment
+	 * @return void
+	 */
+	protected function sendCancelledConfirmationMail(\TYPO3\JccAppointments\Domain\Model\Appointment $appointment) {
+		
+		// sender
+		$sender = array($this->settings['confirmation']['sender']['email'] => $this->settings['confirmation']['sender']['name']);
+		
+		// client full name
+		$clientFullName = $appointment->setClientInitials();
+		$clientFullName .= ($appointment->getClientInsertions() ? ' '.$appointment->getClientInsertions() : NULL);
+		$clientFullName .= ($appointment->getClientLastName() ? ' '.$appointment->getClientLastName() : NULL);
+		$clientFullName = trim($clientFullName);
+		
+		// recipients
+		$recipients = array($appointment->getClientEmail() => $clientFullName);
+		
+		// variables
+		$variables = array(
+			'appointment' => $appointment,
+		);
+		
+		// subject
+		$subject = $this->settings['confirmation']['cancellation']['subject'];
+		if ($this->settings['confirmation']['cancellation']['useFluidTemplateSubject']) {
+			$subject = TemplateUtility::render(
+				array(
+					TemplateUtility::CONFIG_TEMPLATEFILEPATH => $this->settings['confirmation']['cancellation']['subjectTemplatePath'],
+				),
+				$variables
+			);
+			$subject = trim($subject);
+		}
+		
+		// send mail
+		if (!$this->sendMail($sender, $recipients, $subject, $this->settings['confirmation']['cancellation']['templatePath'], $variables)) {
+			throw new Exception('The cancellation confirmation email could not be sent');
+		}
 	}
 	
 	/**
@@ -1338,8 +1368,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @param string $timeFormat
 	 * @return string
 	 */
-	protected function convertDateCompoundFormatAsTimeString($timeFormat) {
-		
+	static protected function convertDateCompoundFormatAsTimeString($timeFormat) {
 		$date = new \DateTime($timeFormat);
 		return $date->format('H:i');
 	}
@@ -1350,7 +1379,6 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return boolean
 	 */
 	protected function isStepValidated() {
-		
 		return $this->stepValidation;
 	}
 	
@@ -1360,14 +1388,11 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @param string $date
 	 * @return boolean
 	 */
-	protected function validateDate($date) {
-		
-		$isDate = FALSE;
-		
-		if($date && strlen($date) == 10 && strtotime($date))
-			$isDate = TRUE;
-			
-		return $isDate;
+	static protected function validateDate($date) {
+		if ($date && strlen($date) == 10 && strtotime($date)) {
+			return TRUE;
+		}
+		return FALSE;
 	}
 	
 	/**
@@ -1376,14 +1401,11 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @param string $year
 	 * @return boolean
 	 */
-	protected function validateYear($year) {
-		
-		$isYear = FALSE;
-		
-		if($year && ctype_digit($year) && strlen($year) == 4)
-			$isYear = TRUE;
-			
-		return $isYear;
+	static protected function validateYear($year) {
+		if ($year && ctype_digit($year) && strlen($year) == 4) {
+			return TRUE;
+		}
+		return FALSE;
 	}
 	
 	/**
@@ -1392,14 +1414,11 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @param string $month
 	 * @return boolean
 	 */
-	protected function validateMonth($month) {
-		
-		$isMonth = FALSE;
-		
-		if($month && ctype_digit($month) && strlen($month) == 2)
-			$isMonth = TRUE;
-			
-		return $isMonth;
+	static protected function validateMonth($month) {
+		if ($month && ctype_digit($month) && strlen($month) == 2) {
+			return TRUE;	
+		}
+		return FALSE;
 	}
 	
 	/**
@@ -1408,14 +1427,11 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @param string $yearMonth
 	 * @return boolean
 	 */
-	protected function validateYearMonth($yearMonth) {
-		
-		$isYearMonth = FALSE;
-		
-		if($yearMonth && ctype_digit($yearMonth) && strlen($yearMonth) == 6)
-			$isYearMonth = TRUE;
-			
-		return $isYearMonth;
+	static protected function validateYearMonth($yearMonth) {
+		if ($yearMonth && ctype_digit($yearMonth) && strlen($yearMonth) == 6) {
+			return TRUE;
+		}
+		return FALSE;
 	}
 	
 	/**
@@ -1424,14 +1440,11 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @param string $time
 	 * @return void
 	 */
-	protected function validateTime($time) {
-		
-		$isTime = FALSE;
-		
-		if($time && strlen($time) == 5 && ctype_digit(str_ireplace(':', '', $time)))
-			$isTime = TRUE;
-		
-		return $isTime;
+	static protected function validateTime($time) {
+		if ($time && strlen($time) == 5 && ctype_digit(str_ireplace(':', '', $time))) {
+			return TRUE;
+		}
+		return FALSE;
 	}
 	
 	/**
@@ -1441,9 +1454,8 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return void
 	 */
 	protected function setValidationError($languageKey) {
-		
 		$this->stepValidation = FALSE;
-		$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($languageKey, $this->extensionName));
+		$this->flashMessageContainer->add(LocalizationUtility::translate($languageKey, self::$extName));
 	}
 	
 	/**
@@ -1454,14 +1466,10 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return boolean
 	 */
 	protected function isValidation($field, $value) {
-		
-		$valitedIt = FALSE;
-		
-		// field is required OR is not required and not empty
-		if($this->settings['clientdata']['requirements'][$field] || (!$this->settings['clientdata']['requirements'][$field] && !empty($value)))
-			$valitedIt = TRUE;
-			
-		return $valitedIt;
+		if ($this->settings['clientdata']['requirements'][$field] || (!$this->settings['clientdata']['requirements'][$field] && !empty($value))) {
+			return TRUE;
+		}			
+		return FALSE;
 	}
 	
 	/**
@@ -1470,8 +1478,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @param integer $pid
 	 * @return void
 	 */
-	protected function pageRedirect($pid) {
-		
+	static protected function pageRedirect($pid) {
 	    $cObj = GeneralUtility::makeInstance('tslib_cObj');
 	    $url = $cObj->typoLink_URL(array('parameter' => $pid));
 	    \TYPO3\CMS\Core\Utility\HttpUtility::redirect($url);
@@ -1484,8 +1491,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @param string $html
 	 * @return string
 	 */
-	protected function cleanProductRequisites($html) {
-		
+	static protected function cleanProductRequisites($html) {
 		$html = strip_tags($html);
 		$html = str_ireplace(
 			array(
@@ -1508,10 +1514,9 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @param integer $length
 	 * @return string
 	 */
-	protected function makeSecretHash($string, $length = 14) {
-		
+	static protected function makeSecretHash($string, $length = 14) {
 		$hash = sha1(md5($string).time());
-		if($length)
+		if ($length)
 			$hash = substr($hash, 0, $length);
 			
 		return $hash;
@@ -1530,26 +1535,25 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 */
     protected function sendMail(array $sender, array $recipients, $subject, $templatePath, array $variables) {
 		
-		$emailView = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
-		$emailView->setFormat('html');
-		$emailView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($templatePath));
-		$emailView->setLayoutRootPath($layoutRootPath);
-		$emailView->setPartialRootPath($partialRootPath);
-		$emailView->assignMultiple($variables);
-		$emailBody = $emailView->render();
-		$mail = GeneralUtility::makeInstance('TYPO3\CMS\Core\Mail\MailMessage');
+		// template utility
+		$body = TemplateUtility::render(
+			array(
+				TemplateUtility::CONFIG_TEMPLATEFILEPATH => $templatePath,
+			),
+			$variables
+		);
+		
+		$mail = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
 		$mail->setFrom($sender)
 			  ->setTo($recipients)
 			  ->setSubject($subject)
-			  ->setReturnPath($this->settings['email']['returnPath'])
 			  ->setBody($emailBody);
 		
 		// Plain text example
-		$mail->setBody($emailBody, 'text/plain');
+		$mail->setBody($body, 'text/plain');
 		
 		// HTML Email
-		$mail->setBody($emailBody, 'text/html');
-		
+		$mail->setBody($body, 'text/html');
 		$mail->send();
 		
 		return $mail->isSent();
@@ -1564,7 +1568,9 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 */
 	protected function getFrontendUri($pageUid, array $additionalParams = array()) {
 		
-		/** @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $TSFE */
+		/**
+		 * @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
+		 */
 		global $TSFE;
 		
 		// website baseurl
@@ -1587,26 +1593,13 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	}
 	
 	/**
-	 * Persist All
-	 *
-	 * @return void
-	 */
-	protected function persistAll() {
-		// initialize persistanceManager
-		$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\PersistenceManagerInterface');
-		// persistAll
-		$persistenceManager->persistAll();	
-	}
-	
-	
-	/**
-	 * Add Flash Message
+	 * Add Frontend Flash Message
 	 *
 	 * @param string $translationLabel
 	 * @return void
 	 */
-	public function addFlashMessage($translationLabel) {
-		
-		$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($translationLabel, $this->extensionName));
+	public function addFrontendFlashMessage($translationLabel) {
+		$this->flashMessageContainer->add(LocalizationUtility::translate($translationLabel, self::$extName));
 	}
+	
 }

@@ -20,6 +20,9 @@ plugin.tx_jccappointments {
 			allowed = {$plugin.tx_jccappointments.settings.products.allowed}
 			excluded = {$plugin.tx_jccappointments.settings.products.excluded}
 			singleSelection = {$plugin.tx_jccappointments.settings.products.singleSelection}
+			takeoutText {
+				useTypo3Object = {$plugin.tx_jccappointments.settings.products.takeoutText.useTypo3Object}
+			}
 		}
 		products_multiselect {
 			enabled = {$plugin.tx_jccappointments.settings.products_multiselect.enabled}
@@ -36,6 +39,7 @@ plugin.tx_jccappointments {
 			range = {$plugin.tx_jccappointments.settings.calendar.range}
 			default_openfirstmonth = {$plugin.tx_jccappointments.settings.calendar.default_openfirstmonth}
 			default_injectTimesInAvailableDays = {$plugin.tx_jccappointments.settings.calendar.default_injectTimesInAvailableDays}
+			showAll_limitInDays = {$plugin.tx_jccappointments.settings.calendar.showAll_limitInDays}
 		}
 		clientdata {
 			splitAddress = {$plugin.tx_jccappointments.settings.clientdata.splitAddress}
@@ -67,6 +71,15 @@ plugin.tx_jccappointments {
 				email = {$plugin.tx_jccappointments.settings.confirmation.sender.email}
 			}
 			subject = {$plugin.tx_jccappointments.settings.confirmation.subject}
+			useFluidTemplateSubject = {$plugin.tx_jccappointments.settings.confirmation.useFluidTemplateSubject}
+			subjectTemplatePath = {$plugin.tx_jccappointments.settings.confirmation.subjectTemplatePath}
+			cancellation {
+				enable = {$plugin.tx_jccappointments.settings.confirmation.cancellation.enable}
+				templatePath = {$plugin.tx_jccappointments.settings.confirmation.cancellation.templatePath}
+				subject = {$plugin.tx_jccappointments.settings.confirmation.cancellation.subject}
+				useFluidTemplateSubject = {$plugin.tx_jccappointments.settings.confirmation.cancellation.useFluidTemplateSubject}
+				subjectTemplatePath = {$plugin.tx_jccappointments.settings.confirmation.cancellation.subjectTemplatePath}
+			}
 		}
 		sms {
 			enabled = {$plugin.tx_jccappointments.settings.sms.enabled}
@@ -85,6 +98,7 @@ plugin.tx_jccappointments {
 		}
 	}
 }
+module.tx_jccappointments <.plugin.tx_jccappointments
 
 [globalVar = LIT:1 = {$plugin.tx_jccappointments.settings.css.file1.enabled}]
 	page.includeCSS {

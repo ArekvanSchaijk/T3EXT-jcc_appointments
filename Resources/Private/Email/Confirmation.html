@@ -15,6 +15,19 @@ Dear {clientData.fullName},<br />
     </f:for>
   </ul>
 </f:if>
+
+<f:if condition="{data.takeoutTexts}">
+  <h2>{f:translate(key:'confirmation.header_takeouttexts')}</h2>
+  <ul>
+    <f:for each="{data.takeoutTexts}" as="takeoutText">
+      <li>
+        <h3>{takeoutText.name}</h3>
+        <f:format.raw>{takeoutText.requisites}</f:format.raw>
+      </li>
+    </f:for>
+  </ul>
+</f:if>
+
 <f:if condition="{location}">
   <h2>Location</h2>
   <h3>{location.name}</h3>
@@ -22,6 +35,7 @@ Dear {clientData.fullName},<br />
     {location.postalcode} {location.city}<br>
     <strong>Phone</strong> {location.phone} </p>
 </f:if>
+
 <f:if condition="{date}">
   <h2>Date</h2>
   <p>Date: {date.date}<br />

@@ -44,6 +44,35 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 	),
 );
 
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_jccappointments_domain_model_takeouttext');
+$TCA['tx_jccappointments_domain_model_takeouttext'] = array(
+	'ctrl' => array(
+		'title'	=> 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_takeouttext',
+		'label' => 'product_id',
+		'label_userFunc' => 'TYPO3\\JccAppointments\\Handler\\HookHandler->tcaProductName',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'cruser_id' => 'cruser_id',
+		'sortby' => 'sorting',
+		'dividers2tabs' => TRUE,
+		'versioningWS' => 2,
+		'versioning_followPages' => TRUE,
+		'origUid' => 't3_origuid',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l10n_parent',
+		'transOrigDiffSourceField' => 'l10n_diffsource',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+			'starttime' => 'starttime',
+			'endtime' => 'endtime',
+		),
+		'searchFields' => 'text',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/TakeoutText.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_jccappointments_domain_model_takeouttext.gif'
+	),
+);
+
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_jccappointments_domain_model_sms');
 $TCA['tx_jccappointments_domain_model_sms'] = array(
 	'ctrl' => array(

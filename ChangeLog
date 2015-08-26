@@ -1,0 +1,10 @@
+2015-05-25  Arek van Schaijk <info@ucreation.nl>
+
+	* [BUGFIX]: #67070 - Fatal error: Class 'TYPO3\CMS\Core\Messaging\AbstractMessage'
+	* [TASK]: #67026 - Code base cleanup
+	* [FEATURE]: #67021	- Provide an confirmation mail when using the cancelation form
+	* [FEATURE]: #67019 - Provide a array with takeout texts in the templating
+	* [FEATURE]: #67018 - Ability to maintain the takeout texts inside typo3
+	* [FEATURE]: #67017 - New calendar which can show all available days
+ 	* [FEATURE]: #67016 - Provide the endtime of an appointment in the data bundle
+ 	* [FEATURE]: #67015 - Ability to use variables in the mail subject
