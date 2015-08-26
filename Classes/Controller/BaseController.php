@@ -846,6 +846,7 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	protected function getProgress() {
 		
 		$progress = array();
+		$currentStep = $this->getCurrentStep();
 		
 		$i = 1;
 		// generate progress array
@@ -855,14 +856,18 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 				'step'		=> $i,
 				'label'		=> Tx_Extbase_Utility_Localization::translate('progress.step'. $i, $this->extensionName),
 				'active'	=> false,
+				'completed' => false,
 			);
+			
+			if($currentStep > $i)
+				$progress[$i]['completed'] = true;
 			
 			$i++;
 		}
 		
 		// set current step on active
-		if($progress[$this->getCurrentStep()])
-			$progress[$this->getCurrentStep()]['active'] = true;
+		if($progress[$currentStep])
+			$progress[$currentStep]['active'] = true;
 			
 		// remove the location step when it is disabled by settings 
 		if(!$this->isLocation())

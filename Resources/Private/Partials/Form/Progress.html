@@ -2,7 +2,7 @@
   <div class="progress">
     <ul>
       <f:for each="{progress}" as="item">
-    	<f:if condition="{item.active}"><f:then><li class="active step{item.step}"></f:then><f:else><li class="step{item.step}"></f:else></f:if>{item.label}</li>
+    	<f:if condition="{item.active}"><f:then><li class="active step{item.step}"></f:then><f:else><f:if condition="{item.completed}"><f:then><li class="completed step{item.step}"></f:then><f:else><li class="step{item.step}"></f:else></f:if></f:else></f:if>{item.label}</li>
       </f:for>
     </ul>
     <div class="clearboth"> </div>
