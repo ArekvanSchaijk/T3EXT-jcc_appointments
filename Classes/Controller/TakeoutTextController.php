@@ -34,8 +34,6 @@ namespace Ucreation\JccAppointments\Controller;
 class TakeoutTextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 	
 	/**
-	 * Takeout Text Repository
-	 *
 	 * @var \Ucreation\JccAppointments\Domain\Repository\TakeoutTextRepository
 	 * @inject
 	 */

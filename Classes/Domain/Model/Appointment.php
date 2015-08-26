@@ -34,193 +34,143 @@ namespace Ucreation\JccAppointments\Domain\Model;
 class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
-	 * app id
-	 *
-	 * @var \integer
+	 * @var integer
 	 */
 	protected $appId;
 	
 	/**
-	 * app time
-	 *
-	 * @var \integer
+	 * @var integer
 	 */
 	protected $appTime;
 	
 	/**
-	 * secret hash
-	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $secretHash;
 
 	/**
-	 * sms
-	 *
-	 * @var \boolean
+	 * @var boolean
 	 */
 	protected $sms = FALSE;
 	
 	/**
-	 * sms send
-	 *
-	 * @var \boolean
+	 * @var boolean
 	 */
 	protected $smsSend = FALSE;
 	
 	/**
-	 * sms send date
-	 *
 	 * @var int
 	 */
 	protected $smsSendDate;
 	
 	/**
-	 * mail send
-	 *
-	 * @var \boolean
+	 * @var boolean
 	 */
 	protected $mailSend = FALSE;
 	
 	/**
-	 * closed
-	 *
-	 * @var \boolean
+	 * @var boolean
 	 */
 	protected $closed = FALSE;
 	
 	/**
-	 * Client ID
-	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $clientId;
 	
 	/**
-	 * Client Initials
-	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $clientInitials;
 	
 	/**
-	 * Client Insertions
-	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $clientInsertions;
 	
 	/**
-	 * Client Last Name
-	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $clientLastName;
 	
 	/**
-	 * Client Sex
-	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $clientSex;
 	
 	/**
-	 * Client Date Of Birth
-	 *
-	 * @var \integer
+	 * @var integer
 	 */
 	protected $clientDateOfBirth;
 	
 	/**
-	 * Client Street
-	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $clientStreet;
 	
 	/**
-	 * Client Street Number
-	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $clientStreetNumber;
 	
 	/**
-	 * Client Postal Code
-	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $clientPostalCode;
 	
 	/**
-	 * Client City
-	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $clientCity;
 	
 	/**
-	 * Client Phone
-	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $clientPhone;
 	
 	/**
-	 * Client Mobile Phone
-	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $clientMobilePhone;
 	
 	/**
-	 * Client Email
-	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $clientEmail;
 	
 	/**
-	 * Location Name
-	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $locationName;
 	
 	/**
-	 * Location Address
-	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $locationAddress;
 	
 	/**
-	 * Location Postal Code
-	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $locationPostalCode;
 	
 	/**
-	 * Location Phone
-	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $locationPhone;
 	
 	/**
-	 * Returns the app id
+	 * Get App Id
 	 *
-	 * @return \integer $appId
+	 * @return integer
 	 */
 	public function getAppId() {
 		return $this->appId;
 	}
 
 	/**
-	 * Sets the app id
+	 * Set App Id
 	 *
-	 * @param \integer $appId
+	 * @param integer $appId
 	 * @return void
 	 */
 	public function setAppId($appId) {
@@ -228,18 +178,18 @@ class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 	
 	/**
-	 * Returns the app time
+	 * Get App Time
 	 *
-	 * @return \integer $appTime
+	 * @return integer
 	 */
 	public function getAppTime() {
 		return $this->appTime;
 	}
 
 	/**
-	 * Sets the app time
+	 * Set App Time
 	 *
-	 * @param \integer $appTime
+	 * @param integer $appTime
 	 * @return void
 	 */
 	public function setAppTime($appTime) {
@@ -247,18 +197,18 @@ class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 	
 	/**
-	 * Returns the secret hash
+	 * Get Secret Hash
 	 *
-	 * @return \string $secretHash
+	 * @return string
 	 */
 	public function getSecretHash() {
 		return $this->secretHash;
 	}
 
 	/**
-	 * Sets the secret hash
+	 * Set Secret Hash
 	 *
-	 * @param \string $secretHash
+	 * @param string $secretHash
 	 * @return void
 	 */
 	public function setSecretHash($secretHash) {
@@ -266,18 +216,18 @@ class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 	
 	/**
-	 * Returns the sms
+	 * Get Sms
 	 *
-	 * @return \boolean $sms
+	 * @return boolean
 	 */
 	public function getSms() {
 		return $this->sms;
 	}
 
 	/**
-	 * Sets the sms
+	 * Set Sms
 	 *
-	 * @param \boolean $sms
+	 * @param boolean $sms
 	 * @return void
 	 */
 	public function setSms($sms) {
@@ -285,27 +235,27 @@ class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
-	 * Returns the boolean state of sms
+	 * Is Sms
 	 *
-	 * @return \boolean
+	 * @return boolean
 	 */
 	public function isSms() {
 		return $this->getSms();
 	}
 	
 	/**
-	 * Returns the sms send
+	 * Get Sms Send
 	 *
-	 * @return \boolean $smsSend
+	 * @return boolean
 	 */
 	public function getSmsSend() {
 		return $this->smsSend;
 	}
 
 	/**
-	 * Sets the sms send
+	 * Set Sms Send
 	 *
-	 * @param \boolean $smsSend
+	 * @param boolean $smsSend
 	 * @return void
 	 */
 	public function setSmsSend($smsSend) {
@@ -313,27 +263,27 @@ class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
-	 * Returns the boolean state of sms send
+	 * Is Sms Send
 	 *
-	 * @return \boolean
+	 * @return boolean
 	 */
 	public function isSmsSend() {
 		return $this->getSmsSend();
 	}
 	
 	/**
-	 * Returns the sms send date
+	 * Get Sms Send Date
 	 *
-	 * @return \integer $smsSendDate
+	 * @return integer
 	 */
 	public function getSmsSendDate() {
 		return $this->smsSendDate;
 	}
 
 	/**
-	 * Sets the sms send date
+	 * Set Sms Send Date
 	 *
-	 * @param \integer $smsSendDate
+	 * @param integer $smsSendDate
 	 * @return void
 	 */
 	public function setSmsSendDate($smsSendDate) {
@@ -341,18 +291,18 @@ class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 	
 	/**
-	 * Returns the mail send
+	 * Get Mail Send
 	 *
-	 * @return \boolean $mailSend
+	 * @return boolean
 	 */
 	public function getMailSend() {
 		return $this->mailSend;
 	}
 
 	/**
-	 * Sets the mail send
+	 * Set Mail Send
 	 *
-	 * @param \boolean $mailSend
+	 * @param boolean $mailSend
 	 * @return void
 	 */
 	public function setMailSend($mailSend) {
@@ -360,27 +310,27 @@ class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
-	 * Returns the \boolean state of mail send
+	 * Is Mail Send
 	 *
-	 * @return \boolean
+	 * @return boolean
 	 */
 	public function isMailSend() {
 		return $this->getMailSend();
 	}
 	
 	/**
-	 * Returns the closed
+	 * Get Closed
 	 *
-	 * @return \boolean $closed
+	 * @return boolean
 	 */
 	public function getClosed() {
 		return $this->closed;
 	}
 
 	/**
-	 * Sets the closed
+	 * Set Closed
 	 *
-	 * @param \boolean $closed
+	 * @param boolean $closed
 	 * @return void
 	 */
 	public function setClosed($closed) {
@@ -388,27 +338,27 @@ class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
-	 * Returns the \boolean state of closed
+	 * Is Closed
 	 *
-	 * @return \boolean
+	 * @return boolean
 	 */
 	public function isClosed() {
 		return $this->getClosed();
 	}
 	
 	/**
-	 * Returns the client id
+	 * Get Client Id
 	 *
-	 * @return \string $clientId
+	 * @return string
 	 */
 	public function getClientId() {
 		return $this->clientId;
 	}
 
 	/**
-	 * Sets the client id
+	 * Set Client Id
 	 *
-	 * @param \string $clientId
+	 * @param string $clientId
 	 * @return void
 	 */
 	public function setClientId($clientId) {
@@ -416,18 +366,18 @@ class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 	
 	/**
-	 * Returns the client initials
+	 * Get Client Initials
 	 *
-	 * @return \string $clientInitials
+	 * @return string
 	 */
 	public function getClientInitials() {
 		return $this->clientInitials;
 	}
 
 	/**
-	 * Sets the client initials
+	 * Set Client Initials
 	 *
-	 * @param \string $clientInitials
+	 * @param string $clientInitials
 	 * @return void
 	 */
 	public function setClientInitials($clientInitials) {
@@ -435,18 +385,18 @@ class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 	
 	/**
-	 * Returns the client insertions
+	 * Get Client Insertions
 	 *
-	 * @return \string $clientInsertions
+	 * @return string
 	 */
 	public function getClientInsertions() {
 		return $this->clientInsertions;
 	}
 
 	/**
-	 * Sets the client insertions
+	 * Set Client Insertions
 	 *
-	 * @param \string $clientInsertions
+	 * @param string $clientInsertions
 	 * @return void
 	 */
 	public function setClientInsertions($clientInsertions) {
@@ -454,18 +404,18 @@ class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 	
 	/**
-	 * Returns the client last name
+	 * Get Client Last Name
 	 *
-	 * @return \string $clientLastName
+	 * @return string
 	 */
 	public function getClientLastName() {
 		return $this->clientLastName;
 	}
 
 	/**
-	 * Sets the client last name
+	 * Set Client Last Name
 	 *
-	 * @param \string $clientLastName
+	 * @param string $clientLastName
 	 * @return void
 	 */
 	public function setClientLastName($clientLastName) {
@@ -473,18 +423,18 @@ class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 	
 	/**
-	 * Returns the client sex
+	 * Get Client Sex
 	 *
-	 * @return \string $clientSex
+	 * @return string
 	 */
 	public function getClientSex() {
 		return $this->clientSex;
 	}
 
 	/**
-	 * Sets the client last name
+	 * Set Client Sex
 	 *
-	 * @param \string $clientSex
+	 * @param string $clientSex
 	 * @return void
 	 */
 	public function setClientSex($clientSex) {
@@ -492,18 +442,18 @@ class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 	
 	/**
-	 * Returns the client date of birth
+	 * Get Client Date Of Birth
 	 *
-	 * @return int $clientDateOfBirth
+	 * @return integer
 	 */
 	public function getClientDateOfBirth() {
 		return $this->clientDateOfBirth;
 	}
 
 	/**
-	 * Sets the client date of birth
+	 * Set Client Date Of Birth
 	 *
-	 * @param \integer $clientDateOfbirth
+	 * @param integer $clientDateOfbirth
 	 * @return void
 	 */
 	public function setClientDateOfBirth($clientDateOfBirth) {
@@ -511,18 +461,18 @@ class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 	
 	/**
-	 * Returns the client street
+	 * Get Client Street
 	 *
-	 * @return \string $clientStreet
+	 * @return string
 	 */
 	public function getClientStreet() {
 		return $this->clientStreet;
 	}
 
 	/**
-	 * Sets the client street
+	 * Set Client Street
 	 *
-	 * @param \string $clientStreet
+	 * @param string $clientStreet
 	 * @return void
 	 */
 	public function setClientStreet($clientStreet) {
@@ -530,18 +480,18 @@ class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 	
 	/**
-	 * Returns the client street number
+	 * Get Client Street Number
 	 *
-	 * @return \string $clientStreetNumber
+	 * @return string
 	 */
 	public function getClientStreetNumber() {
 		return $this->clientStreetNumber;
 	}
 
 	/**
-	 * Sets the client street number
+	 * Set Client Street Number
 	 *
-	 * @param \string $clientStreetNumber
+	 * @param string $clientStreetNumber
 	 * @return void
 	 */
 	public function setClientStreetNumber($clientStreetNumber) {
@@ -549,18 +499,18 @@ class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 	
 	/**
-	 * Returns the client postal code
+	 * Get Client Postal Code
 	 *
-	 * @return \string $clientPostalCode
+	 * @return string
 	 */
 	public function getClientPostalCode() {
 		return $this->clientPostalCode;
 	}
 
 	/**
-	 * Sets the client postal code
+	 * Set Client Postal Code
 	 *
-	 * @param \string $clientPostalCode
+	 * @param string $clientPostalCode
 	 * @return void
 	 */
 	public function setClientPostalCode($clientPostalCode) {
@@ -568,18 +518,18 @@ class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 	
 	/**
-	 * Returns the client city
+	 * Get Client City
 	 *
-	 * @return \string $clientCity
+	 * @return string
 	 */
 	public function getClientCity() {
 		return $this->clientCity;
 	}
 
 	/**
-	 * Sets the client city
+	 * Set Client City
 	 *
-	 * @param \string $clientCity
+	 * @param string $clientCity
 	 * @return void
 	 */
 	public function setClientCity($clientCity) {
@@ -587,18 +537,18 @@ class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 	
 	/**
-	 * Returns the phone
+	 * Get Client Phone
 	 *
-	 * @return \string $clientPhone
+	 * @return string
 	 */
 	public function getClientPhone() {
 		return $this->clientPhone;
 	}
 
 	/**
-	 * Sets the client phone
+	 * Set Client Phone
 	 *
-	 * @param \string $clientPhone
+	 * @param string $clientPhone
 	 * @return void
 	 */
 	public function setClientPhone($clientPhone) {
@@ -606,18 +556,18 @@ class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 	
 	/**
-	 * Returns the client mobile phone
+	 * Get Client Mobile Phone
 	 *
-	 * @return \string $clientMobilePhone
+	 * @return string
 	 */
 	public function getClientMobilePhone() {
 		return $this->clientMobilePhone;
 	}
 
 	/**
-	 * Sets the client mobile phone
+	 * Set Client Mobile Phone
 	 *
-	 * @param \string $clientMobilePhone
+	 * @param string $clientMobilePhone
 	 * @return void
 	 */
 	public function setClientMobilePhone($clientMobilePhone) {
@@ -625,18 +575,18 @@ class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 	
 	/**
-	 * Returns the client email
+	 * Get Client Email
 	 *
-	 * @return \string $clientEmail
+	 * @return string
 	 */
 	public function getClientEmail() {
 		return $this->clientEmail;
 	}
 
 	/**
-	 * Sets the client email
+	 * Set Client Email
 	 *
-	 * @param \string $clientEmail
+	 * @param string $clientEmail
 	 * @return void
 	 */
 	public function setClientEmail($clientEmail) {
@@ -644,72 +594,72 @@ class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 	
 	/**
-	 * Returns the location name
+	 * Get Location Name
 	 *
-	 * @return \string $locationName
+	 * @return string
 	 */
 	public function getLocationName() {
 		return $this->locationName;
 	}
 
 	/**
-	 * Sets the location name
+	 * Set Location Name
 	 *
-	 * @param \string $locationName
+	 * @param string $locationName
 	 * @return void
 	 */
 	public function setLocationName($locationName) {
 		$this->locationName = $locationName;
 	}
 	/**
-	 * Returns the location address
+	 * Get Location Address
 	 *
-	 * @return \string $locationAddress
+	 * @return string
 	 */
 	public function getLocationAddress() {
 		return $this->locationAddress;
 	}
 
 	/**
-	 * Sets the location address
+	 * Set Location Address
 	 *
-	 * @param \string $locationAddress
+	 * @param string $locationAddress
 	 * @return void
 	 */
 	public function setLocationAddress($locationAddress) {
 		$this->locationAddress = $locationAddress;
 	}
 	/**
-	 * Returns the location postal code
+	 * Get Location Postal Code
 	 *
-	 * @return \string $locationPostalCode
+	 * @return string
 	 */
 	public function getLocationPostalCode() {
 		return $this->locationPostalCode;
 	}
 
 	/**
-	 * Sets the location postal code
+	 * Set Location Postal Code
 	 *
-	 * @param \string $locationPostalCode
+	 * @param string $locationPostalCode
 	 * @return void
 	 */
 	public function setLocationPostalCode($locationPostalCode) {
 		$this->locationPostalCode = $locationPostalCode;
 	}
 	/**
-	 * Returns the location phone
+	 * Get Location Phone
 	 *
-	 * @return \string $locationPhone
+	 * @return string
 	 */
 	public function getLocationPhone() {
 		return $this->locationPhone;
 	}
 
 	/**
-	 * Sets the location phone
+	 * Set Location Phone
 	 *
-	 * @param \string $locationPhone
+	 * @param string $locationPhone
 	 * @return void
 	 */
 	public function setLocationPhone($locationPhone) {

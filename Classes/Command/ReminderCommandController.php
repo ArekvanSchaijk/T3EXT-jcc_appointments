@@ -59,7 +59,8 @@ class ReminderCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\Comman
 	protected $smsRepository;
 
     /**
-     * Initialize the controller.
+     * Initialize Command
+	 *
      * @return void
      */
     protected function initializeCommand() {

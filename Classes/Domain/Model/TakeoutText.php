@@ -44,7 +44,7 @@ class TakeoutText extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $text = '';
 	
 	/**
-	 * Gets the product id
+	 * Get Product Id
 	 *
 	 * @return integer
 	 */
@@ -53,7 +53,7 @@ class TakeoutText extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 	
 	/**
-	 * Sets the product id
+	 * Set Product Id
 	 *
 	 * @param integer $productId
 	 * @return void
@@ -63,7 +63,7 @@ class TakeoutText extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 	
 	/**
-	 * Gets the text
+	 * Get Text
 	 *
 	 * @return string
 	 */
@@ -72,7 +72,7 @@ class TakeoutText extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 	
 	/**
-	 * Sets the text
+	 * Set Text
 	 *
 	 * @param string $text
 	 * @return void

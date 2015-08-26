@@ -36,8 +36,6 @@ use Ucreation\JccAppointments\Exception;
 class AppointmentController extends BaseController {
 	
 	/**
-	 * Appointment Repository
-	 *
 	 * @var \Ucreation\JccAppointments\Domain\Repository\AppointmentRepository
 	 * @inject
 	 */

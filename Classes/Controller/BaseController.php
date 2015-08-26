@@ -162,7 +162,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	/**
 	 * Api
 	 *
-	 * @return SoapClient $api
+	 * @return SoapClient
 	 */
 	protected function api() {
 		
@@ -862,7 +862,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * Is Month Allowed
 	 *
 	 * @param string $key
-	 * @param null/array $monthArray
+	 * @param mixed $monthArray
 	 * @return boolean
 	 */
 	protected function isMonthAllowed($key, $monthArray = NULL) {
@@ -1325,7 +1325,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	/**
 	 * Send Cancelled ConfirmationMail
 	 *
-	 * @param \Ucreation\JccAppointments\Domain\Model\Appointment $appointment
+	 * Ucreation\JccAppointments\Domain\Model\Appointment $appointment
 	 * @return void
 	 */
 	protected function sendCancelledConfirmationMail(\Ucreation\JccAppointments\Domain\Model\Appointment $appointment) {
