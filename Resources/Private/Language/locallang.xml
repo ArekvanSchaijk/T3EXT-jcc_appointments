@@ -25,7 +25,7 @@
       <label index="month.10">October</label>
       <label index="month.11">November</label>
       <label index="month.12">December</label>
-      <label index="progress.step1">Select product</label>
+      <label index="progress.step1">Product selection</label>
       <label index="progress.step2">Location</label>
       <label index="progress.step3">Date &amp; Time</label>
       <label index="progress.step4">Your data</label>
@@ -144,7 +144,7 @@
       <label index="month.10">Oktober</label>
       <label index="month.11">November</label>
       <label index="month.12">December</label>
-      <label index="progress.step1">Selecteer een product</label>
+      <label index="progress.step1">Product selectie</label>
       <label index="progress.step2">Locatie</label>
       <label index="progress.step3">Datum &amp; Tijd</label>
       <label index="progress.step4">Uw gegevens</label>

@@ -628,6 +628,10 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 		
 		$newDatesArray = array();
 		
+		// if $dates is not a array make one of it
+		if(!is_array($dates))
+			$dates = array($dates);
+		
 		$i = 0;
 		// foreach $dates
 		foreach($dates as $date) {
