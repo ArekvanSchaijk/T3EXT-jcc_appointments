@@ -663,11 +663,11 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 		);
 		
 		// client last name
-		$bookData['clientLastname'] = '';
+		$bookData['clientLastName'] = '';
 		if($clientData['middleName']) {
-			$bookData['clientLastname'] .= $clientData['middleName'].' ';
+			$bookData['clientLastName'] .= $clientData['middleName'].' ';
 		}
-		$bookData['clientLastname'] .= $clientData['lastName'];
+		$bookData['clientLastName'] .= $clientData['lastName'];
 		
 		// country
 		if($this->settings['clientdata']['enableCountry'])
