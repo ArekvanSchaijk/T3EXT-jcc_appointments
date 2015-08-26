@@ -826,12 +826,22 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		
 		$newTimesArray = array();
 		
-		// foreach $times
-		foreach($times as $time) {
-
-			$newTimesArray[] = $this->convertDateCompoundFormatAsTimeString($time);
+		if($times) {
+			
+			// handles $times as an array
+			if(is_array($times)) {
+						
+				foreach($times as $time) {
+					$newTimesArray[] = $this->convertDateCompoundFormatAsTimeString($time);
+				}
+				
+			// there is just a single time availble
+			} else {
+				
+				$newTimesArray[] = $this->convertDateCompoundFormatAsTimeString($times);
+			}
 		}
-		
+			
 		return $newTimesArray;
 	}
 	
@@ -1486,6 +1496,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	/**
 	 * Send Mail
 	 *
+
 	 * @param array $recipients
 	 * @param array $sender
 	 * @param string $subject
