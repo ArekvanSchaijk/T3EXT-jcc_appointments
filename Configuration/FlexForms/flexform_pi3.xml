@@ -1,0 +1,30 @@
+<T3DataStructure>
+  <meta>
+    <langDisable>1</langDisable>
+  </meta>
+  <sheets>
+    <General>
+      <ROOT>
+        <TCEforms>
+          <sheetTitle>LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_flexforms.xml:pi3.general</sheetTitle>
+        </TCEforms>
+        <type>array</type>
+        <el>
+          <settings.selection>
+            <TCEforms>
+              <label>LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_flexforms.xml:pi3.general.selection</label>
+              <config>
+                <type>select</type>
+				<foreign_table>tx_jccappointments_domain_model_takeouttext</foreign_table>
+                <size>10</size>
+                <minitems>0</minitems>
+                <maxitems>100</maxitems>
+                <suppress_icons>1</suppress_icons>
+              </config>
+            </TCEforms>
+          </settings.selection>>
+        </el>
+      </ROOT>
+    </General>
+  </sheets>
+</T3DataStructure>

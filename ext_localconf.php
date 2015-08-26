@@ -27,5 +27,17 @@ if (!defined('TYPO3_MODE')) {
 	)
 );
 
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+	'TYPO3.' . $_EXTKEY,
+	'Pi3',
+	array(
+		'TakeoutText' => 'show'
+	),
+	// non-cacheable actions
+	array(
+
+	)
+);
+
 // extbase commandController
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = 'TYPO3\JccAppointments\Command\ReminderCommandController';

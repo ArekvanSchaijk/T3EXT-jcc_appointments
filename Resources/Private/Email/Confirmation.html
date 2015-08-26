@@ -4,14 +4,7 @@ Dear {clientData.fullName},<br />
 <f:if condition="{products}">
   <ul>
     <f:for each="{products}" as="product">
-      <li>
-        <h3>{product.name}</h3>
-        <f:if condition="{product.requisites}">
-          <p>
-            <f:format.raw>{product.requisites}</f:format.raw>
-          </p>
-        </f:if>
-      </li>
+      <li>{product.name}</li>
     </f:for>
   </ul>
 </f:if>

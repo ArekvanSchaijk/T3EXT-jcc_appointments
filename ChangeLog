@@ -1,3 +1,8 @@
+2015-06-10  Arek van Schaijk <info@ucreation.nl>
+
+	* [BUGFIX]: #67311 - The ShowAll calendar mode sortates the months from high to low
+    * [FEATURE]: #67388 - Possibility to show a takeout text on a page as content
+
 2015-05-25  Arek van Schaijk <info@ucreation.nl>
 
 	* [BUGFIX]: #67133 - Wrong takeout texts variable is used in the confirmation template

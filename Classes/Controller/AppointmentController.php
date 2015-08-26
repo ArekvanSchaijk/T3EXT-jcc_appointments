@@ -386,6 +386,9 @@ class AppointmentController extends BaseController {
 				$monthsArray[$day['year'].$day['month']]['availableDays'][] = $day;
 			}
 			
+			// sortates the array so that months will be shown from low to high
+			ksort($monthsArray);
+			
 			// if date is set we should serve the available times of that date
 			if ($this->params['date'] && self::validateDate($this->params['date']) && self::isDateAllowed($this->params['date'], $availableDays)) {
 				
