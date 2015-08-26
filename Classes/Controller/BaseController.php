@@ -25,6 +25,8 @@ namespace TYPO3\JccAppointments\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * BaseController
  *
@@ -165,7 +167,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			
 			try {
 			
-				$this->api = new SoapClient($this->settings['soap']['wsdl']);
+				$this->api = new \SoapClient($this->settings['soap']['wsdl']);
 				
 			} catch(SoapFault $e) {
 				
@@ -176,7 +178,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 				
 				} else {
 					
-					throw new Exception('The SOAP service is currently unavailable');
+					throw new \Exception('The SOAP service is currently unavailable');
 				}
 			}
 		}
@@ -627,7 +629,27 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 */
 	protected function getData() {
 		
+		// bind some general data which can be used in the template to get general things working
+		$this->bindGeneralData();
+
 		return $this->data;	
+	}
+	
+	/**
+	 * Bind General Data
+	 *
+	 * @return void
+	 */
+	protected function bindGeneralData() {
+		
+		/** @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $TSFE */
+		global $TSFE;
+		
+		// binds the baseurl
+		$this->data('baseUrl', $TSFE->baseUrl);
+		
+		// binds the current url of the page
+		$this->data('serverRequestUri', $_SERVER['REQUEST_URI']);
 	}
 	
 	/**
@@ -1259,7 +1281,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
 		// send mail
 		if(!$this->sendMail($sender, $recipients, $this->settings['confirmation']['subject'], $this->settings['confirmation']['templatePath'], $variables))
-			throw new Exception('The confirmation email could not be sent');
+			throw new \Exception('The confirmation email could not be sent');
 	}
 	
 	/**
@@ -1270,7 +1292,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 */
 	protected function convertDateCompoundFormatAsTimeString($timeFormat) {
 		
-		$date = new DateTime($timeFormat);
+		$date = new \DateTime($timeFormat);
 		return $date->format('H:i');
 	}
 	
@@ -1402,7 +1424,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 */
 	protected function pageRedirect($pid) {
 		
-	    $cObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tslib_cObj');
+	    $cObj = GeneralUtility::makeInstance('tslib_cObj');
 	    $url = $cObj->typoLink_URL(array('parameter' => $pid));
 	    \TYPO3\CMS\Core\Utility\HttpUtility::redirect($url);
 		exit;
@@ -1459,14 +1481,14 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 */
     protected function sendMail(array $sender, array $recipients, $subject, $templatePath, array $variables) {
 		
-		$emailView = $this->objectManager->create('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
+		$emailView = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
 		$emailView->setFormat('html');
-		$emailView->setTemplatePathAndFilename(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templatePath));
+		$emailView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($templatePath));
 		$emailView->setLayoutRootPath($layoutRootPath);
 		$emailView->setPartialRootPath($partialRootPath);
 		$emailView->assignMultiple($variables);
 		$emailBody = $emailView->render();
-		$mail = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+		$mail = GeneralUtility::makeInstance('TYPO3\CMS\Core\Mail\MailMessage');
 		$mail->setFrom($sender)
 			  ->setTo($recipients)
 			  ->setSubject($subject)
@@ -1522,7 +1544,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 */
 	protected function persistAll() {
 		// initialize persistanceManager
-		$persistenceManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\PersistenceManagerInterface');
+		$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\PersistenceManagerInterface');
 		// persistAll
 		$persistenceManager->persistAll();	
 	}

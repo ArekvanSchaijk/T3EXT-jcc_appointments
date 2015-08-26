@@ -83,7 +83,7 @@ plugin.tx_jccappointments {
 				# cat=plugin.tx_jccappointments_clientdata_requirements/a/100; type=boolean; label=Client Tel:If set, this field will be required
 				clientTel = 1
 				# cat=plugin.tx_jccappointments_clientdata_requirements/a/110; type=boolean; label=Client Mobile Tel:If set, this field will be required
-				clientMobileTel = 1
+				clientMobileTel = 0
 				# cat=plugin.tx_jccappointments_clientdata_requirements/a/120; type=boolean; label=Client Mail:If set, this field will be required
 				clientMail = 1
 			}

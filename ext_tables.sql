@@ -73,7 +73,7 @@ CREATE TABLE tx_jccappointments_domain_model_sms (
 	recipient_name varchar(255) DEFAULT '' NOT NULL,
 	recipient_number varchar(255) DEFAULT '' NOT NULL,
 	sender_name varchar(255) DEFAULT '' NOT NULL,
-	message text DEFAULT '' NOT NULL,
+	message text NOT NULL,
 	app_id int(11) DEFAULT '0' NOT NULL,
 	status varchar(255) DEFAULT '' NOT NULL,
 	send_date int(11) DEFAULT '0' NOT NULL,

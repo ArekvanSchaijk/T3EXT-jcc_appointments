@@ -51,7 +51,7 @@ class AppointmentController extends BaseController {
 		
 		// prepare current step
 		$this->prepareCurrentStep();
-
+		
 		// view allocations
 		$this->view->assign('step', $this->getCurrentStep());
 		$this->view->assign('data', $this->getData());
@@ -635,7 +635,7 @@ class AppointmentController extends BaseController {
 		
 		// this action can only be called when the current step is 5
 		if($this->getCurrentStep() != 5)
-			throw new Exception('Access denied for this action');
+			throw new \Exception('Access denied for this action');
 			
 		// get client data
 		$clientData = $this->getClientData();
@@ -741,7 +741,7 @@ class AppointmentController extends BaseController {
 			// redirect to the succes pid
 			if(!$this->settings['general']['successPid']) {
 				
-				throw new Exception('Misconfiguration: There is no successPid given');
+				throw new \Exception('Misconfiguration: There is no successPid given');
 				
 			} else {
 				
@@ -756,7 +756,7 @@ class AppointmentController extends BaseController {
 			// redirect to the failed pid
 			if(!$this->settings['general']['failedPid']) {
 				
-				throw new Exception('Misconfiguration: There is no failedPid given');
+				throw new \Exception('Misconfiguration: There is no failedPid given');
 				
 			} else {
 				
