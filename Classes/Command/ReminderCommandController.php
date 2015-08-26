@@ -1,4 +1,5 @@
 <?php
+namespace TYPO3\JccAppointments\Command;
 
 /***************************************************************
  *  Copyright notice
@@ -25,13 +26,13 @@
  ***************************************************************/
 
 /**
- *
+ * ReminderCommandController
  *
  * @package jcc_appointments
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_JccAppointments_Command_ReminderCommandController extends Tx_Extbase_MVC_Controller_CommandController {
+class ReminderCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandController {
 	
 	/**
 	 * Ext Key
@@ -75,14 +76,14 @@ class Tx_JccAppointments_Command_ReminderCommandController extends Tx_Extbase_MV
     protected function initializeCommand() {
 		
 		// initialize extbase configurationManager
-        $this->configurationManager = $this->objectManager->get('Tx_Extbase_Configuration_ConfigurationManager');
+        $this->configurationManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
 		
 		// import settings
-       	$this->settings = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS, $this->extKey, '');
+       	$this->settings = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
 		
 		// import repositories
-		$this->appointmentRepository = $this->objectManager->get('Tx_JccAppointments_Domain_Repository_AppointmentRepository');
-		$this->smsRepository = $this->objectManager->get('Tx_JccAppointments_Domain_Repository_SmsRepository');
+		$this->appointmentRepository = $this->objectManager->get('TYPO3\\JccAppointments\\Domain\\Repository\\AppointmentRepository');
+		$this->smsRepository = $this->objectManager->get('TYPO3\\JccAppointments\\Domain\\Repository\\SmsRepository');
     }
 
     /**
@@ -118,10 +119,10 @@ class Tx_JccAppointments_Command_ReminderCommandController extends Tx_Extbase_MV
 						$variables = array(
 							'appointment' => $appointment
 						);
-						$view = $this->objectManager->create('Tx_Fluid_View_StandaloneView');
+						$view = $this->objectManager->create('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
 						$view->setFormat('text');
-						$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-						$templateRootPath = t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']);
+						$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+						$templateRootPath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']);
 						$templatePathAndFilename = $templateRootPath.'Sms/Reminder.html';
 						$view->setTemplatePathAndFilename($templatePathAndFilename);
 						$view->assignMultiple($variables);
@@ -132,9 +133,9 @@ class Tx_JccAppointments_Command_ReminderCommandController extends Tx_Extbase_MV
 					}				
 				}
 			}
-			return true;
+			return TRUE;
 		}
-		return false;
+		return FALSE;
     }
 	
 	/**
@@ -163,7 +164,7 @@ class Tx_JccAppointments_Command_ReminderCommandController extends Tx_Extbase_MV
 		if($result == '01') {
 			
 			// update appointment
-			$appointment->setSmsSend(true);	
+			$appointment->setSmsSend(TRUE);	
 			$appointment->setSmsSendDate(time());
 			$this->appointmentRepository->update($appointment);
 			
@@ -178,7 +179,7 @@ class Tx_JccAppointments_Command_ReminderCommandController extends Tx_Extbase_MV
 			$fullName = trim($fullName);
 			
 			// save sms
-			$sms = new Tx_JccAppointments_Domain_Model_Sms;
+			$sms = new \TYPO3\JccAppointments\Domain\Model\Sms;
 			$sms->setRecipientName($fullName);
 			$sms->setRecipientNumber($appointment->getClientMobilePhone());
 			$sms->setSenderName($this->settings['confirmation']['sender']['name']);
@@ -188,10 +189,10 @@ class Tx_JccAppointments_Command_ReminderCommandController extends Tx_Extbase_MV
 			$sms->setSendDate(time());
 			$this->smsRepository->add($sms);						
 			
-			return true;
+			return TRUE;
 		}
 		
-		return false;
+		return FALSE;
 	}
 	
 	/**
@@ -204,8 +205,8 @@ class Tx_JccAppointments_Command_ReminderCommandController extends Tx_Extbase_MV
 	private function _httpPost($url, $postData) {		
         $ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
@@ -213,4 +214,3 @@ class Tx_JccAppointments_Command_ReminderCommandController extends Tx_Extbase_MV
         return $result;
     }
 }
-?>

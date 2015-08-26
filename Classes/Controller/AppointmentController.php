@@ -1,4 +1,5 @@
 <?php
+namespace TYPO3\JccAppointments\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -25,30 +26,21 @@
  ***************************************************************/
 
 /**
- *
+ * AppointmentController
  *
  * @package jcc_appointments
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointments_Controller_BaseController {
+class AppointmentController extends BaseController {
 	
 	/**
 	 * appointmentRepository
 	 *
-	 * @var Tx_JccAppointments_Domain_Repository_AppointmentRepository
+	 * @var \TYPO3\JccAppointments\Domain\Repository\AppointmentRepository
+	 * @inject
 	 */
-	protected $appointmentRepository;
-	
-	/**
-	 * injectAppointmentRepository
-	 *
-	 * @param Tx_JccAppointments_Domain_Repository_AppointmentRepository $appointmentRepository
-	 * @return void
-	 */
-	public function injectAppointmentRepository(Tx_JccAppointments_Domain_Repository_AppointmentRepository $appointmentRepository) {
-		$this->appointmentRepository = $appointmentRepository;
-	}
+	protected $appointmentRepository = NULL;
 
 	/**
 	 * Form Action
@@ -115,7 +107,7 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 		// validate product ID 
 		if(!$this->params['product'] || empty($this->params['product']) || !ctype_digit($this->params['product'])) {
 			
-			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.product_doesnt_exist', $this->extensionName));
+			$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.product_doesnt_exist', $this->extensionName));
 			
 		} else {
 			
@@ -125,7 +117,7 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 			// check if the product exist
 			if(!$product->out) {
 				
-				$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.product_doesnt_exist', $this->extensionName));
+				$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.product_doesnt_exist', $this->extensionName));
 				
 			} else {
 				
@@ -229,11 +221,11 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 			// if the month is allowed
 			if(!$this->isMonthAllowed($this->params['year'].$this->params['month'], $months)) {
 				
-				$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_invalid_month', $this->extensionName));
+				$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.calendar_invalid_month', $this->extensionName));
 				
 			} else {
 
-				$this->data('showAvailableDays', true);
+				$this->data('showAvailableDays', TRUE);
 				$this->data('activeYear', $this->params['year']);
 				$this->data('activeMonth', $this->params['month']);
 				$this->data('activeMonthKey', $this->params['year'].$this->params['month']);
@@ -259,7 +251,7 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 					if($this->params['date'] && $this->validateDate($this->params['date']) && $this->isDateAllowed($this->params['date'], $availableDays)) {
 						
 						$this->data('times', $this->getAvailableTimesByDate($this->params['date']));
-						$this->data('showAvailableTimes', true);
+						$this->data('showAvailableTimes', TRUE);
 						$this->data('activeDay', $this->getActiveDayByDate($this->params['date'], $availableDays));
 					}
 				}
@@ -290,11 +282,11 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 			// if the month is allowed
 			if(!$this->isMonthAllowed($this->params['year'].$this->params['month'], $months)) {
 				
-				$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_invalid_month', $this->extensionName));
+				$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.calendar_invalid_month', $this->extensionName));
 				
 			} else {
 
-				$this->data('showAvailableDays', true);
+				$this->data('showAvailableDays', TRUE);
 				$this->data('activeYear', $this->params['year']);
 				$this->data('activeMonth', $this->params['month']);
 				$this->data('activeMonthKey', $this->params['year'].$this->params['month']);
@@ -320,7 +312,7 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 					if($this->params['date'] && $this->validateDate($this->params['date']) && $this->isDateAllowed($this->params['date'], $availableDays)) {
 						
 						$this->data('times', $this->getAvailableTimesByDate($this->params['date']));
-						$this->data('showAvailableTimes', true);
+						$this->data('showAvailableTimes', TRUE);
 						$this->data('activeDay', $this->getActiveDayByDate($this->params['date'], $availableDays));
 					}
 				}
@@ -343,14 +335,14 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 		// check if there is a month selected
 		if(!$this->params['month']) {
 			
-			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_no_month_selected', $this->extensionName));
+			$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.calendar_no_month_selected', $this->extensionName));
 			
 		} else {
 			
 			// validate given year month
 			if(!$this->validateYearMonth($this->params['month'])) {
 				
-				$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_invalid_month', $this->extensionName));
+				$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.calendar_invalid_month', $this->extensionName));
 			
 			} else {
 				
@@ -360,7 +352,7 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 				// the selected month isnt accepted
 				if(!$this->isMonthAllowed($this->params['month'], $months)) {
 					
-					$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_invalid_month', $this->extensionName));
+					$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.calendar_invalid_month', $this->extensionName));
 					
 				} else {
 				
@@ -385,7 +377,7 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 		// checks if there is a date selected
 		if(!$this->params['date']) {
 			
-			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_no_day_selected', $this->extensionName));
+			$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.calendar_no_day_selected', $this->extensionName));
 			$this->redirect(NULL, NULL, NULL, array('year' => $this->params['year'], 'month' => $this->params['month']));
 			
 		} else {
@@ -403,7 +395,7 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 			
 			} else {
 				
-				$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_invalid_day', $this->extensionName));				
+				$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.calendar_invalid_day', $this->extensionName));				
 			}
 			
 			// reselect the current month/year when the arguments are given
@@ -442,7 +434,7 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 		// checks if there is a time selected
 		if(!$this->params['time']) {
 			
-			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_no_time_selected', $this->extensionName));
+			$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.calendar_no_time_selected', $this->extensionName));
 			$this->redirect(NULL, NULL, NULL, $returnArguments);
 				
 		} else {
@@ -450,19 +442,19 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 			// validate given date
 			if(!$this->validateDate($this->params['date'])) {
 				
-				$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_invalid_day', $this->extensionName));
+				$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.calendar_invalid_day', $this->extensionName));
 				unset($returnArguments['date']);
 				$this->redirect(NULL, NULL, NULL, $returnArguments);
 			
 			// validate given time
 			} else if(!$this->validateTime($this->params['time'])) {
 				
-				$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_invalid_time', $this->extensionName));
+				$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.calendar_invalid_time', $this->extensionName));
 				$this->redirect(NULL, NULL, NULL, $returnArguments);
 			
 			} else {
 				
-				$dayAndTimeAllowed = false;
+				$dayAndTimeAllowed = FALSE;
 				
 				// get available times by date
 				$times = $this->getAvailableTimesByDate($this->params['date']);
@@ -473,7 +465,7 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 					// match time with the given time
 					if($time == $this->params['time']) {
 						
-						$dayAndTimeAllowed = true;
+						$dayAndTimeAllowed = TRUE;
 						break;
 					}
 				}
@@ -481,7 +473,7 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 				// if day and time are not allwoed
 				if(!$dayAndTimeAllowed) {
 				
-					$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_day_and_time_not_available', $this->extensionName));
+					$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.calendar_day_and_time_not_available', $this->extensionName));
 					$this->redirect(NULL);
 					
 				} else {
@@ -605,7 +597,7 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 			
 		// if sms
 		if($this->params['clientSms'] && !empty($this->params['clientSms']))
-			$clientData['sms'] = true;
+			$clientData['sms'] = TRUE;
 		
 		// add client data to session
 		$this->addClientDataToSession($clientData);
@@ -697,7 +689,7 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 			$locationData = $this->renderLocationDetailsArray($location->locaties);
 			
 			// create a new appointment object
-			$newAppointment = new Tx_JccAppointments_Domain_Model_Appointment;
+			$newAppointment = new \TYPO3\JccAppointments\Domain\Model\Appointment;
 			$newAppointment->setAppId((int)$appointment->appID);
 			$newAppointment->setAppTime($startAppointmentTime);
 			$newAppointment->setSecretHash($generatedHash);
@@ -1069,8 +1061,8 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 	public function cancelAction() {
 		
 		$data = array();
-		$data['showError'] = false;
-		$data['cancelled'] = false;
+		$data['showError'] = FALSE;
+		$data['cancelled'] = FALSE;
 		
 		// there is no secret hash given
 		if(!$this->params['secretHash'] || empty($this->params['secretHash'])) {
@@ -1108,9 +1100,9 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 			if($this->params['confirm']) {
 				
 				$this->api()->deleteGovAppointment(array('appID' => $appointment->getAppId()));
-				$appointment->setClosed(true);
+				$appointment->setClosed(TRUE);
 				$this->appointmentRepository->update($appointment);
-				$data['cancelled'] = true;
+				$data['cancelled'] = TRUE;
 								
 			// cancelling not confirmed
 			} else {
@@ -1153,7 +1145,7 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 					foreach($appointmentProductsIds as $productId) {
 						
 						$product = $this->api()->getGovProductDetails(array('productID' => $productId));
-						$data['products'][] = $this->renderProductDetailArray($productId, $product->out, true);
+						$data['products'][] = $this->renderProductDetailArray($productId, $product->out, TRUE);
 					}
 				}
 			}
@@ -1162,4 +1154,3 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 		$this->view->assign('data', $data);
 	}
 }
-?>

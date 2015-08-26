@@ -1,4 +1,5 @@
 <?php
+namespace TYPO3\JccAppointments\Domain\Repository;
 
 /***************************************************************
  *  Copyright notice
@@ -25,13 +26,12 @@
  ***************************************************************/
 
 /**
- *
+ * SmsRepository
  *
  * @package jcc_appointments
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_JccAppointments_Domain_Repository_SmsRepository extends Tx_Extbase_Persistence_Repository {
+class SmsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 }
-?>

@@ -12,10 +12,10 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'JCC Appointment Module',
-	'description' => 'This extension provides a Appointment module based on the JCC API',
+	'description' => 'This extension provides a Appointment module based on the JCC Software API',
 	'category' => 'plugin',
 	'shy' => 0,
-	'version' => '1.7.7',
+	'version' => '2.0.0',
 	'dependencies' => 'extbase,fluid',
 	'conflicts' => '',
 	'priority' => '',
@@ -34,7 +34,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'CGLcompliance_note' => '',
 	'constraints' => array(
 		'depends' => array(
-			'typo3' => '4.5.0-6.2.99',
+			'typo3' => '6.1.0-6.2.99',
 		),
 		'conflicts' => array(
 		),
@@ -45,5 +45,3 @@ $EM_CONF[$_EXTKEY] = array(
 	'suggests' => array(
 	),
 );
-
-?>

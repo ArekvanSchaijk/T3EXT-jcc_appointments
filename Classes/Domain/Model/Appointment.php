@@ -1,4 +1,5 @@
 <?php
+namespace TYPO3\JccAppointments\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
@@ -25,48 +26,48 @@
  ***************************************************************/
 
 /**
- *
+ * Appointment
  *
  * @package jcc_appointments
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObject_AbstractEntity {
+class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * app id
 	 *
-	 * @var integer
+	 * @var \integer
 	 */
 	protected $appId;
 	
 	/**
 	 * app time
 	 *
-	 * @var integer
+	 * @var \integer
 	 */
 	protected $appTime;
 	
 	/**
 	 * secret hash
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $secretHash;
 
 	/**
 	 * sms
 	 *
-	 * @var boolean
+	 * @var \boolean
 	 */
-	protected $sms = false;
+	protected $sms = FALSE;
 	
 	/**
 	 * sms send
 	 *
-	 * @var boolean
+	 * @var \boolean
 	 */
-	protected $smsSend = false;
+	protected $smsSend = FALSE;
 	
 	/**
 	 * sms send date
@@ -78,140 +79,140 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * mail send
 	 *
-	 * @var boolean
+	 * @var \boolean
 	 */
-	protected $mailSend = false;
+	protected $mailSend = FALSE;
 	
 	/**
 	 * closed
 	 *
-	 * @var boolean
+	 * @var \boolean
 	 */
-	protected $closed = false;
+	protected $closed = FALSE;
 	
 	/**
 	 * Client ID
 	 *
-	 * @var string
+	 * @var \string
 	 */
-	protected $clientId = false;
+	protected $clientId;
 	
 	/**
 	 * Client Initials
 	 *
-	 * @var string
+	 * @var \string
 	 */
-	protected $clientInitials = false;
+	protected $clientInitials;
 	
 	/**
 	 * Client Insertions
 	 *
-	 * @var string
+	 * @var \string
 	 */
-	protected $clientInsertions = false;
+	protected $clientInsertions;
 	
 	/**
 	 * Client Last Name
 	 *
-	 * @var string
+	 * @var \string
 	 */
-	protected $clientLastName = false;
+	protected $clientLastName;
 	
 	/**
 	 * Client Sex
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $clientSex;
 	
 	/**
 	 * Client Date Of Birth
 	 *
-	 * @var int
+	 * @var \integer
 	 */
-	protected $clientDateOfBirth = false;
+	protected $clientDateOfBirth;
 	
 	/**
 	 * Client Street
 	 *
-	 * @var string
+	 * @var \string
 	 */
-	protected $clientStreet = false;
+	protected $clientStreet;
 	
 	/**
 	 * Client Street Number
 	 *
-	 * @var string
+	 * @var \string
 	 */
-	protected $clientStreetNumber = false;
+	protected $clientStreetNumber;
 	
 	/**
 	 * Client Postal Code
 	 *
-	 * @var string
+	 * @var \string
 	 */
-	protected $clientPostalCode = false;
+	protected $clientPostalCode;
 	
 	/**
 	 * Client City
 	 *
-	 * @var string
+	 * @var \string
 	 */
-	protected $clientCity = false;
+	protected $clientCity;
 	
 	/**
 	 * Client Phone
 	 *
-	 * @var string
+	 * @var \string
 	 */
-	protected $clientPhone = false;
+	protected $clientPhone;
 	
 	/**
 	 * Client Mobile Phone
 	 *
-	 * @var string
+	 * @var \string
 	 */
-	protected $clientMobilePhone = false;
+	protected $clientMobilePhone;
 	
 	/**
 	 * Client Email
 	 *
-	 * @var string
+	 * @var \string
 	 */
-	protected $clientEmail = false;
+	protected $clientEmail;
 	
 	/**
 	 * Location Name
 	 *
-	 * @var string
+	 * @var \string
 	 */
-	protected $locationName = false;
+	protected $locationName;
 	
 	/**
 	 * Location Address
 	 *
-	 * @var string
+	 * @var \string
 	 */
-	protected $locationAddress = false;
+	protected $locationAddress;
 	
 	/**
 	 * Location Postal Code
 	 *
-	 * @var string
+	 * @var \string
 	 */
-	protected $locationPostalCode = false;
+	protected $locationPostalCode;
 	
 	/**
 	 * Location Phone
 	 *
-	 * @var string
+	 * @var \string
 	 */
-	protected $locationPhone = false;
+	protected $locationPhone;
 	
 	/**
 	 * Returns the app id
 	 *
-	 * @return integer $appId
+	 * @return \integer $appId
 	 */
 	public function getAppId() {
 		return $this->appId;
@@ -220,7 +221,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the app id
 	 *
-	 * @param integer $appId
+	 * @param \integer $appId
 	 * @return void
 	 */
 	public function setAppId($appId) {
@@ -230,7 +231,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the app time
 	 *
-	 * @return integer $appTime
+	 * @return \integer $appTime
 	 */
 	public function getAppTime() {
 		return $this->appTime;
@@ -239,7 +240,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the app time
 	 *
-	 * @param integer $appTime
+	 * @param \integer $appTime
 	 * @return void
 	 */
 	public function setAppTime($appTime) {
@@ -249,7 +250,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the secret hash
 	 *
-	 * @return string $secretHash
+	 * @return \string $secretHash
 	 */
 	public function getSecretHash() {
 		return $this->secretHash;
@@ -258,7 +259,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the secret hash
 	 *
-	 * @param string $secretHash
+	 * @param \string $secretHash
 	 * @return void
 	 */
 	public function setSecretHash($secretHash) {
@@ -268,7 +269,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the sms
 	 *
-	 * @return boolean $sms
+	 * @return \boolean $sms
 	 */
 	public function getSms() {
 		return $this->sms;
@@ -277,7 +278,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the sms
 	 *
-	 * @param boolean $sms
+	 * @param \boolean $sms
 	 * @return void
 	 */
 	public function setSms($sms) {
@@ -287,7 +288,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the boolean state of sms
 	 *
-	 * @return boolean
+	 * @return \boolean
 	 */
 	public function isSms() {
 		return $this->getSms();
@@ -296,7 +297,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the sms send
 	 *
-	 * @return boolean $smsSend
+	 * @return \boolean $smsSend
 	 */
 	public function getSmsSend() {
 		return $this->smsSend;
@@ -305,7 +306,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the sms send
 	 *
-	 * @param boolean $smsSend
+	 * @param \boolean $smsSend
 	 * @return void
 	 */
 	public function setSmsSend($smsSend) {
@@ -315,7 +316,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the boolean state of sms send
 	 *
-	 * @return boolean
+	 * @return \boolean
 	 */
 	public function isSmsSend() {
 		return $this->getSmsSend();
@@ -324,7 +325,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the sms send date
 	 *
-	 * @return integer $smsSendDate
+	 * @return \integer $smsSendDate
 	 */
 	public function getSmsSendDate() {
 		return $this->smsSendDate;
@@ -333,7 +334,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the sms send date
 	 *
-	 * @param integer $smsSendDate
+	 * @param \integer $smsSendDate
 	 * @return void
 	 */
 	public function setSmsSendDate($smsSendDate) {
@@ -343,7 +344,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the mail send
 	 *
-	 * @return boolean $mailSend
+	 * @return \boolean $mailSend
 	 */
 	public function getMailSend() {
 		return $this->mailSend;
@@ -352,7 +353,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the mail send
 	 *
-	 * @param boolean $mailSend
+	 * @param \boolean $mailSend
 	 * @return void
 	 */
 	public function setMailSend($mailSend) {
@@ -360,9 +361,9 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	}
 
 	/**
-	 * Returns the boolean state of mail send
+	 * Returns the \boolean state of mail send
 	 *
-	 * @return boolean
+	 * @return \boolean
 	 */
 	public function isMailSend() {
 		return $this->getMailSend();
@@ -371,7 +372,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the closed
 	 *
-	 * @return boolean $closed
+	 * @return \boolean $closed
 	 */
 	public function getClosed() {
 		return $this->closed;
@@ -380,7 +381,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the closed
 	 *
-	 * @param boolean $closed
+	 * @param \boolean $closed
 	 * @return void
 	 */
 	public function setClosed($closed) {
@@ -388,9 +389,9 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	}
 
 	/**
-	 * Returns the boolean state of closed
+	 * Returns the \boolean state of closed
 	 *
-	 * @return boolean
+	 * @return \boolean
 	 */
 	public function isClosed() {
 		return $this->getClosed();
@@ -399,7 +400,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the client id
 	 *
-	 * @return string $clientId
+	 * @return \string $clientId
 	 */
 	public function getClientId() {
 		return $this->clientId;
@@ -408,7 +409,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the client id
 	 *
-	 * @param string $clientId
+	 * @param \string $clientId
 	 * @return void
 	 */
 	public function setClientId($clientId) {
@@ -418,7 +419,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the client initials
 	 *
-	 * @return string $clientInitials
+	 * @return \string $clientInitials
 	 */
 	public function getClientInitials() {
 		return $this->clientInitials;
@@ -427,7 +428,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the client initials
 	 *
-	 * @param string $clientInitials
+	 * @param \string $clientInitials
 	 * @return void
 	 */
 	public function setClientInitials($clientInitials) {
@@ -437,7 +438,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the client insertions
 	 *
-	 * @return string $clientInsertions
+	 * @return \string $clientInsertions
 	 */
 	public function getClientInsertions() {
 		return $this->clientInsertions;
@@ -446,7 +447,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the client insertions
 	 *
-	 * @param string $clientInsertions
+	 * @param \string $clientInsertions
 	 * @return void
 	 */
 	public function setClientInsertions($clientInsertions) {
@@ -456,7 +457,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the client last name
 	 *
-	 * @return string $clientLastName
+	 * @return \string $clientLastName
 	 */
 	public function getClientLastName() {
 		return $this->clientLastName;
@@ -465,7 +466,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the client last name
 	 *
-	 * @param string $clientLastName
+	 * @param \string $clientLastName
 	 * @return void
 	 */
 	public function setClientLastName($clientLastName) {
@@ -475,7 +476,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the client sex
 	 *
-	 * @return string $clientSex
+	 * @return \string $clientSex
 	 */
 	public function getClientSex() {
 		return $this->clientSex;
@@ -484,7 +485,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the client last name
 	 *
-	 * @param string $clientSex
+	 * @param \string $clientSex
 	 * @return void
 	 */
 	public function setClientSex($clientSex) {
@@ -503,7 +504,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the client date of birth
 	 *
-	 * @param int $clientDateOfbirth
+	 * @param \integer $clientDateOfbirth
 	 * @return void
 	 */
 	public function setClientDateOfBirth($clientDateOfBirth) {
@@ -513,7 +514,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the client street
 	 *
-	 * @return string $clientStreet
+	 * @return \string $clientStreet
 	 */
 	public function getClientStreet() {
 		return $this->clientStreet;
@@ -522,7 +523,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the client street
 	 *
-	 * @param string $clientStreet
+	 * @param \string $clientStreet
 	 * @return void
 	 */
 	public function setClientStreet($clientStreet) {
@@ -532,7 +533,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the client street number
 	 *
-	 * @return string $clientStreetNumber
+	 * @return \string $clientStreetNumber
 	 */
 	public function getClientStreetNumber() {
 		return $this->clientStreetNumber;
@@ -541,7 +542,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the client street number
 	 *
-	 * @param string $clientStreetNumber
+	 * @param \string $clientStreetNumber
 	 * @return void
 	 */
 	public function setClientStreetNumber($clientStreetNumber) {
@@ -551,7 +552,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the client postal code
 	 *
-	 * @return string $clientPostalCode
+	 * @return \string $clientPostalCode
 	 */
 	public function getClientPostalCode() {
 		return $this->clientPostalCode;
@@ -560,7 +561,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the client postal code
 	 *
-	 * @param string $clientPostalCode
+	 * @param \string $clientPostalCode
 	 * @return void
 	 */
 	public function setClientPostalCode($clientPostalCode) {
@@ -570,7 +571,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the client city
 	 *
-	 * @return string $clientCity
+	 * @return \string $clientCity
 	 */
 	public function getClientCity() {
 		return $this->clientCity;
@@ -579,7 +580,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the client city
 	 *
-	 * @param string $clientCity
+	 * @param \string $clientCity
 	 * @return void
 	 */
 	public function setClientCity($clientCity) {
@@ -589,7 +590,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the phone
 	 *
-	 * @return string $clientPhone
+	 * @return \string $clientPhone
 	 */
 	public function getClientPhone() {
 		return $this->clientPhone;
@@ -598,7 +599,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the client phone
 	 *
-	 * @param string $clientPhone
+	 * @param \string $clientPhone
 	 * @return void
 	 */
 	public function setClientPhone($clientPhone) {
@@ -608,7 +609,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the client mobile phone
 	 *
-	 * @return string $clientMobilePhone
+	 * @return \string $clientMobilePhone
 	 */
 	public function getClientMobilePhone() {
 		return $this->clientMobilePhone;
@@ -617,7 +618,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the client mobile phone
 	 *
-	 * @param string $clientMobilePhone
+	 * @param \string $clientMobilePhone
 	 * @return void
 	 */
 	public function setClientMobilePhone($clientMobilePhone) {
@@ -627,7 +628,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the client email
 	 *
-	 * @return string $clientEmail
+	 * @return \string $clientEmail
 	 */
 	public function getClientEmail() {
 		return $this->clientEmail;
@@ -636,7 +637,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the client email
 	 *
-	 * @param string $clientEmail
+	 * @param \string $clientEmail
 	 * @return void
 	 */
 	public function setClientEmail($clientEmail) {
@@ -646,7 +647,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the location name
 	 *
-	 * @return string $locationName
+	 * @return \string $locationName
 	 */
 	public function getLocationName() {
 		return $this->locationName;
@@ -655,7 +656,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the location name
 	 *
-	 * @param string $locationName
+	 * @param \string $locationName
 	 * @return void
 	 */
 	public function setLocationName($locationName) {
@@ -664,7 +665,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the location address
 	 *
-	 * @return string $locationAddress
+	 * @return \string $locationAddress
 	 */
 	public function getLocationAddress() {
 		return $this->locationAddress;
@@ -673,7 +674,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the location address
 	 *
-	 * @param string $locationAddress
+	 * @param \string $locationAddress
 	 * @return void
 	 */
 	public function setLocationAddress($locationAddress) {
@@ -682,7 +683,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the location postal code
 	 *
-	 * @return string $locationPostalCode
+	 * @return \string $locationPostalCode
 	 */
 	public function getLocationPostalCode() {
 		return $this->locationPostalCode;
@@ -691,7 +692,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the location postal code
 	 *
-	 * @param string $locationPostalCode
+	 * @param \string $locationPostalCode
 	 * @return void
 	 */
 	public function setLocationPostalCode($locationPostalCode) {
@@ -700,7 +701,7 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Returns the location phone
 	 *
-	 * @return string $locationPhone
+	 * @return \string $locationPhone
 	 */
 	public function getLocationPhone() {
 		return $this->locationPhone;
@@ -709,11 +710,10 @@ class Tx_JccAppointments_Domain_Model_Appointment extends Tx_Extbase_DomainObjec
 	/**
 	 * Sets the location phone
 	 *
-	 * @param string $locationPhone
+	 * @param \string $locationPhone
 	 * @return void
 	 */
 	public function setLocationPhone($locationPhone) {
 		$this->locationPhone = $locationPhone;
 	}
 }
-?>

@@ -173,5 +173,3 @@ $TCA['tx_jccappointments_domain_model_sms'] = array(
 		),
 	),
 );
-
-?>

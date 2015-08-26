@@ -1,4 +1,5 @@
 <?php
+namespace TYPO3\JccAppointments\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -25,13 +26,13 @@
  ***************************************************************/
 
 /**
- *
+ * BaseController
  *
  * @package jcc_appointments
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Controller_ActionController {
+class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 	
 	/**
 	 * @var SoapClient $api
@@ -66,7 +67,7 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	/**
 	 * @var boolean $stepValidation
 	 */
-	protected $stepValidation = true;
+	protected $stepValidation = TRUE;
 	
 	/**
 	 * @var array $params
@@ -120,7 +121,7 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 			
 			// adds a flash message
 			if($this->settings['general']['sessionExpiredMessage'])			
-				$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('session.expired.message', $this->extensionName));
+				$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('session.expired.message', $this->extensionName));
 				
 			// redirects to step 1
 			$this->redirect(NULL);
@@ -135,7 +136,7 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	 */
 	protected function isUserSessionExpired() {
 		
-		$isExpired = false;
+		$isExpired = FALSE;
 		
 		if(
 			// checks if the setting is set
@@ -146,7 +147,7 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 			time() - $this->session['timestamp'] > $this->settings['general']['sessionLifetime']
 		) {
 			
-			$isExpired = true;
+			$isExpired = TRUE;
 		}	
 			
 		return $isExpired;
@@ -190,7 +191,10 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	 */
 	protected function getUserSession() {
 		
-		return $GLOBALS['TSFE']->fe_user->getKey('ses', $this->extKey);
+		/** @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $TSFE */
+		global $TSFE;
+		
+		return $TSFE->fe_user->getKey('ses', $this->extKey);
 	}
 	
 	/**
@@ -201,14 +205,17 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	 */
 	protected function setUserSession($data) {
 		
+		/** @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $TSFE */
+		global $TSFE;
+		
 		// sets the timestamp (calculated the age of the session)
 		if(!is_null($data))
 			$data['timestamp'] = time();
 		
 		$this->session = $data;
 		
-		$GLOBALS['TSFE']->fe_user->setKey('ses', $this->extKey, $data);
-		$GLOBALS['TSFE']->fe_user->storeSessionData();
+		$TSFE->fe_user->setKey('ses', $this->extKey, $data);
+		$TSFE->fe_user->storeSessionData();
 	}
 	
 	/**
@@ -261,7 +268,7 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	 * @param object $product
 	 * @return array
 	 */
-	protected function renderProductDetailArray($productId, $product, $encodeRequisites = false) {
+	protected function renderProductDetailArray($productId, $product, $encodeRequisites = FALSE) {
 		
 		$productDetails = array(
 			'uid'			=> $productId,
@@ -325,11 +332,11 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	 */
 	protected function isProductsInSession() {
 		
-		$isProducts = false;
+		$isProducts = FALSE;
 		
 		// check session if products exists
 		if($this->session['products'] && count($this->session['products']) > 0)
-			$isProducts = true;
+			$isProducts = TRUE;
 			
 		return $isProducts;
 	}
@@ -416,11 +423,11 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	 */
 	protected function isLocationInSession() {
 		
-		$isLocation = false;
+		$isLocation = FALSE;
 		
 		// check session if location exist
 		if($this->session['location'])
-			$isLocation = true;
+			$isLocation = TRUE;
 			
 		return $isLocation;
 	}
@@ -456,11 +463,11 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	 */
 	protected function isDayInSession() {
 		
-		$isDay = false;
+		$isDay = FALSE;
 		
 		// determine if the day is set in the session
 		if($this->session['day'])
-			$isDay = true;
+			$isDay = TRUE;
 			
 		return $isDay;	
 	}
@@ -518,11 +525,11 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	 */
 	protected function isDayTimeInSession() {
 		
-		$isDayTime = false;
+		$isDayTime = FALSE;
 		
 		// determine if the day is set in the session
 		if($this->session['time'])
-			$isDayTime = true;
+			$isDayTime = TRUE;
 			
 		return $isDayTime;	
 	}
@@ -558,11 +565,11 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	 */
 	protected function isClientDataInSession() {
 		
-		$isClientData = false;
+		$isClientData = FALSE;
 		
 		// determine if the client data is set in the session
 		if($this->session['clientData'])
-			$isClientData = true;
+			$isClientData = TRUE;
 			
 		return $isClientData;
 	}
@@ -822,13 +829,13 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 			$monthArray = $this->buildMonthArray();	
 		}
 		
-		$allowed = false;
+		$allowed = FALSE;
 		// lets loop trough the month array and check if the given month is accepted
 		foreach($monthArray as $month) {
 			
 			// match the key of the month with the given argument
 			if($month['key'] == $key) {
-				$allowed = true;
+				$allowed = TRUE;
 				break;
 			}
 		}
@@ -845,14 +852,14 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	 */
 	protected function isDateAllowed($date, $daysArray) {
 	
-		$allowed = false;
+		$allowed = FALSE;
 		
 		// lets loop trough the days array and check if the given date is accepted
 		foreach($daysArray as $day) {
 			
 			// match the date with the given date
 			if($day['date'] == $date) {
-				$allowed = true;
+				$allowed = TRUE;
 				break;	
 			}
 			
@@ -974,20 +981,20 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 			
 			$progress[$i] = array(
 				'step'		=> $i,
-				'label'		=> Tx_Extbase_Utility_Localization::translate('progress.step'. $i, $this->extensionName),
-				'active'	=> false,
-				'completed' => false,
+				'label'		=> \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('progress.step'. $i, $this->extensionName),
+				'active'	=> FALSE,
+				'completed' => FALSE,
 			);
 			
 			if($currentStep > $i)
-				$progress[$i]['completed'] = true;
+				$progress[$i]['completed'] = TRUE;
 			
 			$i++;
 		}
 		
 		// set current step on active
 		if($progress[$currentStep])
-			$progress[$currentStep]['active'] = true;
+			$progress[$currentStep]['active'] = TRUE;
 			
 		// remove the location step when its disabled by settings 
 		if(!$this->isLocation())
@@ -1003,11 +1010,11 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	 */
 	protected function isLocation() {
 		
-		$isLocation = true;
+		$isLocation = TRUE;
 		
-		// return 'false' if the location step is disabled and the locationID is given
+		// returns FALSE when the location step is disabled and the locationID is given
 		if($this->settings['location']['disable'] && !empty($this->settings['location']['locationID']))
-			$isLocation = false;
+			$isLocation = FALSE;
 		
 		return $isLocation;	
 	}
@@ -1185,7 +1192,7 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 		$timesArray = array();
 		
 		// from time 1 / till time 1
-		if(strpos($times->fromTime1, '0001-01-01T00:00:00.0000000') === false) {
+		if(strpos($times->fromTime1, '0001-01-01T00:00:00.0000000') === FALSE) {
 			
 			$timesArray[] = array(
 				'from'	=> $this->convertDateCompoundFormatAsTimeString($times->fromTime1),
@@ -1194,7 +1201,7 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 		}
 		
 		// from time 2 / till time 2
-		if(strpos($times->fromTime2, '0001-01-01T00:00:00.0000000') === false) {
+		if(strpos($times->fromTime2, '0001-01-01T00:00:00.0000000') === FALSE) {
 			
 			$timesArray[] = array(
 				'from'	=> $this->convertDateCompoundFormatAsTimeString($times->fromTime2),
@@ -1203,7 +1210,7 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 		}
 		
 		// from time 3 / till time 3
-		if(strpos($times->fromTime3, '0001-01-01T00:00:00.0000000') === false) {
+		if(strpos($times->fromTime3, '0001-01-01T00:00:00.0000000') === FALSE) {
 			
 			$timesArray[] = array(
 				'from'	=> $this->convertDateCompoundFormatAsTimeString($times->fromTime3),
@@ -1231,11 +1238,11 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 		$location = $this->api()->getGovLocationDetails(array('locationID' => $this->getLocation()));
 		
 		// cancel link
-		$cancel = false;
+		$cancel = FALSE;
 		$cancelUrl = '';
 		if($this->settings['general']['enableCancelling'] && $this->settings['general']['cancelPid']) {
 			
-			$cancel = true;
+			$cancel = TRUE;
 			$cancelUrl = $this->getFrontendUri($this->settings['general']['cancelPid'], array('tx_jccappointments_pi2' => array('secretHash' => $this->getSecretHash())));
 		}
 		
@@ -1285,10 +1292,10 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	 */
 	protected function validateDate($date) {
 		
-		$isDate = false;
+		$isDate = FALSE;
 		
 		if($date && strlen($date) == 10 && strtotime($date))
-			$isDate = true;
+			$isDate = TRUE;
 			
 		return $isDate;
 	}
@@ -1301,10 +1308,10 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	 */
 	protected function validateYear($year) {
 		
-		$isYear = false;
+		$isYear = FALSE;
 		
 		if($year && ctype_digit($year) && strlen($year) == 4)
-			$isYear = true;
+			$isYear = TRUE;
 			
 		return $isYear;
 	}
@@ -1317,10 +1324,10 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	 */
 	protected function validateMonth($month) {
 		
-		$isMonth = false;
+		$isMonth = FALSE;
 		
 		if($month && ctype_digit($month) && strlen($month) == 2)
-			$isMonth = true;
+			$isMonth = TRUE;
 			
 		return $isMonth;
 	}
@@ -1333,10 +1340,10 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	 */
 	protected function validateYearMonth($yearMonth) {
 		
-		$isYearMonth = false;
+		$isYearMonth = FALSE;
 		
 		if($yearMonth && ctype_digit($yearMonth) && strlen($yearMonth) == 6)
-			$isYearMonth = true;
+			$isYearMonth = TRUE;
 			
 		return $isYearMonth;
 	}
@@ -1349,10 +1356,10 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	 */
 	protected function validateTime($time) {
 		
-		$isTime = false;
+		$isTime = FALSE;
 		
 		if($time && strlen($time) == 5 && ctype_digit(str_ireplace(':', '', $time)))
-			$isTime = true;
+			$isTime = TRUE;
 		
 		return $isTime;
 	}
@@ -1365,8 +1372,8 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	 */
 	protected function setValidationError($languageKey) {
 		
-		$this->stepValidation = false;
-		$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate($languageKey, $this->extensionName));
+		$this->stepValidation = FALSE;
+		$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($languageKey, $this->extensionName));
 	}
 	
 	/**
@@ -1378,11 +1385,11 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	 */
 	protected function isValidation($field, $value) {
 		
-		$valitedIt = false;
+		$valitedIt = FALSE;
 		
 		// field is required OR is not required and not empty
 		if($this->settings['clientdata']['requirements'][$field] || (!$this->settings['clientdata']['requirements'][$field] && !empty($value)))
-			$valitedIt = true;
+			$valitedIt = TRUE;
 			
 		return $valitedIt;
 	}
@@ -1395,9 +1402,9 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	 */
 	protected function pageRedirect($pid) {
 		
-	    $cObj = t3lib_div::makeInstance('tslib_cObj');
+	    $cObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tslib_cObj');
 	    $url = $cObj->typoLink_URL(array('parameter' => $pid));
-	    t3lib_utility_Http::redirect($url);
+	    \TYPO3\CMS\Core\Utility\HttpUtility::redirect($url);
 		exit;
 	}
 	
@@ -1452,14 +1459,14 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	 */
     protected function sendMail(array $sender, array $recipients, $subject, $templatePath, array $variables) {
 		
-		$emailView = $this->objectManager->create('Tx_Fluid_View_StandaloneView');
+		$emailView = $this->objectManager->create('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
 		$emailView->setFormat('html');
-		$emailView->setTemplatePathAndFilename(t3lib_div::getFileAbsFileName($templatePath));
+		$emailView->setTemplatePathAndFilename(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templatePath));
 		$emailView->setLayoutRootPath($layoutRootPath);
 		$emailView->setPartialRootPath($partialRootPath);
 		$emailView->assignMultiple($variables);
 		$emailBody = $emailView->render();
-		$mail = t3lib_div::makeInstance('t3lib_mail_Message');
+		$mail = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
 		$mail->setFrom($sender)
 			  ->setTo($recipients)
 			  ->setSubject($subject)
@@ -1486,8 +1493,11 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	 */
 	protected function getFrontendUri($pageUid, array $additionalParams = array()) {
 		
+		/** @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $TSFE */
+		global $TSFE;
+		
 		// website baseurl
-		$baseUrl = rtrim($GLOBALS['TSFE']->baseUrl, '/').'/';
+		$baseUrl = rtrim($TSFE->baseUrl, '/').'/';
 		
 		// get uri builder
 		$uriBuilder = $this->controllerContext->getUriBuilder();
@@ -1496,7 +1506,7 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 		// set target page uid
 		->setTargetPageUid($pageUid)
 		// set use cache hash
-		->setUseCacheHash(true)
+		->setUseCacheHash(TRUE)
 		// set arguments
 		->setArguments($additionalParams)
 		// build
@@ -1512,9 +1522,8 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	 */
 	protected function persistAll() {
 		// initialize persistanceManager
-		$persistenceManager = t3lib_div::makeInstance('Tx_Extbase_Persistence_Manager');
+		$persistenceManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\PersistenceManagerInterface');
 		// persistAll
 		$persistenceManager->persistAll();	
 	}
 }
-?>

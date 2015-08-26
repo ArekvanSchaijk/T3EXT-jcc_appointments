@@ -1,4 +1,5 @@
 <?php
+namespace TYPO3\JccAppointments\Domain\Repository;
 
 /***************************************************************
  *  Copyright notice
@@ -25,13 +26,13 @@
  ***************************************************************/
 
 /**
- *
+ * AppointmentRepository
  *
  * @package jcc_appointments
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_JccAppointments_Domain_Repository_AppointmentRepository extends Tx_Extbase_Persistence_Repository {
+class AppointmentRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	
 	/**
 	 * Find Unsend Sms
@@ -40,7 +41,7 @@ class Tx_JccAppointments_Domain_Repository_AppointmentRepository extends Tx_Extb
 	 * @param mixed $limit
 	 * @return array
 	 */
-	public function findUnsendSms($interval, $limit = false) {
+	public function findUnsendSms($interval, $limit = FALSE) {
 		
 		$query = $this->createQuery();
 		
@@ -57,7 +58,7 @@ class Tx_JccAppointments_Domain_Repository_AppointmentRepository extends Tx_Extb
 		);
 		
         $query->setOrderings(array(
-			'uid' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING
+			'uid' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
 		));
 		
 		if($limit)
@@ -66,4 +67,3 @@ class Tx_JccAppointments_Domain_Repository_AppointmentRepository extends Tx_Extb
         return $query->execute();
 	}
 }
-?>
