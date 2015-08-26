@@ -29,6 +29,8 @@ plugin.tx_jccappointments {
 			allowed = 
 			# cat=plugin.tx_jccappointments_products/a/030; type=string; label=Exclude Product Ids:Comma seperated list of products that need to be excluded
 			excluded = 
+			# cat=plugin.tx_jccappointments_products/a/040; type=string; label=Single Selection:Comma seperated list of products that can't be added more than once
+			singleSelection = 
 		}
 		products_multiselect {
 			# cat=plugin.tx_jccappointments_products_multiselect/a/010; type=boolean; label=Enable MultiSelect:If set, this option allows to select the amount of a products to be ordered at once

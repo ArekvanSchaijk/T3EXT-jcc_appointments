@@ -122,8 +122,8 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			$this->removeUserSession();
 			
 			// adds a flash message
-			if($this->settings['general']['sessionExpiredMessage'])			
-				$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('session.expired.message', $this->extensionName));
+			if($this->settings['general']['sessionExpiredMessage'])		
+				$this->addFlashMessage('session.expired.message');	
 				
 			// redirects to step 1
 			$this->redirect(NULL);
@@ -261,6 +261,30 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
 		// save session data
 		$this->saveSessionData();
+	}
+	
+	/**
+	 * Check Products That Cant Be Selected More Than Once
+	 *
+	 * @param integer $productId
+	 * @return boolean
+	 */
+	protected function checkProductsThatCantBeSelectedMoreThanOnce($productId) {
+		
+		$canBeChosen = TRUE;
+		
+		// get products that can't be selected more than once
+		if($singleSelection = GeneralUtility::trimExplode(',', $this->settings['products']['singleSelection'], TRUE)) {
+			
+			// get product list from the current session
+			$productsInSession = explode(',', $this->getProductIdList());
+			
+			// check if the product id is marked as product that cannot be selected more than once and already exists in the current session
+			if(in_array($productId, $singleSelection) && in_array($productId, $productsInSession))
+				$canBeChosen = FALSE;
+		}
+		
+		return $canBeChosen;
 	}
 	
 	/**
@@ -1119,7 +1143,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 *
 	 * @return array
 	 */
-	public function renderMultiSelectItemsArray() {
+	protected function renderMultiSelectItemsArray() {
 		
 		// fallback when the value of this setting is incorrect
 		if(!ctype_digit($this->settings['products_multiselect']['maxAmount']) || $this->settings['products_multiselect']['maxAmount'] == 0)
@@ -1572,5 +1596,17 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\PersistenceManagerInterface');
 		// persistAll
 		$persistenceManager->persistAll();	
+	}
+	
+	
+	/**
+	 * Add Flash Message
+	 *
+	 * @param string $translationLabel
+	 * @return void
+	 */
+	public function addFlashMessage($translationLabel) {
+		
+		$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($translationLabel, $this->extensionName));
 	}
 }

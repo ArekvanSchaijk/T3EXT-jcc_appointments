@@ -19,6 +19,7 @@ plugin.tx_jccappointments {
 			enableDisplayByAllowed = {$plugin.tx_jccappointments.settings.products.enableDisplayByAllowed}
 			allowed = {$plugin.tx_jccappointments.settings.products.allowed}
 			excluded = {$plugin.tx_jccappointments.settings.products.excluded}
+			singleSelection = {$plugin.tx_jccappointments.settings.products.singleSelection}
 		}
 		products_multiselect {
 			enabled = {$plugin.tx_jccappointments.settings.products_multiselect.enabled}

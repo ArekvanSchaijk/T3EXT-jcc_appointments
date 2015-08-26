@@ -93,6 +93,7 @@
       <label index="message.no_available_times_in_day">There is no time available this day</label>
       <label index="validation.product_doesnt_exist">The selected product doesnt exist</label>
 	  <label index="validation.product_amount_not_allowed">Invalid amount of products chosen</label>
+	  <label index="validation.product_already_exists">This product is already chosen and can't be chosen more than once</label>
       <label index="validation.no_product_selected">You have to select at least one product</label>
       <label index="validation.no_location_selected">You have to select a location</label>
       <label index="validation.no_day_or_time_selected">You have not selected a day or time</label>
@@ -228,6 +229,8 @@
       <label index="message.no_available_days_in_month">Er is geen dag beschikbaar deze maand om een afspraak te maken</label>
       <label index="message.no_available_times_in_day">Er is op deze dag geen tijd meer beschikbaar om een afspraak te maken</label>
       <label index="validation.product_doesnt_exist">Dit product bestaat niet</label>
+	  <label index="validation.product_amount_not_allowed">Ongeldig aantal van dit product geselecteerd</label>
+	  <label index="validation.product_already_exists">Dit product heeft u al gekozen en kan niet vaker worden gekozen</label>
       <label index="validation.no_product_selected">U dient tenminste één product selecteren</label>
       <label index="validation.no_location_selected">Geef de locatie aan door er op te klikken</label>
       <label index="validation.no_day_or_time_selected">U heeft geen dag of tijd geselecteerd</label>

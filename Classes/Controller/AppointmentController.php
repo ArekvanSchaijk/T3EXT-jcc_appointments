@@ -108,49 +108,51 @@ class AppointmentController extends BaseController {
 	 * @return void
 	 */
 	public function addProductAction() {
-
+		
 		// validate product ID 
 		if(!$this->params['product'] || empty($this->params['product']) || !ctype_digit($this->params['product'])) {
-			
-			$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.product_doesnt_exist', $this->extensionName));
-			
+			$this->addFlashMessage('validation.product_doesnt_exist');			
 		} else {
 			
-			// API get product details
-			$product = $this->api()->getGovProductDetails(array('productID' => $this->params['product']));
-			
-			// check if the product exist
-			if(!$product->out) {
-				
-				$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.product_doesnt_exist', $this->extensionName));
-				
+			// checks product that cant be selected more than once
+			if(!$this->checkProductsThatCantBeSelectedMoreThanOnce($this->params['product'])) {
+				$this->addFlashMessage('validation.product_already_exists');				
 			} else {
+			
+				// API get product details
+				$product = $this->api()->getGovProductDetails(array('productID' => $this->params['product']));
 				
-				// add multiple products
-				if($this->params['multiSelect'] && $this->params['amount'] > 1) {
-				
-					// validate the amount
-					if(!ctype_digit($this->params['amount']) || $this->params['amount'] > $this->settings['products_multiselect']['maxAmount']) {
-						
-						$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.product_amount_not_allowed', $this->extensionName));
-						
-					} else {
-						
-						$curItem = 1;
-						while($curItem <= $this->params['amount']) {
-							
-							// add product to session
-							$this->addProductToSession($this->params['product'], $product->out);
-							
-							$curItem++;	
-						}	
-					}
-				
-				// add single product	
+				// check if the product exist
+				if(!$product->out) {
+					$this->addFlashMessage('validation.product_doesnt_exist');					
 				} else {
-				
-					// add product to session
-					$this->addProductToSession($this->params['product'], $product->out);
+					
+					// add multiple products
+					if($this->params['multiSelect'] && $this->params['amount'] > 1) {
+					
+						// validate the amount
+						if(!ctype_digit($this->params['amount']) || $this->params['amount'] > $this->settings['products_multiselect']['maxAmount']) {
+							$this->addFlashMessage('validation.product_amount_not_allowed');							
+						} else {
+							
+							$curItem = 1;
+							while($curItem <= $this->params['amount']) {
+								
+					
+								
+								// add product to session
+								$this->addProductToSession($this->params['product'], $product->out);
+								
+								$curItem++;	
+							}	
+						}
+					
+					// add single product	
+					} else {
+					
+						// add product to session
+						$this->addProductToSession($this->params['product'], $product->out);
+					}
 				}
 			}
 		}
@@ -249,9 +251,7 @@ class AppointmentController extends BaseController {
 			
 			// if the month is allowed
 			if(!$this->isMonthAllowed($this->params['year'].$this->params['month'], $months)) {
-				
-				$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.calendar_invalid_month', $this->extensionName));
-				
+				$this->addFlashMessage('validation.calendar_invalid_month');
 			} else {
 
 				$this->data('showAvailableDays', TRUE);
@@ -310,9 +310,7 @@ class AppointmentController extends BaseController {
 			
 			// if the month is allowed
 			if(!$this->isMonthAllowed($this->params['year'].$this->params['month'], $months)) {
-				
-				$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.calendar_invalid_month', $this->extensionName));
-				
+				$this->addFlashMessage('validation.calendar_invalid_month');
 			} else {
 
 				$this->data('showAvailableDays', TRUE);
@@ -363,16 +361,12 @@ class AppointmentController extends BaseController {
 		
 		// check if there is a month selected
 		if(!$this->params['month']) {
-			
-			$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.calendar_no_month_selected', $this->extensionName));
-			
+			$this->addFlashMessage('validation.calendar_no_month_selected');
 		} else {
 			
 			// validate given year month
 			if(!$this->validateYearMonth($this->params['month'])) {
-				
-				$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.calendar_invalid_month', $this->extensionName));
-			
+				$this->addFlashMessage('validation.calendar_invalid_month');
 			} else {
 				
 				// build month array
@@ -380,9 +374,7 @@ class AppointmentController extends BaseController {
 				
 				// the selected month isnt accepted
 				if(!$this->isMonthAllowed($this->params['month'], $months)) {
-					
-					$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.calendar_invalid_month', $this->extensionName));
-					
+					$this->addFlashMessage('validation.calendar_invalid_month');
 				} else {
 				
 					$postedMonth = str_split($this->params['month'], 4);
@@ -406,7 +398,7 @@ class AppointmentController extends BaseController {
 		// checks if there is a date selected
 		if(!$this->params['date']) {
 			
-			$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.calendar_no_day_selected', $this->extensionName));
+			$this->addFlashMessage('validation.calendar_no_day_selected');
 			$this->redirect(NULL, NULL, NULL, array('year' => $this->params['year'], 'month' => $this->params['month']));
 			
 		} else {
@@ -424,7 +416,7 @@ class AppointmentController extends BaseController {
 			
 			} else {
 				
-				$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.calendar_invalid_day', $this->extensionName));				
+				$this->addFlashMessage('validation.calendar_invalid_day');
 			}
 			
 			// reselect the current month/year when the arguments are given
@@ -463,7 +455,7 @@ class AppointmentController extends BaseController {
 		// checks if there is a time selected
 		if(!$this->params['time']) {
 			
-			$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.calendar_no_time_selected', $this->extensionName));
+			$this->addFlashMessage('validation.calendar_no_time_selected');
 			$this->redirect(NULL, NULL, NULL, $returnArguments);
 				
 		} else {
@@ -471,14 +463,14 @@ class AppointmentController extends BaseController {
 			// validate given date
 			if(!$this->validateDate($this->params['date'])) {
 				
-				$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.calendar_invalid_day', $this->extensionName));
+				$this->addFlashMessage('validation.calendar_invalid_day');
 				unset($returnArguments['date']);
 				$this->redirect(NULL, NULL, NULL, $returnArguments);
 			
 			// validate given time
 			} else if(!$this->validateTime($this->params['time'])) {
 				
-				$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.calendar_invalid_time', $this->extensionName));
+				$this->addFlashMessage('validation.calendar_invalid_time');
 				$this->redirect(NULL, NULL, NULL, $returnArguments);
 			
 			} else {
@@ -502,7 +494,7 @@ class AppointmentController extends BaseController {
 				// if day and time are not allwoed
 				if(!$dayAndTimeAllowed) {
 				
-					$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.calendar_day_and_time_not_available', $this->extensionName));
+					$this->addFlashMessage('validation.calendar_day_and_time_not_available');
 					$this->redirect(NULL);
 					
 				} else {
