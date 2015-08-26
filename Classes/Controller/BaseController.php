@@ -1115,7 +1115,12 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		if(!ctype_digit($this->settings['products_multiselect']['maxAmount']) || $this->settings['products_multiselect']['maxAmount'] == 0)
 			$this->settings['products_multiselect']['maxAmount'] = 4;
 				
-		return range(1, $this->settings['products_multiselect']['maxAmount']);
+		$multiSelectItems = array();
+		foreach(range(1, $this->settings['products_multiselect']['maxAmount']) as $item) {
+			$multiSelectItems[$item] = $item;	
+		}
+		
+		return $multiSelectItems;
 	}
 	
 	/**

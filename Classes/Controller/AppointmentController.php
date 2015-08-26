@@ -136,7 +136,7 @@ class AppointmentController extends BaseController {
 						
 					} else {
 						
-						$curItem = 0;
+						$curItem = 1;
 						while($curItem <= $this->params['amount']) {
 							
 							// add product to session
