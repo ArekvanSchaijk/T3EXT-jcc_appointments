@@ -1,4 +1,17 @@
 <f:renderFlashMessages />
+<f:if condition="{data.selectedProducts}">
+  <div id="product_list">
+    <h2>{f:translate(key:'selected_products.header')}</h2>
+    <p>{f:translate(key:'selected_products.description')}</p>
+    <ul>
+      <f:for each="{data.selectedProducts}" as="product" key="key">
+        <li>{product.name}
+          <f:link.action action="removeProduct" arguments="{productKey : key}">{f:translate(key:'selected_products.button_removeproduct')}</f:link.action>
+        </li>
+      </f:for>
+    </ul>
+  </div>
+</f:if>
 <f:if condition="{data.products}">
   <f:then>
     <div id="product_list">
@@ -14,19 +27,6 @@
     </div>
   </f:then>
   <f:else></f:else>
-</f:if>
-<f:if condition="{data.selectedProducts}">
-  <div id="product_list">
-    <h2>{f:translate(key:'selected_products.header')}</h2>
-    <p>{f:translate(key:'selected_products.description')}</p>
-    <ul>
-      <f:for each="{data.selectedProducts}" as="product" key="key">
-        <li>{product.name}
-          <f:link.action action="removeProduct" arguments="{productKey : key}">{f:translate(key:'selected_products.button_removeproduct')}</f:link.action>
-        </li>
-      </f:for>
-    </ul>
-  </div>
 </f:if>
 <div id="controls">
   <div class="next">

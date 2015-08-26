@@ -1051,7 +1051,8 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 			if($this->params['confirm']) {
 				
 				$this->api()->deleteGovAppointment(array('appID' => $appointment->getAppId()));
-				$this->appointmentRepository->remove($appointment);
+				$appointment->setClosed(true);
+				$this->appointmentRepository->update($appointment);
 				$data['cancelled'] = true;
 								
 			// cancelling not confirmed

@@ -134,6 +134,7 @@
 	  <label index="cancel.location">Location</label>
 	  <label index="cancel.confirm">Click to confirm appointment cancelling</label>
 	  <label index="cancel.succesfully">The appointment is cancelled succesfully.</label>
+	  <label index="session.expired.message">Your session is expired. You can fill out the form again.</label>
     </languageKey>
     <languageKey index="nl" type="array">
       <label index="day.0">Zondag</label>
@@ -264,6 +265,7 @@
 	  <label index="cancel.location">Locatie</label>
 	  <label index="cancel.confirm">Ja, zeg mijn afspraak af.</label>
 	  <label index="cancel.succesfully">Bedankt. Uw afspraak is succesvol afgezegd.</label>
+	  <label index="session.expired.message">Uw vorige sessie is verlopen. U kunt het formulier opnieuw invullen.</label>
     </languageKey>
   </data>
 </T3locallang>

@@ -111,6 +111,28 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	public function initializeAction() {
 		
 		$this->params = $this->request->getArguments();
+		
+		// checks if the session is expired
+		if(
+			// checks if the setting is set
+			$this->settings['general']['sessionLifetime'] &&
+			// checks if the timestamp is available
+			$this->session['timestamp'] &&
+			// calculated if the session is expired
+			time() - $this->session['timestamp'] > $this->settings['general']['sessionLifetime']
+		) {
+			
+			// removes the current session
+			$this->removeUserSession();
+			
+			// adds a flash message
+			if($this->settings['general']['sessionExpiredMessage'])			
+				$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('session.expired.message', $this->extensionName));
+				
+			// redirects to step 1
+			$this->redirect(NULL);
+			exit;
+		}
 	}
 
 	/**
@@ -161,8 +183,13 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	 * @return void
 	 */
 	protected function setUserSession($data) {
-
+		
+		// sets the timestamp (calculated the age of the session)
+		if(!is_null($data))
+			$data['timestamp'] = time();
+		
 		$this->session = $data;
+		
 		$GLOBALS['TSFE']->fe_user->setKey('ses', $this->extKey, $data);
 		$GLOBALS['TSFE']->fe_user->storeSessionData();
 	}
@@ -1189,7 +1216,7 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 		// cancel link
 		$cancel = false;
 		$cancelUrl = '';
-		if($this->settings['general']['enableCancel'] && $this->settings['general']['cancelPid']) {
+		if($this->settings['general']['enableCancelling'] && $this->settings['general']['cancelPid']) {
 			
 			$cancel = true;
 			$cancelUrl = $this->getFrontendUri($this->settings['general']['cancelPid'], array('tx_jccappointments_pi2' => array('secretHash' => $this->getSecretHash())));

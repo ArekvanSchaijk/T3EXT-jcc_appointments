@@ -68,7 +68,9 @@ plugin.tx_jccappointments {
 			mollie_password = {$plugin.tx_jccappointments.settings.sms.mollie_password}
 		}
 		general {
-			enableCancel = {$plugin.tx_jccappointments.settings.general.enableCancel}
+			sessionLifetime = {$plugin.tx_jccappointments.settings.general.sessionLifetime}
+			sessionExpiredMessage = {$plugin.tx_jccappointments.settings.general.sessionExpiredMessage}
+			enableCancelling = {$plugin.tx_jccappointments.settings.general.enableCancelling}
 			cancelPid = {$plugin.tx_jccappointments.settings.general.cancelPid}
 			successPid = {$plugin.tx_jccappointments.settings.general.successPid}
 			failedPid = {$plugin.tx_jccappointments.settings.general.failedPid}
