@@ -94,19 +94,16 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 	 * @return void
 	 */
 	public function addProductAction() {
-		
-		// get arguments
-		$arguments = $this->request->getArguments();
 
 		// validate product ID 
-		if(!$arguments['product'] || empty($arguments['product']) || !ctype_digit($arguments['product'])) {
+		if(!$this->params['product'] || empty($this->params['product']) || !ctype_digit($this->params['product'])) {
 			
 			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.product_doesnt_exist', $this->extensionName));
 			
 		} else {
 			
 			// API get product details
-			$product = $this->api()->getGovProductDetails(array('productID' => $arguments['product']));
+			$product = $this->api()->getGovProductDetails(array('productID' => $this->params['product']));
 			
 			// check if the product exist
 			if(!$product->out) {
@@ -116,7 +113,7 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 			} else {
 				
 				// add product to session
-				$this->addProductToSession($arguments['product'], $product->out);
+				$this->addProductToSession($this->params['product'], $product->out);
 			}
 		}
 		
@@ -131,12 +128,9 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 	 */
 	public function removeProductAction() {
 		
-		// get arguments
-		$arguments = $this->request->getArguments();
-		
 		// remove product key from session
-		if(ctype_digit($arguments['productKey']))
-			$this->removeProductKeyFromSession($arguments['productKey']);
+		if(ctype_digit($this->params['productKey']))
+			$this->removeProductKeyFromSession($this->params['productKey']);
 
 		// redirect back to the form action
 		$this->redirect(NULL);
@@ -163,20 +157,17 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 	 */
 	public function chooseLocationAction() {
 		
-		// get arguments
-		$arguments = $this->request->getArguments();
-		
 		// validate given location
-		if($arguments['location'] && !empty($arguments['location']) && ctype_digit($arguments['location'])) {
+		if($this->params['location'] && !empty($this->params['location']) && ctype_digit($this->params['location'])) {
 			
 			// API get location details
-			$location = $this->api()->getGovLocationDetails(array('locationID' => $arguments['location']));
+			$location = $this->api()->getGovLocationDetails(array('locationID' => $this->params['location']));
 			$location = $location->locaties;
 			
 			// check if the choosen location exist
 			if($location->locationDesc) {
 				
-				$this->addLocationToSession($arguments['location']);
+				$this->addLocationToSession($this->params['location']);
 			}
 		}
 		
@@ -204,43 +195,38 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 	 */
 	public function defaultModeCalendarAction() {
 		
-		// get arguments
-		$arguments = $this->request->getArguments();
-		
 		// build month array
 		$months = $this->buildMonthArray();
 		
 		// if there is no month selected yet we have and the configuration "open first month" is set we have to redirect 
-		if($this->settings['calendar']['default_openfirstmonth'] && (!$arguments['year'] || !$arguments['month'])) {
-
+		if($this->settings['calendar']['default_openfirstmonth'] && (!$this->params['year'] || !$this->params['month']))
 			$this->redirect('defaultModeCalendarSelectMonth', NULL, NULL, array('month' => date('Ym')));
-		}
 		
 		if(
 			// validate given year
-			$this->validateYear($arguments['year'])
+			$this->validateYear($this->params['year'])
 			// validate given month
-			&& $this->validateMonth($arguments['month'])
+			&& $this->validateMonth($this->params['month'])
 		) {
 			
 			// if the month is allowed
-			if(!$this->isMonthAllowed($arguments['year'].$arguments['month'], $months)) {
+			if(!$this->isMonthAllowed($this->params['year'].$this->params['month'], $months)) {
 				
 				$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_invalid_month', $this->extensionName));
 				
 			} else {
 
 				$this->data('showAvailableDays', true);
-				$this->data('activeYear', $arguments['year']);
-				$this->data('activeMonth', $arguments['month']);
-				$this->data('activeMonthKey', $arguments['year'].$arguments['month']);
+				$this->data('activeYear', $this->params['year']);
+				$this->data('activeMonth', $this->params['month']);
+				$this->data('activeMonthKey', $this->params['year'].$this->params['month']);
 
 				// API get gov available days
 				$availableDays = $this->api()->getGovAvailableDays(array(
 					'locationID'	=> $this->getLocation(),
 					'productID'		=> $this->getProductIdList(),
-					'startDate'		=> $arguments['year'].'-'.$arguments['month'].'-01',
-					'endDate'		=> $arguments['year'].'-'.$arguments['month'].'-'.cal_days_in_month(CAL_GREGORIAN, $arguments['month'], $arguments['year']),
+					'startDate'		=> $this->params['year'].'-'.$this->params['month'].'-01',
+					'endDate'		=> $this->params['year'].'-'.$this->params['month'].'-'.cal_days_in_month(CAL_GREGORIAN, $this->params['month'], $this->params['year']),
 					'appDuration'	=> $this->getProductsDuration(),
 				));
 				
@@ -253,11 +239,72 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 					$this->data('days', $availableDays);
 					
 					// if date is set we should serve the available times of that date
-					if($arguments['date'] && $this->validateDate($arguments['date']) && $this->isDateAllowed($arguments['date'], $availableDays)) {
+					if($this->params['date'] && $this->validateDate($this->params['date']) && $this->isDateAllowed($this->params['date'], $availableDays)) {
 						
-						$this->data('times', $this->getAvailableTimesByDate($arguments['date']));
+						$this->data('times', $this->getAvailableTimesByDate($this->params['date']));
 						$this->data('showAvailableTimes', true);
-						$this->data('activeDay', $this->getActiveDayByDate($arguments['date'], $availableDays));
+						$this->data('activeDay', $this->getActiveDayByDate($this->params['date'], $availableDays));
+					}
+				}
+			}
+		}
+		
+		$this->data('months', $months);
+		$this->data('year', date('Y'));
+	}
+	
+	/**
+	 * Selection Mode Calendar Action
+	 *
+	 * @return void
+	 */
+	public function selectionModeCalendarAction() {
+		
+		// build month array
+		$months = $this->buildMonthArray();
+		
+		if(
+			// validate given year
+			$this->validateYear($this->params['year'])
+			// validate given month
+			&& $this->validateMonth($this->params['month'])
+		) {
+			
+			// if the month is allowed
+			if(!$this->isMonthAllowed($this->params['year'].$this->params['month'], $months)) {
+				
+				$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_invalid_month', $this->extensionName));
+				
+			} else {
+
+				$this->data('showAvailableDays', true);
+				$this->data('activeYear', $this->params['year']);
+				$this->data('activeMonth', $this->params['month']);
+				$this->data('activeMonthKey', $this->params['year'].$this->params['month']);
+
+				// API get gov available days
+				$availableDays = $this->api()->getGovAvailableDays(array(
+					'locationID'	=> $this->getLocation(),
+					'productID'		=> $this->getProductIdList(),
+					'startDate'		=> $this->params['year'].'-'.$this->params['month'].'-01',
+					'endDate'		=> $this->params['year'].'-'.$this->params['month'].'-'.cal_days_in_month(CAL_GREGORIAN, $this->params['month'], $this->params['year']),
+					'appDuration'	=> $this->getProductsDuration(),
+				));
+				
+				// if there are available days
+				if($availableDays->dates) {
+					
+					$availableDays = $this->renderAvailableDaysArray($availableDays->dates);
+					
+					// render available days array
+					$this->data('days', $availableDays);
+					
+					// if date is set we should serve the available times of that date
+					if($this->params['date'] && $this->validateDate($this->params['date']) && $this->isDateAllowed($this->params['date'], $availableDays)) {
+						
+						$this->data('times', $this->getAvailableTimesByDate($this->params['date']));
+						$this->data('showAvailableTimes', true);
+						$this->data('activeDay', $this->getActiveDayByDate($this->params['date'], $availableDays));
 					}
 				}
 			}
@@ -276,30 +323,35 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 		
 		$returnedArguments = NULL;
 		
-		// get arguments
-		$arguments = $this->request->getArguments();
-		
-		// validate given year month
-		if(!$this->validateYearMonth($arguments['month'])) {
+		// check if there is a month selected
+		if(!$this->params['month']) {
 			
-			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_invalid_month', $this->extensionName));
-		
+			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_no_month_selected', $this->extensionName));
+			
 		} else {
 			
-			// build month array
-			$months = $this->buildMonthArray();
-			
-			// the selected month isnt accepted
-			if(!$this->isMonthAllowed($arguments['month'], $months)) {
+			// validate given year month
+			if(!$this->validateYearMonth($this->params['month'])) {
 				
 				$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_invalid_month', $this->extensionName));
-				
-			} else {
 			
-				$postedMonth = str_split($arguments['month'], 4);
+			} else {
 				
-				$returnedArguments['year'] = $postedMonth[0];
-				$returnedArguments['month'] = $postedMonth[1];
+				// build month array
+				$months = $this->buildMonthArray();
+				
+				// the selected month isnt accepted
+				if(!$this->isMonthAllowed($this->params['month'], $months)) {
+					
+					$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_invalid_month', $this->extensionName));
+					
+				} else {
+				
+					$postedMonth = str_split($this->params['month'], 4);
+					
+					$returnedArguments['year'] = $postedMonth[0];
+					$returnedArguments['month'] = $postedMonth[1];
+				}
 			}
 		}
 		
@@ -313,39 +365,45 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 	 */
 	protected function defaultModeCalendarSelectDayAction() {
 		
-		// get arguments
-		$arguments = $this->request->getArguments();
-		
-		if(
-			// validate given date
-			$this->validateDate($arguments['date'])
-			// validate given year
-			&& $this->validateYear($arguments['year'])
-			// validate given month
-			&& $this->validateMonth($arguments['month'])
-		) {
+		// checks if there is a date selected
+		if(!$this->params['date']) {
 			
-			$this->redirect(NULL, NULL, NULL, array('year' => $arguments['year'], 'month' => $arguments['month'], 'date' => $arguments['date']));
-		
-		} else {
-			
-			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_invalid_day', $this->extensionName));				
-		}
-		
-		// reselect the current month/year when the arguments are given
-		if(
-			// validate given year
-			$this->validateYear($arguments['year'])
-			// validate given month
-			&& $this->validateMonth($arguments['month'])
-		) {
-		
-			$this->redirect('defaultModeCalendarSelectMonth', NULL, NULL, array('month' => $arguments['year'].$arguments['month']));
+			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_no_day_selected', $this->extensionName));
+			$this->redirect(NULL, NULL, NULL, array('year' => $this->params['year'], 'month' => $this->params['month']));
 			
 		} else {
-		
-			// redirect back to the form action
-			$this->redirect(NULL);	
+			
+			if(
+				// validate given date
+				$this->validateDate($this->params['date'])
+				// validate given year
+				&& $this->validateYear($this->params['year'])
+				// validate given month
+				&& $this->validateMonth($this->params['month'])
+			) {
+				
+				$this->redirect(NULL, NULL, NULL, array('year' => $this->params['year'], 'month' => $this->params['month'], 'date' => $this->params['date']));
+			
+			} else {
+				
+				$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_invalid_day', $this->extensionName));				
+			}
+			
+			// reselect the current month/year when the arguments are given
+			if(
+				// validate given year
+				$this->validateYear($this->params['year'])
+				// validate given month
+				&& $this->validateMonth($this->params['month'])
+			) {
+			
+				$this->redirect('defaultModeCalendarSelectMonth', NULL, NULL, array('month' => $this->params['year'].$this->params['month']));
+				
+			} else {
+			
+				// redirect back to the form action
+				$this->redirect(NULL);	
+			}
 		}
 	}
 	
@@ -355,53 +413,68 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 	 * @return void
 	 */
 	protected function chooseDateAndTimeAction() {
-
-		// get arguments
-		$arguments = $this->request->getArguments();
 		
-		// validate given date
-		if(!$this->validateDate($arguments['date'])) {
+		$returnArguments = NULL;
+		// generates some returnment arguments
+		if($this->params['date'] && strtotime($this->params['date'])):
+			$returnArguments['year'] = date('Y', strtotime($this->params['date']));
+			$returnArguments['month'] = date('m', strtotime($this->params['date']));
+			$returnArguments['date'] = $this->params['date'];
+		endif;
+		
+		// checks if there is a time selected
+		if(!$this->params['time']) {
 			
-			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_invalid_day', $this->extensionName));
-			$this->redirect(NULL);
-		
-		// validate given time
-		} else if(!$this->validateTime($arguments['time'])) {
-			
-			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_invalid_time', $this->extensionName));
-			$this->redirect(NULL);
-		
+			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_no_time_selected', $this->extensionName));
+			$this->redirect(NULL, NULL, NULL, $returnArguments);
+				
 		} else {
 			
-			$dayAndTimeAllowed = false;
-			
-			// get available times by date
-			$times = $this->getAvailableTimesByDate($arguments['date']);
-			
-			// walk trough the times array and 
-			foreach($times as $time) {
+			// validate given date
+			if(!$this->validateDate($this->params['date'])) {
 				
-				// match time with the given time
-				if($time == $arguments['time']) {
-					
-					$dayAndTimeAllowed = true;
-					break;
-				}
-			}
+				$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_invalid_day', $this->extensionName));
+				unset($returnArguments['date']);
+				$this->redirect(NULL, NULL, NULL, $returnArguments);
 			
-			// if day and time are not allwoed
-			if(!$dayAndTimeAllowed) {
-			
-				$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_day_and_time_not_available', $this->extensionName));
-				$this->redirect(NULL);
+			// validate given time
+			} else if(!$this->validateTime($this->params['time'])) {
 				
+				$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_invalid_time', $this->extensionName));
+				$this->redirect(NULL, NULL, NULL, $returnArguments);
+			
 			} else {
 				
-				$this->addDayToSession($arguments['date']);
-				$this->addDayTimeToSession($arguments['time']);
+				$dayAndTimeAllowed = false;
 				
-				// redirect to the next step action
-				$this->redirect('nextStep');
+				// get available times by date
+				$times = $this->getAvailableTimesByDate($this->params['date']);
+				
+				// walk trough the times array and 
+				foreach($times as $time) {
+					
+					// match time with the given time
+					if($time == $this->params['time']) {
+						
+						$dayAndTimeAllowed = true;
+						break;
+					}
+				}
+				
+				// if day and time are not allwoed
+				if(!$dayAndTimeAllowed) {
+				
+					$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('validation.calendar_day_and_time_not_available', $this->extensionName));
+					$this->redirect(NULL);
+					
+				} else {
+					
+					$this->addDayToSession($this->params['date']);
+					$this->addDayTimeToSession($this->params['time']);
+					
+					// redirect to the next step action
+					$this->redirect('nextStep');
+				}
 			}
 		}
 	}
@@ -455,65 +528,62 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 	 */
 	public function postClientDataAction() {
 		
-		// get arguments
-		$arguments = $this->request->getArguments();
-		
 		$clientData = array(
-			'id'			=> $arguments['clientId'],
-			'sex'			=> $arguments['clientSex'],
-			'initials'		=> strtoupper($arguments['clientInitials']),
-			'middleName'	=> $arguments['clientMiddleName'],
-			'lastName'		=> $arguments['clientLastName'],
-			'postalCode'	=> strtoupper(str_replace(' ', '', $arguments['clientPostalCode'])),
-			'city'			=> $arguments['clientCity'],
-			'tel'			=> $arguments['clientTel'],
-			'mail'			=> $arguments['clientMail'],
+			'id'			=> $this->params['clientId'],
+			'sex'			=> $this->params['clientSex'],
+			'initials'		=> strtoupper($this->params['clientInitials']),
+			'middleName'	=> $this->params['clientMiddleName'],
+			'lastName'		=> $this->params['clientLastName'],
+			'postalCode'	=> strtoupper(str_replace(' ', '', $this->params['clientPostalCode'])),
+			'city'			=> $this->params['clientCity'],
+			'tel'			=> $this->params['clientTel'],
+			'mail'			=> $this->params['clientMail'],
 		);
 		
 		// full name
 		$clientData['fullName'] = '';
-		if($arguments['clientInitials'] && !empty($arguments['clientInitials']))
-			$clientData['fullName'] .= $arguments['clientInitials'];
+		if($this->params['clientInitials'] && !empty($this->params['clientInitials']))
+			$clientData['fullName'] .= $this->params['clientInitials'];
 			
-		if($arguments['clientMiddleName'] && !empty($arguments['clientMiddleName']))
-			$clientData['fullName'] .= ' '.$arguments['clientMiddleName'];
+		if($this->params['clientMiddleName'] && !empty($this->params['clientMiddleName']))
+			$clientData['fullName'] .= ' '.$this->params['clientMiddleName'];
 			
-		if($arguments['clientLastName'] && !empty($arguments['clientLastName']))
-			$clientData['fullName'] .= ' '.$arguments['clientLastName'];
+		if($this->params['clientLastName'] && !empty($this->params['clientLastName']))
+			$clientData['fullName'] .= ' '.$this->params['clientLastName'];
 		$clientData['fullName'] = trim($clientData['fullName']);
 		
 		// if split address
 		if($this->settings['clientdata']['splitAddress']):
-			$clientData['street'] = $arguments['clientStreet'];
-			$clientData['number'] = $arguments['clientStreetNumber'];
-			$clientData['address'] = trim($arguments['clientStreet'].' '.$arguments['clientStreetNumber']);
+			$clientData['street'] = $this->params['clientStreet'];
+			$clientData['number'] = $this->params['clientStreetNumber'];
+			$clientData['address'] = trim($this->params['clientStreet'].' '.$this->params['clientStreetNumber']);
 		else:
-			$clientData['address'] = $arguments['clientAddress'];
+			$clientData['address'] = $this->params['clientAddress'];
 		endif;
 		
 		// if split birthday
 		if($this->settings['clientdata']['splitBirthday']) {
-			$clientData['dayOfBirth'] = str_pad($arguments['clientDayOfBirth'], 2, 0, STR_PAD_LEFT);
-			$clientData['monthOfBirth'] = str_pad($arguments['clientMonthOfBirth'], 2, 0, STR_PAD_LEFT);
-			$clientData['yearOfBirth'] = $arguments['clientYearOfBirth'];
+			$clientData['dayOfBirth'] = str_pad($this->params['clientDayOfBirth'], 2, 0, STR_PAD_LEFT);
+			$clientData['monthOfBirth'] = str_pad($this->params['clientMonthOfBirth'], 2, 0, STR_PAD_LEFT);
+			$clientData['yearOfBirth'] = $this->params['clientYearOfBirth'];
 			$clientData['dateOfBirth'] = '';
 			
-			if($arguments['clientDayOfBirth'] && !empty($arguments['clientDayOfBirth'])):
-				$clientData['dateOfBirth'] .= str_pad($arguments['clientDayOfBirth'], 2, 0, STR_PAD_LEFT);
+			if($this->params['clientDayOfBirth'] && !empty($this->params['clientDayOfBirth'])):
+				$clientData['dateOfBirth'] .= str_pad($this->params['clientDayOfBirth'], 2, 0, STR_PAD_LEFT);
 			endif;
-			if($arguments['clientMonthOfBirth'] && !empty($arguments['clientMonthOfBirth'])):
-				$clientData['dateOfBirth'] .= '-'.str_pad($arguments['clientMonthOfBirth'], 2, 0, STR_PAD_LEFT);
+			if($this->params['clientMonthOfBirth'] && !empty($this->params['clientMonthOfBirth'])):
+				$clientData['dateOfBirth'] .= '-'.str_pad($this->params['clientMonthOfBirth'], 2, 0, STR_PAD_LEFT);
 			endif;
-			if($arguments['clientYearOfBirth'] && !empty($arguments['clientYearOfBirth'])):
-				$clientData['dateOfBirth'] .= '-'.$arguments['clientYearOfBirth'];
+			if($this->params['clientYearOfBirth'] && !empty($this->params['clientYearOfBirth'])):
+				$clientData['dateOfBirth'] .= '-'.$this->params['clientYearOfBirth'];
 			endif;
 		} else {
-			$clientData['dateOfBirth'] = $arguments['clientDateOfBirth'];
+			$clientData['dateOfBirth'] = $this->params['clientDateOfBirth'];
 		}
 		
 		// if country is enabled
 		if($this->settings['clientdata']['enableCountry'])
-			$clientData['country'] = $arguments['clientCountry'];
+			$clientData['country'] = $this->params['clientCountry'];
 		
 		// add client data to session
 		$this->addClientDataToSession($clientData);
@@ -844,10 +914,17 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 	 */
 	public function backwardModificationStep3Action() {
 		
+		$selectedDayTime = $this->session['day'];
 		unset($this->session['day'], $this->session['time']);
 		
 		// save session data
 		$this->saveSessionData();
+		
+		// backward step
+		$this->backwardStep();
+		
+		$this->redirect(NULL, NULL, NULL, array('month' => date('m', strtotime($selectedDayTime)), 'year' => date('Y', strtotime($selectedDayTime)), 'date' => $selectedDayTime));
+		exit;
 	}
 	
 	/**

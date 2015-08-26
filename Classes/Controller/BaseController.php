@@ -69,6 +69,11 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	protected $stepValidation = true;
 	
 	/**
+	 * @var array $params
+	 */
+	protected $params;
+	
+	/**
 	 * Constructor
 	 *
 	 * @return void
@@ -76,6 +81,16 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	public function __construct() {
 		
 		$this->session = $this->getUserSession();
+	}
+	
+	/**
+	 * Initialize Action
+	 *
+	 * @return void
+	 */
+	public function initializeAction() {
+		
+		$this->params = $this->request->getArguments();
 	}
 
 	/**
@@ -577,7 +592,7 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 		
 		$i = 0;		
 		// loop the amount of month numbers
-		while($i < $this->settings['calendar']['default_range']) {
+		while($i < $this->settings['calendar']['range']) {
 			
 			// get current year and month
 			if($i == 0):

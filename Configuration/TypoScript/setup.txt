@@ -23,7 +23,7 @@ plugin.tx_jccappointments {
 		}
 		calendar {
 			mode = {$plugin.tx_jccappointments.settings.calendar.mode}
-			default_range = {$plugin.tx_jccappointments.settings.calendar.default_range}
+			range = {$plugin.tx_jccappointments.settings.calendar.range}
 			default_openfirstmonth = {$plugin.tx_jccappointments.settings.calendar.default_openfirstmonth}
 			default_injectTimesInAvailableDays = {$plugin.tx_jccappointments.settings.calendar.default_injectTimesInAvailableDays}
 		}

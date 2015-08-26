@@ -33,10 +33,10 @@ plugin.tx_jccappointments {
 			renderOpeningHours = 1
 		}
 		calendar {
-			# cat=plugin.tx_jccappointments_calendar/a/010; type=options[Default=default]; label=Calendar Mode:Choose an calendar engine
+			# cat=plugin.tx_jccappointments_calendar/a/010; type=options[Default=default,Selection=selection]; label=Calendar Mode:Choose an calendar engine
 			mode = default
-			# cat=plugin.tx_jccappointments_calendar/a/020; type=int; label="Default mode" - Range:The number of months which can be selected in order to show the available days
-			default_range = 5
+			# cat=plugin.tx_jccappointments_calendar/a/020; type=int; label=Range:The number of months which can be selected in order to show the available days
+			range = 5
 			# cat=plugin.tx_jccappointments_calendar/a/030; type=boolean; label="Default mode" - Open First Month:If set, the available days of the current month will be displayed
 			default_openfirstmonth = 1
 			# cat=plugin.tx_jccappointments_calendar/a/040; type=boolean; label="Default mode" - Inject Times:If set, days will be extended with a array containing the available times of that day
