@@ -129,6 +129,7 @@ class HookHandler {
 	/**
 	 * TCA Product Name
 	 *
+	 * @global array $TYPO3_CONF_VARS
 	 * @param array $parameters
 	 * @return array
 	 */

@@ -190,29 +190,23 @@ class BaseController extends ActionController {
 	/**
 	 * Get User Data
 	 *
+	 * @global \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $TSFE
 	 * @return void
 	 */
 	protected function getUserSession() {
-		
-		/**
-		 * @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
-		 */
 		global $TSFE;
-		
 		return $TSFE->fe_user->getKey('ses', self::$extKey);
 	}
 	
 	/**
 	 * Set User Data
 	 *
+	 * @global \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $TSFE
 	 * @param array $data
 	 * @return void
 	 */
 	protected function setUserSession($data) {
 		
-		/**
-		 * @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
-		 */
 		global $TSFE;
 		
 		// sets the timestamp (calculated the age of the session)
@@ -668,13 +662,11 @@ class BaseController extends ActionController {
 	/**
 	 * Bind General Data
 	 *
+	 * @global \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $TSFE
 	 * @return void
 	 */
 	protected function bindGeneralData() {
 		
-		/**
-		 * @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
-		 */
 		global $TSFE;
 		
 		// binds the baseurl
@@ -1566,15 +1558,13 @@ class BaseController extends ActionController {
 	/**
 	 * Get Frontend Uri
 	 *
+	 * @global \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $TSFE
 	 * @param integer $pageUid
 	 * @param array $additionalParams
 	 * @return string
 	 */
 	protected function getFrontendUri($pageUid, array $additionalParams = array()) {
 		
-		/**
-		 * @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
-		 */
 		global $TSFE;
 		
 		// website baseurl
