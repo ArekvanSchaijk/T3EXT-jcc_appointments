@@ -162,10 +162,10 @@
       <label index="progress.step4">Uw gegevens</label>
       <label index="progress.step5">Bevestiging</label>
       <label index="available_products.header">Beschikbare producten</label>
-      <label index="available_products.description">Selecteer de producten voor deze afspraak.</label>
+      <label index="available_products.description">Selecteer de producten voor deze afspraak door op de groene knop te klikken</label>
       <label index="available_products.button_addproduct">Kies</label>
       <label index="selected_products.header">Geselecteerde producten</label>
-      <label index="selected_products.description">U kunt uw selectie aanpassen door een item te verwijderen</label>
+      <label index="selected_products.description">U kunt uw selectie aanpassen door een item te verwijderen. Klik dan op de rode knop</label>
       <label index="selected_products.button_removeproduct">Verwijder</label>
       <label index="locations.header">Locaties</label>
       <label index="locations.header_openinghours">Openingstijden</label>
@@ -222,7 +222,7 @@
       <label index="message.no_available_times_in_day">Er is op deze dag geen tijd meer beschikbaar om een afspraak te maken</label>
       <label index="validation.product_doesnt_exist">Dit product bestaat niet</label>
       <label index="validation.no_product_selected">U dient tenminste één product selecteren</label>
-      <label index="validation.no_location_selected">u dient een afhaallocatie opgeven</label>
+      <label index="validation.no_location_selected">Geef de locatie aan door er op te klikken</label>
       <label index="validation.no_day_or_time_selected">U heeft geen dag of tijd geselecteerd</label>
 	  <label index="validation.calendar_no_month_selected">U heeft geen maand geselecteerd</label>
 	  <label index="validation.calendar_no_day_selected">U heeft geen dag geselecteerd</label>
