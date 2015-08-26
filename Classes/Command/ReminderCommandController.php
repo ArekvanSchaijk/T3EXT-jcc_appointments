@@ -76,8 +76,8 @@ class ReminderCommandController extends CommandController {
        	$this->settings = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
 		
 		// import repositories
-		$this->appointmentRepository = $this->objectManager->get('TYPO3\\JccAppointments\\Domain\\Repository\\AppointmentRepository');
-		$this->smsRepository = $this->objectManager->get('TYPO3\\JccAppointments\\Domain\\Repository\\SmsRepository');
+		$this->appointmentRepository = $this->objectManager->get('Ucreation\\JccAppointments\\Domain\\Repository\\AppointmentRepository');
+		$this->smsRepository = $this->objectManager->get('Ucreation\\JccAppointments\\Domain\\Repository\\SmsRepository');
     }
 
     /**
