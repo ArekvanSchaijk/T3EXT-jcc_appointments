@@ -29,7 +29,10 @@ use Ucreation\JccAppointments\Exception;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * TemplateUtility
+ * Class TemplateUtility
+ *
+ * @package Ucreation\JccAppointments
+ * @author Arek van Schaijk <info@ucreation.nl>
  */
 class TemplateUtility {
 	

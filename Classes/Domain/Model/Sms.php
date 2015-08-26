@@ -26,7 +26,10 @@ namespace Ucreation\JccAppointments\Domain\Model;
  ***************************************************************/
 
 /**
- * Sms
+ * Class Sms
+ *
+ * @package Ucreation\JccAppointments
+ * @author Arek van Schaijk <info@ucreation.nl>
  */
 class Sms extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 

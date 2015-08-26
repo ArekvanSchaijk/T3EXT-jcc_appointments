@@ -26,7 +26,10 @@ namespace Ucreation\JccAppointments\Controller;
  ***************************************************************/
 
 /**
- * TakeoutTextController
+ * Class TakeoutTextController
+ *
+ * @package Ucreation\JccAppointments
+ * @author Arek van Schaijk <info@ucreation.nl>
  */
 class TakeoutTextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 	

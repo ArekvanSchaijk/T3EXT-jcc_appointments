@@ -26,11 +26,10 @@ namespace Ucreation\JccAppointments\Command;
  ***************************************************************/
 
 /**
- * ReminderCommandController
+ * Class ReminderCommandController
  *
- * @package jcc_appointments
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
+ * @package Ucreation\JccAppointments
+ * @author Arek van Schaijk <info@ucreation.nl>
  */
 class ReminderCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandController {
 	

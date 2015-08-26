@@ -26,7 +26,10 @@ namespace Ucreation\JccAppointments;
  ***************************************************************/
 
 /**
- * Exception
+ * Class Exception
+ *
+ * @package Ucreation\JccAppointments
+ * @author Arek van Schaijk <info@ucreation.nl>
  */
 class Exception extends \TYPO3\CMS\Core\Exception {
 	

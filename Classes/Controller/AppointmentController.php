@@ -28,7 +28,10 @@ namespace Ucreation\JccAppointments\Controller;
 use Ucreation\JccAppointments\Exception;
 
 /**
- * AppointmentController
+ * Class AppointmentController
+ *
+ * @package Ucreation\JccAppointments
+ * @author Arek van Schaijk <info@ucreation.nl>
  */
 class AppointmentController extends BaseController {
 	

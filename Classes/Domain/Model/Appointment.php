@@ -26,7 +26,10 @@ namespace Ucreation\JccAppointments\Domain\Model;
  ***************************************************************/
 
 /**
- * Appointment
+ * Class Appointment
+ *
+ * @package Ucreation\JccAppointments
+ * @author Arek van Schaijk <info@ucreation.nl>
  */
 class Appointment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 

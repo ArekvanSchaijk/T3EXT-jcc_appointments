@@ -26,7 +26,10 @@ namespace Ucreation\JccAppointments\Domain\Repository;
  ***************************************************************/
 
 /**
- * SmsRepository
+ * Class SmsRepository
+ *
+ * @package Ucreation\JccAppointments
+ * @author Arek van Schaijk <info@ucreation.nl>
  */
 class SmsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 

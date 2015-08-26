@@ -28,7 +28,10 @@ namespace Ucreation\JccAppointments\Handler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * HookHandler
+ * Class HookHandler
+ *
+ * @package Ucreation\JccAppointments
+ * @author Arek van Schaijk <info@ucreation.nl>
  */
 class HookHandler {
 

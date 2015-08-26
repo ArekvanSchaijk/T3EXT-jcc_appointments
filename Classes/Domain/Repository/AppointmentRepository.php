@@ -26,7 +26,10 @@ namespace Ucreation\JccAppointments\Domain\Repository;
  ***************************************************************/
 
 /**
- * AppointmentRepository
+ * Class AppointmentRepository
+ *
+ * @package Ucreation\JccAppointments
+ * @author Arek van Schaijk <info@ucreation.nl>
  */
 class AppointmentRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	

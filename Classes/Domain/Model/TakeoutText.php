@@ -26,7 +26,10 @@ namespace Ucreation\JccAppointments\Domain\Model;
  ***************************************************************/
 
 /**
- * TakeoutText
+ * Class TakeoutText
+ *
+ * @package Ucreation\JccAppointments
+ * @author Arek van Schaijk <info@ucreation.nl>
  */
 class TakeoutText extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 

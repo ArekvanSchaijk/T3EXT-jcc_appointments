@@ -31,7 +31,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
- * BaseController
+ * Class BaseController
+ *
+ * @package Ucreation\JccAppointments
+ * @author Arek van Schaijk <info@ucreation.nl>
  */
 class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 	

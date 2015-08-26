@@ -26,7 +26,10 @@ namespace Ucreation\JccAppointments\Domain\Repository;
  ***************************************************************/
 
 /**
- * TakeoutTextRepository
+ * Class TakeoutTextRepository
+ *
+ * @package Ucreation\JccAppointments
+ * @author Arek van Schaijk <info@ucreation.nl>
  */
 class TakeoutTextRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	
