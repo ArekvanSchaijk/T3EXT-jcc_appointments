@@ -5,6 +5,10 @@ plugin.tx_jccappointments {
 		# cat=plugin.tx_jccappointments/file; type=string; label=Path to template partials (FE)
 		partialRootPath = EXT:jcc_appointments/Resources/Private/Partials/
 	}
+	persistence {
+		# cat=plugin.tx_jccappointments//a; type=string; label=Default storage PID
+		storagePid = 
+	}
 	settings {
 		css {
 			# cat=plugin.tx_jccappointments/a/020; type=boolean; label=Enable CSS:Check to enable the default stylesheet
@@ -107,8 +111,14 @@ plugin.tx_jccappointments {
 			mollie_password = 
 		}
 		general {
-			# cat=plugin.tx_jccappointments_general/a/010; type=int; label=Succes Pid:Page ID where to redirect to if the booking is succeed
+			# cat=plugin.tx_jccappointments_general/a/010; type=boolean; label=Enable Cancel:If set, cancelling of appointments is allowed (cancelPid must be configured!)
+			enableCancel = 
+			# cat=plugin.tx_jccappointments_general/a/020; type=int; label=Cancel Pid:Page ID where the cancel form is configured
+			cancelPid = 
+			# cat=plugin.tx_jccappointments_general/a/030; type=int; label=Succes Pid:Page ID where to redirect to if the booking is succeed
 			successPid = 
+			# cat=plugin.tx_jccappointments_general/a/040; type=int; label=Failed Pid:Page ID where to redirect to if the booking is failed
+			failedPid = 
 		}
 	}
 }

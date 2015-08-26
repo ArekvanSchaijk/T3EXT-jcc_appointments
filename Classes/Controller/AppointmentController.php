@@ -32,6 +32,23 @@
  *
  */
 class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointments_Controller_BaseController {
+	
+	/**
+	 * appointmentRepository
+	 *
+	 * @var Tx_JccAppointments_Domain_Repository_AppointmentRepository
+	 */
+	protected $appointmentRepository;
+	
+	/**
+	 * injectAppointmentRepository
+	 *
+	 * @param Tx_JccAppointments_Domain_Repository_AppointmentRepository $appointmentRepository
+	 * @return void
+	 */
+	public function injectAppointmentRepository(Tx_JccAppointments_Domain_Repository_AppointmentRepository $appointmentRepository) {
+		$this->appointmentRepository = $appointmentRepository;
+	}
 
 	/**
 	 * Form Action
@@ -662,15 +679,27 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 		// updatestatus : 0 = booking succesfull
 		if($appointment->updateStatus == 0) {
 			
+			// make secret hash
+			$generatedHash = $this->makeSecretHash($appointment->appID);
+			
+			// add secret hash in session
+			$this->addSecretHashInSession($generatedHash);
+			
+			// create a new appointment object
+			$newAppointment = new Tx_JccAppointments_Domain_Model_Appointment;
+			$newAppointment->setAppId((int)$appointment->appID);
+			$newAppointment->setAppTime($startAppointmentTime);
+			$newAppointment->setSecretHash($generatedHash);
+			$newAppointment->setSms(1);
+			$this->appointmentRepository->add($newAppointment);
+			$this->persistAll();
+			
 			// if confirmation is enabled send the confirmation mail
 			if($this->settings['confirmation']['enable'])
 				$this->sendConfirmationMail();
 			
 			// remove user session
 			$this->removeUserSession();
-			
-			// add appointment id in session
-			$this->addAppointmentIdInSession($appointment->appID);
 			
 			// redirect to the succes pid
 			if(!$this->settings['general']['successPid']) {
@@ -684,9 +713,18 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 			
 		} else {
 			
-			echo 'oopss<pre>';
-			print_r($appointment);
-			die();
+			// remove user session
+			$this->removeUserSession();
+			
+			// redirect to the failed pid
+			if(!$this->settings['general']['failedPid']) {
+				
+				throw new Exception('Misconfiguration: There is no failedPid given');
+				
+			} else {
+				
+				$this->pageRedirect($this->settings['general']['failedPid']);
+			}
 		}
 	}
 	
@@ -964,6 +1002,106 @@ class Tx_JccAppointments_Controller_AppointmentController extends Tx_JccAppointm
 		
 		// redirect back to the form action
 		$this->redirect(NULL);
+	}
+	
+	/**
+	 * action cancel
+	 *
+	 * @return void
+	 */
+	public function cancelAction() {
+		
+		$data = array();
+		$data['showError'] = false;
+		$data['cancelled'] = false;
+		
+		// there is no secret hash given
+		if(!$this->params['secretHash'] || empty($this->params['secretHash'])) {
+		
+			$data['showError'] = self::CANCEL_NO_SECRETHASH_GIVEN;
+			
+		} else {
+			
+			$data['secretHash'] = $this->params['secretHash'];
+			
+			// find appointment by secret hash
+			$appointment = $this->appointmentRepository->findOneBySecretHash($this->params['secretHash']);
+				
+			// the secret hash is invalid because there is no related appointment founded
+			if(!$appointment) {
+				
+				$data['showError'] = self::CANCEL_INVALID_SECRETHASH;
+				
+			} else {
+				
+				// the appointment is already cancelled or expired
+				if($appointment->isClosed())
+					$data['showError'] = self::CANCEL_ALREADY_CLOSED;
+					
+				// appointment is already expired so its impossible to cancel it
+				if($appointment->getAppTime() <= time())
+					$data['showError'] = self::CANCEL_APPOINTMENT_EXPIRED;
+			}
+		}
+		
+		// get appointment details
+		if(!$data['showError']) {
+			
+			// cancelling confirmed
+			if($this->params['confirm']) {
+				
+				$this->api()->deleteGovAppointment(array('appID' => $appointment->getAppId()));
+				$this->appointmentRepository->remove($appointment);
+				$data['cancelled'] = true;
+								
+			// cancelling not confirmed
+			} else {
+			
+				// get appointment details
+				$appointmentDetails = $this->api()->getGovAppointmentDetails(array('appID' => $appointment->getAppId()));
+				$appointmentDetails = $appointmentDetails->appointment;
+	
+				// we have to check if the object appointment contains the product ID's because the API wil always return this object either if the appId is invalid
+				if(!$appointmentDetails->productID) {
+					
+					$data['showError'] = self::CANCEL_INVALID_SECRETHASH;
+					
+				} else {
+					
+					$appointmentProductsIds = explode(',', $appointmentDetails->productID);
+					
+					// appointmen date
+					$data['date'] = array(
+						'date'			=> date('Y-m-d', $appointment->getAppTime()),
+						'day'			=> date('d', $appointment->getAppTime()),
+						'dayNoZero'		=> date('j', $appointment->getAppTime()),
+						'month'			=> date('m', $appointment->getAppTime()),
+						'year'			=> date('Y', $appointment->getAppTime()),
+						'dayOfTheWeek'	=> date('w', $appointment->getAppTime()),
+						'timestamp'		=> $appointment->getAppTime(),
+					);
+					
+					// appointment time
+					$data['time'] = date('H:i', $appointment->getAppTime());
+					
+					// appointment products
+					$data['products'] = array();
+					
+					// appointment location
+					$location = $this->api()->getGovLocationDetails(array('locationID' => $appointmentDetails->locationID));
+					$data['location'] = $this->renderLocationDetailsArray($location->locaties);
+					
+					// foreach product ids and render products details array
+					foreach($appointmentProductsIds as $productId) {
+						
+						$product = $this->api()->getGovProductDetails(array('productID' => $productId));
+						$data['products'][] = $this->renderProductDetailArray($productId, $product->out, true);
+					}
+				}
+			}
+		}
+		
+		$this->view->assign('data', $data);
 	}
 }
 ?>

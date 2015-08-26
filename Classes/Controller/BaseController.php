@@ -74,6 +74,26 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	protected $params;
 	
 	/**
+	 * @const integer CANCEL_NO_SECRETHASH_GIVEN
+	 */
+	const CANCEL_NO_SECRETHASH_GIVEN = 1;
+	
+	/**
+	 * @const integer CANCEL_INVALID_SECRETHASH
+	 */
+	const CANCEL_INVALID_SECRETHASH = 2;
+	
+	/**
+	 * @const integer CANCEL_APPOINTMENT_EXPIRED
+	 */
+	const CANCEL_APPOINTMENT_EXPIRED = 3;
+	
+	/**
+	 * @const integer CANCEL_ALREADY_CLOSED
+	 */
+	const CANCEL_ALREADY_CLOSED = 4;
+	
+	/**
 	 * Constructor
 	 *
 	 * @return void
@@ -184,15 +204,32 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 			$this->session['products'] = array();
 			
 		// add product
-		$this->session['products'][] = array(
+		$this->session['products'][] = $this->renderProductDetailArray($productId, $product);
+
+		// save session data
+		$this->saveSessionData();
+	}
+	
+	/**
+	 * Render Product Detail Array
+	 *
+	 * @param integer $productId
+	 * @param object $product
+	 * @return array
+	 */
+	protected function renderProductDetailArray($productId, $product, $encodeRequisites = false) {
+		
+		$productDetails = array(
 			'uid'			=> $productId,
 			'name'			=> $product->description,
 			'duration'		=> $product->appDuration,
 			'requisites'	=> $product->requisites,
 		);
-
-		// save session data
-		$this->saveSessionData();
+		
+		if($encodeRequisites)
+			$productDetails['requisites'] = $this->cleanProductRequisites(base64_decode($productDetails['requisites']));
+		
+		return $productDetails;
 	}
 	
 	/**
@@ -497,27 +534,27 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	}
 
 	/**
-	 * Add Appointment Id In Session
+	 * Add Secret Hash In Session
 	 *
-	 * @param integer $appointmentId
+	 * @param integer $secretHash
 	 * @return void
 	 */	
-	protected function addAppointmentIdInSession($appointmentId) {
+	protected function addSecretHashInSession($secretHash) {
 		
-		$this->session['appointmentId'] = $appointmentId;
+		$this->session['secretHash'] = $secretHash;
 		
 		// save session data
 		$this->saveSessionData();
 	}
 	
 	/**
-	 * Get Appointment Id
+	 * Get Secret Hash
 	 *
 	 * @return integer
 	 */
-	protected function getAppointmentId() {
+	protected function getSecretHash() {
 		
-		return $this->session['appointmentId'];
+		return $this->session['secretHash'];
 	}
 	
 	/**
@@ -1149,6 +1186,15 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 		// API get location details
 		$location = $this->api()->getGovLocationDetails(array('locationID' => $this->getLocation()));
 		
+		// cancel link
+		$cancel = false;
+		$cancelUrl = '';
+		if($this->settings['general']['enableCancel'] && $this->settings['general']['cancelPid']) {
+			
+			$cancel = true;
+			$cancelUrl = $this->getFrontendUri($this->settings['general']['cancelPid'], array('tx_jccappointments_pi2' => array('secretHash' => $this->getSecretHash())));
+		}
+		
 		// variables
 		$variables = array(
 			'products'		=> $this->getProductsAndRenderRequisites(),
@@ -1156,6 +1202,8 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 			'location'		=> $this->renderLocationDetailsArray($location->locaties),
 			'date'			=> $this->getDayArray(),
 			'time'			=> $this->getDayTime(),
+			'cancel'		=> $cancel,
+			'cancelUrl'		=> $cancelUrl,
 		);
 
 		// send mail
@@ -1333,6 +1381,22 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 	}
 	
 	/**
+	 * Make Secret Hash
+	 *
+	 * @param string $string
+	 * @param integer $length
+	 * @return string
+	 */
+	protected function makeSecretHash($string, $length = 14) {
+		
+		$hash = sha1(md5($string).time());
+		if($length)
+			$hash = substr($hash, 0, $length);
+			
+		return $hash;
+	}
+	
+	/**
 	 * Send Mail
 	 *
 	 * @param array $recipients
@@ -1368,5 +1432,45 @@ class Tx_JccAppointments_Controller_BaseController extends Tx_Extbase_MVC_Contro
 		
 		return $mail->isSent();
     }
+	
+	/**
+	 * Get Frontend Uri
+	 *
+	 * @param integer $pageUid
+	 * @param array $additionalParams
+	 * @return string
+	 */
+	protected function getFrontendUri($pageUid, array $additionalParams = array()) {
+		
+		// website baseurl
+		$baseUrl = rtrim($GLOBALS['TSFE']->baseUrl, '/').'/';
+		
+		// get uri builder
+		$uriBuilder = $this->controllerContext->getUriBuilder();
+
+		$uri = $uriBuilder
+		// set target page uid
+		->setTargetPageUid($pageUid)
+		// set use cache hash
+		->setUseCacheHash(true)
+		// set arguments
+		->setArguments($additionalParams)
+		// build
+		->build();
+			
+		return rawurldecode($baseUrl.ltrim($uri, '/'));
+	}
+	
+	/**
+	 * Persist All
+	 *
+	 * @return void
+	 */
+	protected function persistAll() {
+		// initialize persistanceManager
+		$persistenceManager = t3lib_div::makeInstance('Tx_Extbase_Persistence_Manager');
+		// persistAll
+		$persistenceManager->persistAll();	
+	}
 }
 ?>

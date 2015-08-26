@@ -6,7 +6,14 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-            
+            <label index="tx_jccappointments_domain_model_appointment">Appointment</label>
+			<label index="tx_jccappointments_domain_model_appointment.app_id">App ID</label>
+			<label index="tx_jccappointments_domain_model_appointment.app_time">App Time</label>
+			<label index="tx_jccappointments_domain_model_appointment.secret_hash">Secret Hash</label>
+			<label index="tx_jccappointments_domain_model_appointment.sms">SMS</label>
+			<label index="tx_jccappointments_domain_model_appointment.sms_send">SMS Sended</label>
+			<label index="tx_jccappointments_domain_model_appointment.mail_send">Mail Sended</label>
+			<label index="tx_jccappointments_domain_model_appointment.closed">Closed</label>
 		</languageKey>
 	</data>
 </T3locallang>

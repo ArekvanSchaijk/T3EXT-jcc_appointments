@@ -15,4 +15,16 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	)
 );
 
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
+	'Pi2',
+	array(
+		'Appointment' => 'cancel'
+	),
+	// non-cacheable actions
+	array(
+		'Appointment' => 'cancel'
+	)
+);
+
 ?>

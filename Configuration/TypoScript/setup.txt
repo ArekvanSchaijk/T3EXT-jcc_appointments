@@ -3,6 +3,9 @@ plugin.tx_jccappointments {
 		templateRootPath = {$plugin.tx_jccappointments.view.templateRootPath}
 		partialRootPath = {$plugin.tx_jccappointments.view.partialRootPath}
 	}
+	persistence {
+		storagePid = {$plugin.tx_jccappointments.persistence.storagePid}
+	}
 	settings {
 		css {
 			file1.enabled = {$plugin.tx_jccappointments.settings.css.file1.enabled}
@@ -65,7 +68,10 @@ plugin.tx_jccappointments {
 			mollie_password = {$plugin.tx_jccappointments.settings.sms.mollie_password}
 		}
 		general {
+			enableCancel = {$plugin.tx_jccappointments.settings.general.enableCancel}
+			cancelPid = {$plugin.tx_jccappointments.settings.general.cancelPid}
 			successPid = {$plugin.tx_jccappointments.settings.general.successPid}
+			failedPid = {$plugin.tx_jccappointments.settings.general.failedPid}
 		}
 	}
 }

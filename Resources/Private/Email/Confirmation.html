@@ -36,3 +36,7 @@ Dear {clientData.fullName},<br />
   <h2>Time</h2>
   <p>{time}</p>
 </f:if>
+<f:if condition="{cancel}">
+  <h2>Cancel this appointment</h2>
+  <p>You can cancel the appointment by visiting <a href="{cancelUrl}">{cancelUrl}</a></p>
+</f:if>

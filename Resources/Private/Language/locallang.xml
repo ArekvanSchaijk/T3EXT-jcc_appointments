@@ -83,19 +83,19 @@
       <label index="calendar.header_selectday">Day selection:</label>
       <label index="calendar.header_selecttime">Time selection:</label>
       <label index="calendar.select">Select</label>
-      <label index="calendar.empty_selectbox_value">-- select --</label>
-      <label index="calendar.select_month">Select month</label>
-      <label index="calendar.select_day">Select day</label>
-      <label index="calendar.select_time">Select time</label>
+	  <label index="calendar.empty_selectbox_value">-- select --</label>
+	  <label index="calendar.select_month">Select month</label>
+	  <label index="calendar.select_day">Select day</label>
+	  <label index="calendar.select_time">Select time</label>
       <label index="message.no_available_days_in_month">There are no available days in this month</label>
       <label index="message.no_available_times_in_day">There is no time available this day</label>
       <label index="validation.product_doesnt_exist">The selected product doesnt exist</label>
       <label index="validation.no_product_selected">You have to select at least one product</label>
       <label index="validation.no_location_selected">You have to select a location</label>
       <label index="validation.no_day_or_time_selected">You have not selected a day or time</label>
-      <label index="validation.calendar_no_month_selected">You didnt select a month</label>
-      <label index="validation.calendar_no_day_selected">You didnt select a day</label>
-      <label index="validation.calendar_no_time_selected">You didnt select a time</label>
+	  <label index="validation.calendar_no_month_selected">You didnt select a month</label>
+	  <label index="validation.calendar_no_day_selected">You didnt select a day</label>
+	  <label index="validation.calendar_no_time_selected">You didnt select a time</label>
       <label index="validation.calendar_invalid_month">The selected month is invalid</label>
       <label index="validation.calendar_invalid_day">The selected day is invalid</label>
       <label index="validation.calendar_invalid_time">The selected time is invalid</label>
@@ -123,6 +123,17 @@
       <label index="validation.clientdata.no_country">You did not fill in your country</label>
       <label index="previous">Previous</label>
       <label index="next">Next</label>
+	  <label index="cancel.confirmationtext">Are you sure you would cancel the appointment?</label>
+	  <label index="cancel.message.1">The url contains no appointment hash.</label>
+	  <label index="cancel.message.2">The given appointment hash is invalid.</label>
+	  <label index="cancel.message.3">The appointment is expired, its not possible to cancel it anymore.</label>
+	  <label index="cancel.message.4">The appointment is already cancelled or expired.</label>
+	  <label index="cancel.date">Date</label>
+	  <label index="cancel.time">Time</label>
+	  <label index="cancel.products">Products</label>
+	  <label index="cancel.location">Location</label>
+	  <label index="cancel.confirm">Click to confirm appointment cancelling</label>
+	  <label index="cancel.succesfully">The appointment is cancelled succesfully.</label>
     </languageKey>
     <languageKey index="nl" type="array">
       <label index="day.0">Zondag</label>
@@ -150,10 +161,10 @@
       <label index="progress.step4">Uw gegevens</label>
       <label index="progress.step5">Bevestiging</label>
       <label index="available_products.header">Beschikbare producten</label>
-      <label index="available_products.description">Selecteer de producten voor deze afspraak door op de groene knop te klikken</label>
+      <label index="available_products.description">Selecteer de producten voor deze afspraak.</label>
       <label index="available_products.button_addproduct">Kies</label>
       <label index="selected_products.header">Geselecteerde producten</label>
-      <label index="selected_products.description">U kunt uw selectie aanpassen door een item te verwijderen. Klik dan op de rode knop</label>
+      <label index="selected_products.description">U kunt uw selectie aanpassen door een item te verwijderen</label>
       <label index="selected_products.button_removeproduct">Verwijder</label>
       <label index="locations.header">Locaties</label>
       <label index="locations.header_openinghours">Openingstijden</label>
@@ -202,19 +213,19 @@
       <label index="calendar.header_selectday">Selecteer een dag:</label>
       <label index="calendar.header_selecttime">Selecteer een tijd:</label>
       <label index="calendar.select">Selecteer</label>
-      <label index="calendar.empty_selectbox_value">-- selecteer --</label>
-      <label index="calendar.select_month">Selecteer maand</label>
-      <label index="calendar.select_day">Selecteer dag</label>
-      <label index="calendar.select_time">Selecteer tijd</label>
+	  <label index="calendar.empty_selectbox_value">-- selecteer --</label>
+	  <label index="calendar.select_month">Selecteer maand</label>
+	  <label index="calendar.select_day">Selecteer dag</label>
+	  <label index="calendar.select_time">Selecteer tijd</label>
       <label index="message.no_available_days_in_month">Er is geen dag beschikbaar deze maand om een afspraak te maken</label>
       <label index="message.no_available_times_in_day">Er is op deze dag geen tijd meer beschikbaar om een afspraak te maken</label>
       <label index="validation.product_doesnt_exist">Dit product bestaat niet</label>
       <label index="validation.no_product_selected">U dient tenminste één product selecteren</label>
-      <label index="validation.no_location_selected">Geef de locatie aan door er op te klikken</label>
+      <label index="validation.no_location_selected">u dient een afhaallocatie opgeven</label>
       <label index="validation.no_day_or_time_selected">U heeft geen dag of tijd geselecteerd</label>
-      <label index="validation.calendar_no_month_selected">U heeft geen maand geselecteerd</label>
-      <label index="validation.calendar_no_day_selected">U heeft geen dag geselecteerd</label>
-      <label index="validation.calendar_no_time_selected">U heeft geen tijd geselecteerd</label>
+	  <label index="validation.calendar_no_month_selected">U heeft geen maand geselecteerd</label>
+	  <label index="validation.calendar_no_day_selected">U heeft geen dag geselecteerd</label>
+	  <label index="validation.calendar_no_time_selected">U heeft geen tijd geselecteerd</label>
       <label index="validation.calendar_invalid_month">De gekozen maand is niet(meer) geldig</label>
       <label index="validation.calendar_invalid_day">De gekozen dag is niet(meer) geldig</label>
       <label index="validation.calendar_invalid_time">De gekozen tijd is niet(meer) geldig</label>
@@ -242,6 +253,17 @@
       <label index="validation.clientdata.no_country">U heeft uw land niet ingevuld</label>
       <label index="previous">Vorige</label>
       <label index="next">Volgende</label>
+	  <label index="cancel.confirmationtext">Weet u zeker dat u de onderstaande afspraak wilt afzeggen?</label>
+	  <label index="cancel.message.1">De url bevat geen afspraak sleutel.</label>
+	  <label index="cancel.message.2">De meegegeven afspraak sleutel is ongeldig.</label>
+	  <label index="cancel.message.3">De afspraak bevind zich in het verleden, het is niet mogelijk om deze af te zeggen.</label>
+	  <label index="cancel.message.4">Deze afspraak is al afgezegd of ligt in het veleden waardoor deze actie niet meer mogelijk is.</label>
+	  <label index="cancel.date">Datum</label>
+	  <label index="cancel.time">Tijdstip</label>
+	  <label index="cancel.products">Producten</label>
+	  <label index="cancel.location">Locatie</label>
+	  <label index="cancel.confirm">Ja, zeg mijn afspraak af.</label>
+	  <label index="cancel.succesfully">Bedankt. Uw afspraak is succesvol afgezegd.</label>
     </languageKey>
   </data>
 </T3locallang>

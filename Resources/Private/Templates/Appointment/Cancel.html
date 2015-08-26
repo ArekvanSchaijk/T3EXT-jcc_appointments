@@ -1,0 +1,45 @@
+<div id="jcc_appointments">
+  <f:if condition="{data.cancelled}">
+    <f:then>
+      <p>{f:translate(key:'cancel.succesfully')}</p>
+    </f:then>
+    <f:else>
+      <f:if condition="{data.showError}">
+        <f:then>
+          <div class="notification">
+            <p>{f:translate(key:'cancel.message.{data.showError}')}</p>
+          </div>
+        </f:then>
+        <f:else>
+          <p>{f:translate(key:'cancel.confirmationtext')}</p>
+          <table>
+            <tr>
+              <th>{f:translate(key:'cancel.date')}</th>
+              <td>{data.date.dayNoZero} {f:translate(key:'month.{data.date.month}')} {data.date.year}</td>
+            </tr>
+            <tr>
+              <th>{f:translate(key:'cancel.time')}</th>
+              <td>{data.time}</td>
+            </tr>
+            <tr>
+              <th>{f:translate(key:'cancel.products')}</th>
+              <td><f:for each="{data.products}" as="product"> {product.name}<br />
+                </f:for></td>
+            </tr>
+            <tr>
+              <th>{f:translate(key:'cancel.location')}</th>
+              <td><p>{data.location.address}<br />
+                  {data.location.postalcode} {data.location.city}
+                  <f:if condition="{data.location.phone}"><br />
+                    <strong>{f:translate(key:'confirmation.phone')}:</strong> {data.location.phone}</f:if>
+                </p></td>
+            </tr>
+          </table>
+          <p>
+            <f:link.action arguments="{secretHash : data.secretHash, confirm : 1}">{f:translate(key:'cancel.confirm')}</f:link.action>
+          </p>
+        </f:else>
+      </f:if>
+    </f:else>
+  </f:if>
+</div>
