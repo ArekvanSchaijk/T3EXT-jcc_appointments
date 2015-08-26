@@ -12,21 +12,13 @@
     </ul>
   </div>
 </f:if>
-<f:if condition="{data.products}">
+<f:if condition="{data.multiSelect}">
   <f:then>
-    <div id="product_list">
-      <h2>{f:translate(key:'available_products.header')}</h2>
-      <p>{f:translate(key:'available_products.description')}</p>
-      <ul>
-        <f:for each="{data.products}" as="product">
-          <li>{product.name}
-            <f:link.action action="addProduct" arguments="{product : product.uid}">{f:translate(key:'available_products.button_addproduct')}</f:link.action>
-          </li>
-        </f:for>
-      </ul>
-    </div>
+    <f:render partial="Products/MultiSelect" arguments="{data : data}" />
   </f:then>
-  <f:else></f:else>
+  <f:else>
+    <f:render partial="Products/Select" arguments="{data : data}" />
+  </f:else>
 </f:if>
 <div id="controls">
   <div class="next">

@@ -92,6 +92,7 @@
       <label index="message.no_available_days_in_month">There are no available days in this month</label>
       <label index="message.no_available_times_in_day">There is no time available this day</label>
       <label index="validation.product_doesnt_exist">The selected product doesnt exist</label>
+	  <label index="validation.product_amount_not_allowed">Invalid amount of products chosen</label>
       <label index="validation.no_product_selected">You have to select at least one product</label>
       <label index="validation.no_location_selected">You have to select a location</label>
       <label index="validation.no_day_or_time_selected">You have not selected a day or time</label>

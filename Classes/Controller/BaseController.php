@@ -1052,7 +1052,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$productsArray = array();
 
 		if($products) {
-			
+
 			// render a new product array
 			foreach($products as $product) {
 				
@@ -1067,7 +1067,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		// if the settings 'enableDisplayByAllowed' is set, we should remove unallowed items from the array
 		if($this->settings['products']['enableDisplayByAllowed']) {
 			
-			$allowed = $this->renderCommaSeperatedList($this->settings['products']['allowed']);
+			$allowed = GeneralUtility::trimExplode(',', $this->settings['products']['allowed'], TRUE);
 			
 			foreach($productsArray as $key => $value) {
 			
@@ -1077,7 +1077,7 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		}
 		
 		// remove excluded products
-		$excluded = $this->renderCommaSeperatedList($this->settings['products']['excluded']);
+		$excluded = GeneralUtility::trimExplode(',', $this->settings['products']['excluded'], TRUE);
 		
 		if($excluded) {
 			
@@ -1085,28 +1085,37 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			
 				if(in_array($value['uid'], $excluded))
 					unset($productsArray[$key]);
-			}	
+			}
 		}
 		
+		// excluded multi select products array
+		$excludedMultiSelectProducts = GeneralUtility::trimExplode(',', $this->settings['products_multiselect']['excluded'], TRUE);
+		
+		// check if multi select is enabled and if there are products to be excluded from the multiselect feature
+		if($this->settings['products_multiselect']['enabled'] && $excludedMultiSelectProducts) {
+
+			foreach($productsArray as $key => $value) {
+			
+				if(in_array($value['uid'], $excludedMultiSelectProducts))
+					$productsArray[$key]['excludeFromMultiSelect'] = TRUE;
+			}
+		}
 		
 		return $productsArray;
 	}
 	
 	/**
-	 * Render Comma Seperated List
+	 * Render Multi Select Items Array
 	 *
-	 * @param string $list
 	 * @return array
 	 */
-	protected function renderCommaSeperatedList($list) {
-
-		$listArray = array();
-		$list = trim(str_ireplace(' ', '', $list), ',');
+	public function renderMultiSelectItemsArray() {
 		
-		if(!empty($list))
-			$listArray = explode(',', $list);
-		
-		return $listArray;
+		// fallback when the value of this setting is incorrect
+		if(!ctype_digit($this->settings['products_multiselect']['maxAmount']) || $this->settings['products_multiselect']['maxAmount'] == 0)
+			$this->settings['products_multiselect']['maxAmount'] = 4;
+				
+		return range(1, $this->settings['products_multiselect']['maxAmount']);
 	}
 	
 	/**

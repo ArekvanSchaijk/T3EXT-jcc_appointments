@@ -30,6 +30,14 @@ plugin.tx_jccappointments {
 			# cat=plugin.tx_jccappointments_products/a/030; type=string; label=Exclude Product Ids:Comma seperated list of products that need to be excluded
 			excluded = 
 		}
+		products_multiselect {
+			# cat=plugin.tx_jccappointments_products_multiselect/a/010; type=boolean; label=Enable MultiSelect:If set, this option allows to select the amount of a products to be ordered at once
+			enabled = 0
+			# cat=plugin.tx_jccappointments_products_multiselect/a/020; type=string; label=Exclude Product Ids:Comma seperated list of products that need to be excluded for the multiselect feature
+			excluded = 
+			# cat=plugin.tx_jccappointments_products_multiselect/a/030; type=int; label=Max Amount:Maximum amount of products to be multi selected at once
+			maxAmount = 4
+		}
 		location {
 			# cat=plugin.tx_jccappointments_location/a/010; type=boolean; label=Disable Locations:Check to disable the whole location step (it is required that the location ID is set too)
 			disable = 

@@ -20,6 +20,11 @@ plugin.tx_jccappointments {
 			allowed = {$plugin.tx_jccappointments.settings.products.allowed}
 			excluded = {$plugin.tx_jccappointments.settings.products.excluded}
 		}
+		products_multiselect {
+			enabled = {$plugin.tx_jccappointments.settings.products_multiselect.enabled}
+			excluded = {$plugin.tx_jccappointments.settings.products_multiselect.excluded}
+			maxAmount = {$plugin.tx_jccappointments.settings.products_multiselect.maxAmount}
+		}
 		location {
 			disable = {$plugin.tx_jccappointments.settings.location.disable}
 			locationID = {$plugin.tx_jccappointments.settings.location.locationID}

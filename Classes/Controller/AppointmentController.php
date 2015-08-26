@@ -93,8 +93,13 @@ class AppointmentController extends BaseController {
 			
 			$this->data('selectedProducts', $this->getSessionProducts());
 		}
-
+		
 		$this->data('products', $availableProducts);
+		$this->data('multiSelect', $this->settings['products_multiselect']['enabled']);
+		
+		// if multi select is enabled we have to render the max amount items array
+		if($this->settings['products_multiselect']['enabled'])
+			$this->data('multiSelectItems', $this->renderMultiSelectItemsArray());
 	}
 	
 	/**
@@ -121,15 +126,39 @@ class AppointmentController extends BaseController {
 				
 			} else {
 				
-				// add product to session
-				$this->addProductToSession($this->params['product'], $product->out);
+				// add multiple products
+				if($this->params['multiSelect'] && $this->params['amount'] > 1) {
+				
+					// validate the amount
+					if(!ctype_digit($this->params['amount']) || $this->params['amount'] > $this->settings['products_multiselect']['maxAmount']) {
+						
+						$this->flashMessageContainer->add(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('validation.product_amount_not_allowed', $this->extensionName));
+						
+					} else {
+						
+						$curItem = 0;
+						while($curItem <= $this->params['amount']) {
+							
+							// add product to session
+							$this->addProductToSession($this->params['product'], $product->out);
+							
+							$curItem++;	
+						}	
+					}
+				
+				// add single product	
+				} else {
+				
+					// add product to session
+					$this->addProductToSession($this->params['product'], $product->out);
+				}
 			}
 		}
 		
 		// redirect back to the form action
 		$this->redirect(NULL);
 	}
-	
+
 	/**
 	 * action remove product
 	 *

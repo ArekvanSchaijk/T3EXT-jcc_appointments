@@ -1,0 +1,17 @@
+<h1>Select products</h1>
+<f:if condition="{data.products}">
+  <f:then>
+    <div id="product_list">
+      <h2>{f:translate(key:'available_products.header')}</h2>
+      <p>{f:translate(key:'available_products.description')}</p>
+      <ul>
+        <f:for each="{data.products}" as="product">
+          <li>{product.name}
+            <f:link.action action="addProduct" arguments="{product : product.uid}">{f:translate(key:'available_products.button_addproduct')}</f:link.action>
+          </li>
+        </f:for>
+      </ul>
+    </div>
+  </f:then>
+  <f:else></f:else>
+</f:if>

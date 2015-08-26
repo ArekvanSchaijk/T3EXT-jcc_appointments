@@ -1,0 +1,33 @@
+<h1>MultiSelect products</h1>
+<f:if condition="{data.products}">
+  <f:then>
+    <div id="product_list">
+      <h2>{f:translate(key:'available_products.header')}</h2>
+      <p>{f:translate(key:'available_products.description')}</p>
+      <ul>
+        <f:for each="{data.products}" as="product">
+          <f:if condition="{product.excludeFromMultiSelect}">
+            <f:then>
+              <li>{product.name} <strong>(product excluded from multi-select)</strong>
+                <f:link.action action="addProduct" arguments="{product : product.uid}">{f:translate(key:'available_products.button_addproduct')}</f:link.action>
+              </li>
+            </f:then>
+            <f:else>
+              <li>
+                <div class="multi_select_container">
+                  <div class="product_label">{product.name}</div>
+                  <div class="multi_select_form">
+                    <f:form action="addProduct" arguments="{product : product.uid, multiSelect: 1}">
+                    	<div><f:form.select name="amount" options="{data.multiSelectItems}" /></div>
+                        <div><f:form.submit name="submit" value="{f:translate(key:'available_products.button_addproduct')}" /></div>
+                    </f:form>
+                  </div>
+                </div>
+            </f:else>
+          </f:if>
+        </f:for>
+      </ul>
+    </div>
+  </f:then>
+  <f:else></f:else>
+</f:if>
