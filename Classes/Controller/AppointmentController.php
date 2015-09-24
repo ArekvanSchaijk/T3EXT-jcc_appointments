@@ -112,12 +112,12 @@ class AppointmentController extends BaseController {
 		
 		// validate product ID 
 		if (!$this->params['product'] || empty($this->params['product']) || !ctype_digit($this->params['product'])) {
-			$this->addFrontendFlashMessage('validation.product_doesnt_exist');			
+			$this->addFlashMessageError('validation.product_doesnt_exist');			
 		} else {
 			
 			// checks product that cant be selected more than once
 			if (!$this->checkProductsThatCantBeSelectedMoreThanOnce($this->params['product'])) {
-				$this->addFrontendFlashMessage('validation.product_already_exists');				
+				$this->addFlashMessageError('validation.product_already_exists');				
 			} else {
 			
 				// API get product details
@@ -125,7 +125,7 @@ class AppointmentController extends BaseController {
 				
 				// check if the product exist
 				if (!$product->out) {
-					$this->addFrontendFlashMessage('validation.product_doesnt_exist');					
+					$this->addFlashMessageError('validation.product_doesnt_exist');					
 				} else {
 					
 					// add multiple products
@@ -133,7 +133,7 @@ class AppointmentController extends BaseController {
 					
 						// validate the amount
 						if (!ctype_digit($this->params['amount']) || $this->params['amount'] > $this->settings['products_multiselect']['maxAmount']) {
-							$this->addFrontendFlashMessage('validation.product_amount_not_allowed');							
+							$this->addFlashMessageError('validation.product_amount_not_allowed');							
 						} else {
 							
 							$curItem = 1;
@@ -244,7 +244,7 @@ class AppointmentController extends BaseController {
 			
 			// if the month is allowed
 			if (!$this->isMonthAllowed($this->params['year'].$this->params['month'], $months)) {
-				$this->addFrontendFlashMessage('validation.calendar_invalid_month');
+				$this->addFlashMessageError('validation.calendar_invalid_month');
 			} else {
 
 				$this->data('showAvailableDays', TRUE);
@@ -303,7 +303,7 @@ class AppointmentController extends BaseController {
 			
 			// if the month is allowed
 			if (!$this->isMonthAllowed($this->params['year'].$this->params['month'], $months)) {
-				$this->addFrontendFlashMessage('validation.calendar_invalid_month');
+				$this->addFlashMessageError('validation.calendar_invalid_month');
 			} else {
 
 				$this->data('showAvailableDays', TRUE);
@@ -414,12 +414,12 @@ class AppointmentController extends BaseController {
 		
 		// check if there is a month selected
 		if (!$this->params['month']) {
-			$this->addFrontendFlashMessage('validation.calendar_no_month_selected');
+			$this->addFlashMessageError('validation.calendar_no_month_selected');
 		} else {
 			
 			// validate given year month
 			if (!self::validateYearMonth($this->params['month'])) {
-				$this->addFrontendFlashMessage('validation.calendar_invalid_month');
+				$this->addFlashMessageError('validation.calendar_invalid_month');
 			} else {
 				
 				// build month array
@@ -427,7 +427,7 @@ class AppointmentController extends BaseController {
 				
 				// the selected month isnt accepted
 				if (!$this->isMonthAllowed($this->params['month'], $months)) {
-					$this->addFrontendFlashMessage('validation.calendar_invalid_month');
+					$this->addFlashMessageError('validation.calendar_invalid_month');
 				} else {
 				
 					$postedMonth = str_split($this->params['month'], 4);
@@ -451,7 +451,7 @@ class AppointmentController extends BaseController {
 		// checks if there is a date selected
 		if (!$this->params['date']) {
 			
-			$this->addFrontendFlashMessage('validation.calendar_no_day_selected');
+			$this->addFlashMessageError('validation.calendar_no_day_selected');
 			$this->redirect(NULL, NULL, NULL, array('year' => $this->params['year'], 'month' => $this->params['month']));
 			
 		} else {
@@ -465,7 +465,7 @@ class AppointmentController extends BaseController {
 			) {
 				$this->redirect(NULL, NULL, NULL, array('year' => $this->params['year'], 'month' => $this->params['month'], 'date' => $this->params['date']));
 			} else {
-				$this->addFrontendFlashMessage('validation.calendar_invalid_day');
+				$this->addFlashMessageError('validation.calendar_invalid_day');
 			}
 
 			// validate given year
@@ -489,7 +489,7 @@ class AppointmentController extends BaseController {
 		// checks if there is a date selected
 		if (!$this->params['date']) {
 			
-			$this->addFrontendFlashMessage('validation.calendar_no_day_selected');
+			$this->addFlashMessageError('validation.calendar_no_day_selected');
 			$this->redirect(NULL);
 			
 		} else {
@@ -501,7 +501,7 @@ class AppointmentController extends BaseController {
 				
 			} else {
 				
-				$this->addFrontendFlashMessage('validation.calendar_invalid_day');
+				$this->addFlashMessageError('validation.calendar_invalid_day');
 				$this->redirect(NULL);
 			}
 		}	
@@ -525,7 +525,7 @@ class AppointmentController extends BaseController {
 		// checks if there is a time selected
 		if (!$this->params['time']) {
 			
-			$this->addFrontendFlashMessage('validation.calendar_no_time_selected');
+			$this->addFlashMessageError('validation.calendar_no_time_selected');
 			$this->redirect(NULL, NULL, NULL, $returnArguments);
 				
 		} else {
@@ -533,14 +533,14 @@ class AppointmentController extends BaseController {
 			// validate given date
 			if (!self::validateDate($this->params['date'])) {
 				
-				$this->addFrontendFlashMessage('validation.calendar_invalid_day');
+				$this->addFlashMessageError('validation.calendar_invalid_day');
 				unset($returnArguments['date']);
 				$this->redirect(NULL, NULL, NULL, $returnArguments);
 			
 			// validate given time
 			} else if (!self::validateTime($this->params['time'])) {
 				
-				$this->addFrontendFlashMessage('validation.calendar_invalid_time');
+				$this->addFlashMessageError('validation.calendar_invalid_time');
 				$this->redirect(NULL, NULL, NULL, $returnArguments);
 			
 			} else {
@@ -563,7 +563,7 @@ class AppointmentController extends BaseController {
 				// if day and time are not allwoed
 				if (!$dayAndTimeAllowed) {
 				
-					$this->addFrontendFlashMessage('validation.calendar_day_and_time_not_available');
+					$this->addFlashMessageError('validation.calendar_day_and_time_not_available');
 					$this->redirect(NULL);
 					
 				} else {

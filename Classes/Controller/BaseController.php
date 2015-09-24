@@ -132,7 +132,7 @@ class BaseController extends ActionController {
 			
 			// adds a flash message
 			if ($this->settings['general']['sessionExpiredMessage']) {		
-				$this->addFrontendFlashMessage('session.expired.message');
+				$this->addFlashMessageError('session.expired.message');
 			}
 				
 			// redirects to step 1
@@ -1451,7 +1451,11 @@ class BaseController extends ActionController {
 	 */
 	protected function setValidationError($languageKey) {
 		$this->stepValidation = FALSE;
-		$this->flashMessageContainer->add(LocalizationUtility::translate($languageKey, self::$extName));
+		$this->addFlashMessage(
+			LocalizationUtility::translate($languageKey, self::$extName),
+			'', 
+			\TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+		);
 	}
 	
 	/**
@@ -1587,13 +1591,17 @@ class BaseController extends ActionController {
 	}
 	
 	/**
-	 * Add Frontend Flash Message
+	 * Add Flash Message Label
 	 *
 	 * @param string $translationLabel
 	 * @return void
 	 */
-	public function addFrontendFlashMessage($translationLabel) {
-		$this->flashMessageContainer->add(LocalizationUtility::translate($translationLabel, self::$extName));
+	public function addFlashMessageError($translationLabel) {
+		$this->addFlashMessage(
+			LocalizationUtility::translate($translationLabel, self::$extName),
+			'', 
+			\TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+		);
 	}
 	
 }
