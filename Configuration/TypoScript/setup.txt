@@ -1,6 +1,6 @@
 plugin.tx_jccappointments {
 	view {
-		templateRootPaths.0 = EXT:jcc_appointments/Resources/Private/Templates/
+		templateRootPaths.0 = {$plugin.tx_jccappointments.view.templateRootPath}
 		partialRootPaths.0 = {$plugin.tx_jccappointments.view.partialRootPath}
 	}
 	persistence {
