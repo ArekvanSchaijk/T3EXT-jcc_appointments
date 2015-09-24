@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2015-09-24T18:40:12T" product-name="jcc_appointments">
+    <header/>
+    <body>
+      <trans-unit id="tx_jccappointments_domain_model_appointment">
+        <source>Appointment</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.app_id">
+        <source>Appointment ID</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.app_time">
+        <source>Appointment Time</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.secret_hash">
+        <source>Secret Hash</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.sms">
+        <source>SMS</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.sms_send">
+        <source>SMS Sended</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.sms_send_date">
+        <source>SMS Send Date</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.mail_send">
+        <source>Mail Sended</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.closed">
+        <source>Closed</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.client_id">
+        <source>Client ID</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.client_initials">
+        <source>Client Initials</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.client_insertions">
+        <source>Client Insertions</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.client_last_name">
+        <source>Client Last Name</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.client_sex">
+        <source>Client Sex</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.client_date_of_birth">
+        <source>Client Date Of Birth</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.client_street">
+        <source>Client Street</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.client_street_number">
+        <source>Client Street Number</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.client_postal_code">
+        <source>Client Postal Code</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.client_city">
+        <source>Client City</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.client_phone">
+        <source>Client Phone</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.client_mobile_phone">
+        <source>Client Mobile Phone</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.client_email">
+        <source>Client Email</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.location_name">
+        <source>Location Name</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.location_address">
+        <source>Location Address</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.location_postal_code">
+        <source>Location Postal Code</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_appointment.location_phone">
+        <source>Location Phone</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_sms">
+        <source>Sms</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_sms.recipient_name">
+        <source>Recipient Name</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_sms.recipient_number">
+        <source>Recipient Number</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_sms.sender_name">
+        <source>Sender Name</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_sms.message">
+        <source>Message</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_sms.app_id">
+        <source>App Id</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_sms.status">
+        <source>Status</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_sms.send_date">
+        <source>Send Date</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_takeouttext">
+        <source>Takeout Text</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_takeouttext.product_id">
+        <source>Product</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_takeouttext.product_id.0">
+        <source>-- select --</source>
+      </trans-unit>
+      <trans-unit id="tx_jccappointments_domain_model_takeouttext.text">
+        <source>Text</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

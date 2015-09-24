@@ -95,7 +95,7 @@ $TCA['tx_jccappointments_domain_model_sms'] = array(
 		),
 		'recipient_name' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_sms.recipient_name',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_sms.recipient_name',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -105,7 +105,7 @@ $TCA['tx_jccappointments_domain_model_sms'] = array(
 		),
 		'recipient_number' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_sms.recipient_number',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_sms.recipient_number',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -115,7 +115,7 @@ $TCA['tx_jccappointments_domain_model_sms'] = array(
 		),
 		'sender_name' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_sms.sender_name',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_sms.sender_name',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -125,7 +125,7 @@ $TCA['tx_jccappointments_domain_model_sms'] = array(
 		),
 		'message' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_sms.message',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_sms.message',
 			'config' => array(
 				'type' => 'text',
 				'readOnly' => TRUE,
@@ -136,7 +136,7 @@ $TCA['tx_jccappointments_domain_model_sms'] = array(
 		),
 		'app_id' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_sms.app_id',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_sms.app_id',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -146,7 +146,7 @@ $TCA['tx_jccappointments_domain_model_sms'] = array(
 		),
 		'status' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_sms.status',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_sms.status',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -157,7 +157,7 @@ $TCA['tx_jccappointments_domain_model_sms'] = array(
 		'send_date' => array(
 			'exclude' => 1,
 			'l10n_mode' => 'mergeIfNotBlank',
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_sms.send_date',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_sms.send_date',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2015-09-24T18:40:33T" product-name="jcc_appointments">
+    <header/>
+    <body>
+      <trans-unit id="pi3.general">
+        <source>General</source>
+      </trans-unit>
+      <trans-unit id="pi3.general.selection">
+        <source>Takeout Texts to show</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

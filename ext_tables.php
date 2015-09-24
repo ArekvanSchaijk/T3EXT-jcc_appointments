@@ -30,7 +30,7 @@ $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_jccappointments_domain_model_appointment');
 $TCA['tx_jccappointments_domain_model_appointment'] = array(
 	'ctrl' => array(
-		'title'	=> 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment',
+		'title'	=> 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment',
 		'label' => 'app_id',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
@@ -51,7 +51,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_jccappointments_domain_model_takeouttext');
 $TCA['tx_jccappointments_domain_model_takeouttext'] = array(
 	'ctrl' => array(
-		'title'	=> 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_takeouttext',
+		'title'	=> 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_takeouttext',
 		'label' => 'product_id',
 		'label_userFunc' => 'Ucreation\\JccAppointments\\Handler\\HookHandler->tcaProductName',
 		'tstamp' => 'tstamp',
@@ -80,7 +80,7 @@ $TCA['tx_jccappointments_domain_model_takeouttext'] = array(
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_jccappointments_domain_model_sms');
 $TCA['tx_jccappointments_domain_model_sms'] = array(
 	'ctrl' => array(
-		'title'	=> 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_sms',
+		'title'	=> 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_sms',
 		'label' => 'recipient_name',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',

@@ -95,13 +95,13 @@ $TCA['tx_jccappointments_domain_model_takeouttext'] = array(
 		),
 		'product_id' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_takeouttext.product_id',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_takeouttext.product_id',
 			'config' => array(
 				'type' => 'select',
 				'itemsProcFunc' => 'Ucreation\JccAppointments\Handler\HookHandler->addTcaProductSelection',
 				'items' => array(
 					0 => array(
-						'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_takeouttext.product_id.0',
+						'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_takeouttext.product_id.0',
 						0,
 					),
 				)
@@ -109,7 +109,7 @@ $TCA['tx_jccappointments_domain_model_takeouttext'] = array(
 		),
 		'text' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_takeouttext.text',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_takeouttext.text',
              'config' => array(
 				'type' => 'text',
 				'cols' => 40,

@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" target-language="nl" datatype="plaintext" original="messages" date="2015-09-24T18:39:32T" product-name="jcc_appointments">
+    <header/>
+    <body>
+      <trans-unit id="day.0" approved="yes">
+        <source>Sunday</source>
+        <target state="translated">Zondag</target>
+      </trans-unit>
+      <trans-unit id="day.1" approved="yes">
+        <source>Monday</source>
+        <target state="translated">Maandag</target>
+      </trans-unit>
+      <trans-unit id="day.2" approved="yes">
+        <source>Tuesday</source>
+        <target state="translated">Dinsdag</target>
+      </trans-unit>
+      <trans-unit id="day.3" approved="yes">
+        <source>Wednesday</source>
+        <target state="translated">Woensdag</target>
+      </trans-unit>
+      <trans-unit id="day.4" approved="yes">
+        <source>Thursday</source>
+        <target state="translated">Donderdag</target>
+      </trans-unit>
+      <trans-unit id="day.5" approved="yes">
+        <source>Friday</source>
+        <target state="translated">Vrijdag</target>
+      </trans-unit>
+      <trans-unit id="day.6" approved="yes">
+        <source>Saturday</source>
+        <target state="translated">Zaterdag</target>
+      </trans-unit>
+      <trans-unit id="month.01" approved="yes">
+        <source>January</source>
+        <target state="translated">Januari</target>
+      </trans-unit>
+      <trans-unit id="month.02" approved="yes">
+        <source>February</source>
+        <target state="translated">Februari</target>
+      </trans-unit>
+      <trans-unit id="month.03" approved="yes">
+        <source>March</source>
+        <target state="translated">Maart</target>
+      </trans-unit>
+      <trans-unit id="month.04" approved="yes">
+        <source>April</source>
+        <target state="translated">April</target>
+      </trans-unit>
+      <trans-unit id="month.05" approved="yes">
+        <source>May</source>
+        <target state="translated">Mei</target>
+      </trans-unit>
+      <trans-unit id="month.06" approved="yes">
+        <source>June</source>
+        <target state="translated">Juni</target>
+      </trans-unit>
+      <trans-unit id="month.07" approved="yes">
+        <source>July</source>
+        <target state="translated">Juli</target>
+      </trans-unit>
+      <trans-unit id="month.08" approved="yes">
+        <source>August</source>
+        <target state="translated">Augustus</target>
+      </trans-unit>
+      <trans-unit id="month.09" approved="yes">
+        <source>September</source>
+        <target state="translated">September</target>
+      </trans-unit>
+      <trans-unit id="month.10" approved="yes">
+        <source>October</source>
+        <target state="translated">Oktober</target>
+      </trans-unit>
+      <trans-unit id="month.11" approved="yes">
+        <source>November</source>
+        <target state="translated">November</target>
+      </trans-unit>
+      <trans-unit id="month.12" approved="yes">
+        <source>December</source>
+        <target state="translated">December</target>
+      </trans-unit>
+      <trans-unit id="progress.step1" approved="yes">
+        <source>Product selection</source>
+        <target state="translated">Product selectie</target>
+      </trans-unit>
+      <trans-unit id="progress.step2" approved="yes">
+        <source>Location</source>
+        <target state="translated">Locatie</target>
+      </trans-unit>
+      <trans-unit id="progress.step3" approved="yes">
+        <source>Date &amp; Time</source>
+        <target state="translated">Datum &amp; Tijd</target>
+      </trans-unit>
+      <trans-unit id="progress.step4" approved="yes">
+        <source>Your data</source>
+        <target state="translated">Uw gegevens</target>
+      </trans-unit>
+      <trans-unit id="progress.step5" approved="yes">
+        <source>Confirmation</source>
+        <target state="translated">Bevestiging</target>
+      </trans-unit>
+      <trans-unit id="available_products.header" approved="yes">
+        <source>Available products</source>
+        <target state="translated">Beschikbare producten</target>
+      </trans-unit>
+      <trans-unit id="available_products.description" approved="yes">
+        <source>Select the products for this appointment.</source>
+        <target state="translated">Selecteer de producten voor deze afspraak door op de groene knop te klikken.</target>
+      </trans-unit>
+      <trans-unit id="available_products.button_addproduct" approved="yes">
+        <source>Choose</source>
+        <target state="translated">Kies</target>
+      </trans-unit>
+      <trans-unit id="selected_products.header" approved="yes">
+        <source>Selected products</source>
+        <target state="translated">Geselecteerde producten</target>
+      </trans-unit>
+      <trans-unit id="selected_products.description" approved="yes">
+        <source>You can remove your selection by deleting the item.</source>
+        <target state="translated">U kunt uw selectie aanpassen door een item te verwijderen. Klik dan op de rode knop.</target>
+      </trans-unit>
+      <trans-unit id="selected_products.button_removeproduct" approved="yes">
+        <source>Remove</source>
+        <target state="translated">Verwijder</target>
+      </trans-unit>
+      <trans-unit id="locations.header" approved="yes">
+        <source>Locations</source>
+        <target state="translated">Locaties</target>
+      </trans-unit>
+      <trans-unit id="locations.header_openinghours" approved="yes">
+        <source>Opening hours</source>
+        <target state="translated">Openingstijden</target>
+      </trans-unit>
+      <trans-unit id="locations.description" approved="yes">
+        <source>Select a location</source>
+        <target state="translated">Selecteer een locatie</target>
+      </trans-unit>
+      <trans-unit id="locations.button_addlocation" approved="yes">
+        <source>Choose</source>
+        <target state="translated">Kies</target>
+      </trans-unit>
+      <trans-unit id="locations.phone" approved="yes">
+        <source>Phone</source>
+        <target state="translated">Telefoon</target>
+      </trans-unit>
+      <trans-unit id="clientdata.header" approved="yes">
+        <source>Your data</source>
+        <target state="translated">Uw gegevens</target>
+      </trans-unit>
+      <trans-unit id="clientdata.description" approved="yes">
+        <source>Fill in your personal data</source>
+        <target state="translated">Vul uw persoonlijke gegevens in</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientID" approved="yes">
+        <source>ID (BSN)</source>
+        <target state="translated">ID (BSN)</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientSex" approved="yes">
+        <source>Sex</source>
+        <target state="translated">Geslacht</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientSexMale" approved="yes">
+        <source>Male</source>
+        <target state="translated">Man</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientSexFemale" approved="yes">
+        <source>Female</source>
+        <target state="translated">Vrouw</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientName" approved="yes">
+        <source>Name</source>
+        <target state="translated">Naam</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientMiddleName" approved="yes">
+        <source>Middle name</source>
+        <target state="translated">Tussenvoegsel(s)</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientLastName" approved="yes">
+        <source>Last name</source>
+        <target state="translated">Achternaam</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientInitials" approved="yes">
+        <source>Initials</source>
+        <target state="translated">Voorletters</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientDateOfBirth" approved="yes">
+        <source>Date of birth (DD-MM-YYYY)</source>
+        <target state="translated">Geboortedatum</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientDateOfBirthConfirmation" approved="yes">
+        <source>Date of birth</source>
+        <target state="translated">Geboortedatum</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientDayOfBirth" approved="yes">
+        <source>Day of birth</source>
+        <target state="translated">Dag</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientDayOfBirthOption" approved="yes">
+        <source>Day</source>
+        <target state="translated">Dag</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientMonthOfBirth" approved="yes">
+        <source>Month of birth</source>
+        <target state="translated">Maand</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientMonthOfBirthOption" approved="yes">
+        <source>Month</source>
+        <target state="translated">Maand</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientYearOfBirth" approved="yes">
+        <source>Year of birth</source>
+        <target state="translated">Geboorte Jaar</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientYearOfBirthOption" approved="yes">
+        <source>Year</source>
+        <target state="translated">jaar</target>
+      </trans-unit>
+      <trans-unit id="clientdata.submit" approved="yes">
+        <source>Submit</source>
+        <target state="translated">Volgende</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientStreet" approved="yes">
+        <source>Street</source>
+        <target state="translated">Straat</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientStreetNumber" approved="yes">
+        <source>number</source>
+        <target state="translated">Nummer</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientAddress" approved="yes">
+        <source>Address (street + number)</source>
+        <target state="translated">Adres</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientAddressConfirmation" approved="yes">
+        <source>Address</source>
+        <target state="translated">Addres</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientPostalCode" approved="yes">
+        <source>Postal code (NNNNLL)</source>
+        <target state="translated">Postcode</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientPostalCodeConfirmation" approved="yes">
+        <source>Postal code</source>
+        <target state="translated">Postcode</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientCity" approved="yes">
+        <source>City</source>
+        <target state="translated">Plaats</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientCountry" approved="yes">
+        <source>Country</source>
+        <target state="translated">land</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientTel" approved="yes">
+        <source>Phone</source>
+        <target state="translated">Telefoon</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientMobileTel" approved="yes">
+        <source>Mobile Phone</source>
+        <target state="translated">Mobiele telefoon</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientMail" approved="yes">
+        <source>Mail</source>
+        <target state="translated">Email</target>
+      </trans-unit>
+      <trans-unit id="clientdata.clientSms" approved="yes">
+        <source>SMS Notification</source>
+        <target state="translated">SMS herinnering</target>
+      </trans-unit>
+      <trans-unit id="confirmation.header_clientdata" approved="yes">
+        <source>Your entered data</source>
+        <target state="translated">Uw ingevoerde gegevens</target>
+      </trans-unit>
+      <trans-unit id="confirmation.description_clientdata" approved="yes">
+        <source>Check the information you entered</source>
+        <target state="translated">Controleer s.v.p. de ingevoerde gegevens</target>
+      </trans-unit>
+      <trans-unit id="confirmation.header_selectedproducts" approved="yes">
+        <source>Selected products</source>
+        <target state="translated">Geselecteerde producten</target>
+      </trans-unit>
+      <trans-unit id="confirmation.header_appointmentdetails" approved="yes">
+        <source>Appointment details</source>
+        <target state="translated">Afspraak details</target>
+      </trans-unit>
+      <trans-unit id="confirmation.description_appointmentdetails" approved="yes">
+        <source>Your appointment</source>
+        <target state="translated">Uw afspraak</target>
+      </trans-unit>
+      <trans-unit id="confirmation.header_takeouttexts" approved="yes">
+        <source>Takeout requisites</source>
+        <target state="translated">Benodigdheden afspraak</target>
+      </trans-unit>
+      <trans-unit id="confirmation.description_takeouttexts" approved="yes">
+        <source>Requisites description...</source>
+        <target state="translated">Beschrijving benodigdheden afspraak...</target>
+      </trans-unit>
+      <trans-unit id="confirmation.date" approved="yes">
+        <source>Date</source>
+        <target state="translated">Datum</target>
+      </trans-unit>
+      <trans-unit id="confirmation.time" approved="yes">
+        <source>Time</source>
+        <target state="translated">Tijd</target>
+      </trans-unit>
+      <trans-unit id="confirmation.endTime" approved="yes">
+        <source>End Time</source>
+        <target state="translated">Eindtijd</target>
+      </trans-unit>
+      <trans-unit id="confirmation.location" approved="yes">
+        <source>Location</source>
+        <target state="translated">Locatie</target>
+      </trans-unit>
+      <trans-unit id="confirmation.location.name" approved="yes">
+        <source>Name</source>
+        <target state="translated">Naam</target>
+      </trans-unit>
+      <trans-unit id="confirmation.location.address" approved="yes">
+        <source>Address</source>
+        <target state="translated">Adres</target>
+      </trans-unit>
+      <trans-unit id="confirmation.location.postalcode" approved="yes">
+        <source>Postal code</source>
+        <target state="translated">Postcode</target>
+      </trans-unit>
+      <trans-unit id="confirmation.location.city" approved="yes">
+        <source>City</source>
+        <target state="translated">Stad</target>
+      </trans-unit>
+      <trans-unit id="confirmation.location.phone" approved="yes">
+        <source>Phone</source>
+        <target state="translated">Telefoon</target>
+      </trans-unit>
+      <trans-unit id="confirmation.phone" approved="yes">
+        <source>Phone</source>
+        <target state="translated">Telefoon</target>
+      </trans-unit>
+      <trans-unit id="calendar.header_selectmonth" approved="yes">
+        <source>Month selection:</source>
+        <target state="translated">Selecteer een maand:</target>
+      </trans-unit>
+      <trans-unit id="calendar.header_selectday" approved="yes">
+        <source>Day selection:</source>
+        <target state="translated">Selecteer een dag:</target>
+      </trans-unit>
+      <trans-unit id="calendar.header_selecttime" approved="yes">
+        <source>Time selection:</source>
+        <target state="translated">Selecteer een tijd:</target>
+      </trans-unit>
+      <trans-unit id="calendar.select" approved="yes">
+        <source>Select</source>
+        <target state="translated">Selecteer</target>
+      </trans-unit>
+      <trans-unit id="calendar.empty_selectbox_value" approved="yes">
+        <source>-- select --</source>
+        <target state="translated">-- selecteer --</target>
+      </trans-unit>
+      <trans-unit id="calendar.select_month" approved="yes">
+        <source>Select month</source>
+        <target state="translated">Selecteer maand</target>
+      </trans-unit>
+      <trans-unit id="calendar.select_day" approved="yes">
+        <source>Select day</source>
+        <target state="translated">Selecteer dag</target>
+      </trans-unit>
+      <trans-unit id="calendar.select_time" approved="yes">
+        <source>Select time</source>
+        <target state="translated">Selecteer tijd</target>
+      </trans-unit>
+      <trans-unit id="message.no_available_days" approved="yes">
+        <source>There are no available days</source>
+        <target state="translated">Er is geen dag beschikbaar</target>
+      </trans-unit>
+      <trans-unit id="message.no_available_days_in_month" approved="yes">
+        <source>There are no available days in this month</source>
+        <target state="translated">Er is geen dag beschikbaar deze maand om een afspraak te maken</target>
+      </trans-unit>
+      <trans-unit id="message.no_available_times_in_day" approved="yes">
+        <source>There is no time available this day</source>
+        <target state="translated">Er is op deze dag geen tijd meer beschikbaar om een afspraak te maken</target>
+      </trans-unit>
+      <trans-unit id="validation.product_doesnt_exist" approved="yes">
+        <source>The selected product doesnt exist</source>
+        <target state="translated">Dit product bestaat niet</target>
+      </trans-unit>
+      <trans-unit id="validation.product_amount_not_allowed" approved="yes">
+        <source>Invalid amount of products chosen</source>
+        <target state="translated">Ongeldig aantal van dit product geselecteerd</target>
+      </trans-unit>
+      <trans-unit id="validation.product_already_exists" approved="yes">
+        <source>This product is already chosen and can't be chosen more than once</source>
+        <target state="translated">Dit product heeft u al gekozen en kan niet vaker worden gekozen</target>
+      </trans-unit>
+      <trans-unit id="validation.no_product_selected" approved="yes">
+        <source>You have to select at least one product</source>
+        <target state="translated">U dient tenminste één product selecteren</target>
+      </trans-unit>
+      <trans-unit id="validation.no_location_selected" approved="yes">
+        <source>You have to select a location</source>
+        <target state="translated">Geef de locatie aan door er op te klikken</target>
+      </trans-unit>
+      <trans-unit id="validation.no_day_or_time_selected" approved="yes">
+        <source>You have not selected a day or time</source>
+        <target state="translated">U heeft geen dag of tijd geselecteerd</target>
+      </trans-unit>
+      <trans-unit id="validation.calendar_no_month_selected" approved="yes">
+        <source>You didnt select a month</source>
+        <target state="translated">U heeft geen maand geselecteerd</target>
+      </trans-unit>
+      <trans-unit id="validation.calendar_no_day_selected" approved="yes">
+        <source>You didnt select a day</source>
+        <target state="translated">U heeft geen dag geselecteerd</target>
+      </trans-unit>
+      <trans-unit id="validation.calendar_no_time_selected" approved="yes">
+        <source>You didnt select a time</source>
+        <target state="translated">U heeft geen tijd geselecteerd</target>
+      </trans-unit>
+      <trans-unit id="validation.calendar_invalid_month" approved="yes">
+        <source>The selected month is invalid</source>
+        <target state="translated">De gekozen maand is niet(meer) geldig</target>
+      </trans-unit>
+      <trans-unit id="validation.calendar_invalid_day" approved="yes">
+        <source>The selected day is invalid</source>
+        <target state="translated">De gekozen dag is niet(meer) geldig</target>
+      </trans-unit>
+      <trans-unit id="validation.calendar_invalid_time" approved="yes">
+        <source>The selected time is invalid</source>
+        <target state="translated">De gekozen tijd is niet(meer) geldig</target>
+      </trans-unit>
+      <trans-unit id="validation.calendar_day_and_time_not_available" approved="yes">
+        <source>The selected day time is not available</source>
+        <target state="translated">De geselecteerde dag of tijd is niet beschikbaar</target>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_clientdata_given" approved="yes">
+        <source>There is no client data given</source>
+        <target state="translated">U heeft geen persoonlijke gegevens ingevoerd</target>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_id" approved="yes">
+        <source>You did not fill out your ID number</source>
+        <target state="translated">U heeft het nummer van uw ID bewijs niet ingevoerd</target>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.invalid_id" approved="yes">
+        <source>The BSN number is invalid</source>
+        <target state="translated">het BSN nummer is ongeldig</target>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_sex_checked" approved="yes">
+        <source>You did not select your sex</source>
+        <target state="translated">U heeft geen geslacht gekozen</target>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.invalid_sex" approved="yes">
+        <source>The value of the given sex is invalid</source>
+        <target state="translated">Ongeldige waarde voor geslacht</target>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_initials" approved="yes">
+        <source>You did not fill out your initials</source>
+        <target state="translated">U heeft uw initialen niet ingevoerd</target>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_lastName" approved="yes">
+        <source>You did not fill out your last name</source>
+        <target state="translated">U heeft uw achternaam niet ingevoerd</target>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_birthday" approved="yes">
+        <source>You did not fill out your birthday</source>
+        <target state="translated">U heeft uw geboortedatum niet (juist) ingevuld</target>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.invalid_birthday" approved="yes">
+        <source>You entered a wrong birthday</source>
+        <target state="translated">U heeft een onjuiste geboortedatumn ingevuld</target>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_street" approved="yes">
+        <source>You did not fill in your street name</source>
+        <target state="translated">U heeft uw straatnaam niet ingevuld</target>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_number" approved="yes">
+        <source>You did not enter your street number</source>
+        <target state="translated">U heeft uw huisnummer niet ingevuld</target>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.invalid_number" approved="yes">
+        <source>You entered a wrong street number</source>
+        <target state="translated">U heeft een onjuist huisnummer ingevuld</target>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_address" approved="yes">
+        <source>You did not enter your address</source>
+        <target state="translated">U heeft uw adres niet ingevuld</target>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.invalid_address" approved="yes">
+        <source>You entered a wrong address</source>
+        <target state="translated">U heeft een onjuist adres ingevuld</target>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_postalcode" approved="yes">
+        <source>You did not enter your postal code</source>
+        <target state="translated">U heeft uw postcode niet ingevuld</target>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.invalid_postalcode" approved="yes">
+        <source>You entered a wrong postal code</source>
+        <target state="translated">U heeft een onjuiste postcode ingevuld</target>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_city" approved="yes">
+        <source>You did not enter your city</source>
+        <target state="translated">U heeft uw plaatsnaam niet ingevuld</target>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_tel" approved="yes">
+        <source>You did not enter your tel</source>
+        <target state="translated">U heeft uw telefoonnummer niet ingevuld</target>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_mobile_tel" approved="yes">
+        <source>You did not enter your mobile tel</source>
+        <target state="translated">U heeft uw mobiele telefoonnummer niet ingevuld</target>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.sms_no_mobile_tel" approved="yes">
+        <source>You did not enter your mobile tel (required for SMS notification)</source>
+        <target state="translated">U heeft uw mobiele telefoonnummer niet ingevuld (vereist voor SMS notificatie)</target>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_mail" approved="yes">
+        <source>You did not fill in your mail address</source>
+        <target state="translated">U heeft uw email adres niet ingevuld</target>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.invalid_mail" approved="yes">
+        <source>You entered a wrong mail address</source>
+        <target state="translated">U heeft een onjuist email adres ingevuld</target>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_country" approved="yes">
+        <source>You did not fill in your country</source>
+        <target state="translated">U heeft uw land niet ingevuld</target>
+      </trans-unit>
+      <trans-unit id="previous" approved="yes">
+        <source>Previous</source>
+        <target state="translated">Vorige</target>
+      </trans-unit>
+      <trans-unit id="next" approved="yes">
+        <source>Next</source>
+        <target state="translated">Volgende</target>
+      </trans-unit>
+      <trans-unit id="cancel.confirmationtext" approved="yes">
+        <source>Are you sure you would cancel the appointment?</source>
+        <target state="translated">Weet u zeker dat u de onderstaande afspraak wilt afzeggen?</target>
+      </trans-unit>
+      <trans-unit id="cancel.message.1" approved="yes">
+        <source>The url contains no appointment hash.</source>
+        <target state="translated">De url bevat geen afspraak sleutel.</target>
+      </trans-unit>
+      <trans-unit id="cancel.message.2" approved="yes">
+        <source>The given appointment hash is invalid.</source>
+        <target state="translated">De meegegeven afspraak sleutel is ongeldig.</target>
+      </trans-unit>
+      <trans-unit id="cancel.message.3" approved="yes">
+        <source>The appointment is expired, its not possible to cancel it anymore.</source>
+        <target state="translated">De afspraak bevind zich in het verleden, het is niet mogelijk om deze af te zeggen.</target>
+      </trans-unit>
+      <trans-unit id="cancel.message.4" approved="yes">
+        <source>The appointment is already cancelled or expired.</source>
+        <target state="translated">Deze afspraak is al afgezegd of ligt in het veleden waardoor deze actie niet meer mogelijk is.</target>
+      </trans-unit>
+      <trans-unit id="cancel.date" approved="yes">
+        <source>Date</source>
+        <target state="translated">Datum</target>
+      </trans-unit>
+      <trans-unit id="cancel.time" approved="yes">
+        <source>Time</source>
+        <target state="translated">Tijdstip</target>
+      </trans-unit>
+      <trans-unit id="cancel.products" approved="yes">
+        <source>Products</source>
+        <target state="translated">Producten</target>
+      </trans-unit>
+      <trans-unit id="cancel.location" approved="yes">
+        <source>Location</source>
+        <target state="translated">Locatie</target>
+      </trans-unit>
+      <trans-unit id="cancel.confirm" approved="yes">
+        <source>Click to confirm appointment cancelling</source>
+        <target state="translated">Ja, zeg mijn afspraak af.</target>
+      </trans-unit>
+      <trans-unit id="cancel.succesfully" approved="yes">
+        <source>The appointment is cancelled succesfully.</source>
+        <target state="translated">Bedankt. Uw afspraak is succesvol afgezegd.</target>
+      </trans-unit>
+      <trans-unit id="session.expired.message" approved="yes">
+        <source>Your session is expired. You can fill out the form again.</source>
+        <target state="translated">Uw vorige sessie is verlopen. U kunt het formulier opnieuw invullen.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

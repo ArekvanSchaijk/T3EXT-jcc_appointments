@@ -53,7 +53,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		),
 		'app_id' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.app_id',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.app_id',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -64,7 +64,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		'app_time' => array(
 			'exclude' => 1,
 			'l10n_mode' => 'mergeIfNotBlank',
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.app_time',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.app_time',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -80,7 +80,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		),
 		'secret_hash' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.secret_hash',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.secret_hash',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -90,7 +90,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		),
 		'sms' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.sms',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.sms',
 			'config' => array(
 				'type' => 'check',
 				'readOnly' => TRUE,
@@ -99,7 +99,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		),
 		'sms_send' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.sms_send',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.sms_send',
 			'config' => array(
 				'type' => 'check',
 				'readOnly' => TRUE,
@@ -109,7 +109,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		'sms_send_date' => array(
 			'exclude' => 1,
 			'l10n_mode' => 'mergeIfNotBlank',
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.sms_send_date',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.sms_send_date',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -125,7 +125,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		),
 		'mail_send' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.mail_send',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.mail_send',
 			'config' => array(
 				'type' => 'check',
 				'readOnly' => TRUE,
@@ -134,7 +134,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		),
 		'closed' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.closed',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.closed',
 			'config' => array(
 				'type' => 'check',
 				'readOnly' => TRUE,
@@ -143,7 +143,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		),
 		'client_id' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.client_id',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.client_id',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -153,7 +153,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		),
 		'client_initials' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.client_initials',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.client_initials',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -163,7 +163,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		),
 		'client_insertions' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.client_insertions',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.client_insertions',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -173,7 +173,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		),
 		'client_last_name' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.client_last_name',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.client_last_name',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -183,7 +183,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		),
 		'client_sex' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.client_sex',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.client_sex',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -194,7 +194,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		'client_date_of_birth' => array(
 			'exclude' => 1,
 			'l10n_mode' => 'mergeIfNotBlank',
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.client_date_of_birth',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.client_date_of_birth',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -210,7 +210,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		),
 		'client_street' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.client_street',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.client_street',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -220,7 +220,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		),
 		'client_street_number' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.client_street_number',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.client_street_number',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -230,7 +230,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		),
 		'client_postal_code' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.client_postal_code',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.client_postal_code',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -240,7 +240,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		),
 		'client_city' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.client_city',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.client_city',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -250,7 +250,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		),
 		'client_phone' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.client_phone',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.client_phone',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -260,7 +260,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		),
 		'client_mobile_phone' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.client_mobile_phone',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.client_mobile_phone',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -270,7 +270,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		),
 		'client_email' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.client_email',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.client_email',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -280,7 +280,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		),
 		'location_name' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.location_name',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.location_name',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -290,7 +290,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		),
 		'location_address' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.location_address',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.location_address',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -300,7 +300,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		),
 		'location_postal_code' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.location_postal_code',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.location_postal_code',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -310,7 +310,7 @@ $TCA['tx_jccappointments_domain_model_appointment'] = array(
 		),
 		'location_phone' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_appointment.location_phone',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_appointment.location_phone',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
