@@ -177,7 +177,7 @@ class BaseController extends ActionController {
 			} catch(SoapFault $e) {
 				// if the "service unavailable" page id is set we have to forward trough it
 				if ($this->settings['soap']['serviceUnavailablePid']) {
-					self::pageRedirect($this->settings['soap']['serviceUnavailablePid']);
+					$this->pageRedirect($this->settings['soap']['serviceUnavailablePid']);
 				} else {
 					throw new Exception('The SOAP service is currently unavailable');
 				}
@@ -1478,10 +1478,9 @@ class BaseController extends ActionController {
 	 * @param integer $pid
 	 * @return void
 	 */
-	static protected function pageRedirect($pid) {
-	    $cObj = GeneralUtility::makeInstance('tslib_cObj');
-	    $url = $cObj->typoLink_URL(array('parameter' => $pid));
-	    \TYPO3\CMS\Core\Utility\HttpUtility::redirect($url);
+	protected function pageRedirect($pid) {
+		$uri = $this->getFrontendUri($pid, NULL, TRUE);
+		header('Location: '.$uri);
 		exit;
 	}
 	
@@ -1562,32 +1561,24 @@ class BaseController extends ActionController {
 	/**
 	 * Get Frontend Uri
 	 *
-	 * @global \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $TSFE
-	 * @param integer $pageUid
-	 * @param array $additionalParams
+	 * @param int $pageId
+	 * @param array $arguments
+	 * @param bool $addHost
+	 *
 	 * @return string
 	 */
-	protected function getFrontendUri($pageUid, array $additionalParams = array()) {
-		
-		global $TSFE;
-		
-		// website baseurl
-		$baseUrl = rtrim($TSFE->baseUrl, '/').'/';
-		
-		// get uri builder
-		$uriBuilder = $this->controllerContext->getUriBuilder();
-
-		$uri = $uriBuilder
-		// set target page uid
-		->setTargetPageUid($pageUid)
-		// set use cache hash
-		->setUseCacheHash(TRUE)
-		// set arguments
-		->setArguments($additionalParams)
-		// build
-		->build();
-			
-		return rawurldecode($baseUrl.ltrim($uri, '/'));
+	protected function getFrontendUri($pageId, array $arguments = NULL, $addHost = TRUE) {
+		$uri = $this->controllerContext->getUriBuilder();
+		$uri->setTargetPageUid($pageId);
+		$uri->setUseCacheHash(FALSE);
+		if ($arguments) {
+			$uri->setArguments($arguments);
+		}
+		$uri = rawurldecode($uri->build());
+		if (strpos(substr($uri, 0, 1), '/') !== FALSE) {
+			return ($addHost ? GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST') : NULL).$uri;
+		}
+		return ($addHost ? GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST') : NULL).'/'.$uri;		
 	}
 	
 	/**

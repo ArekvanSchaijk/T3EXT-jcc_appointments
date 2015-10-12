@@ -858,7 +858,7 @@ class AppointmentController extends BaseController {
 				
 			} else {
 				
-				self::pageRedirect($this->settings['general']['successPid']);
+				$this->pageRedirect($this->settings['general']['successPid']);
 			}
 			
 		} else {
@@ -873,7 +873,7 @@ class AppointmentController extends BaseController {
 				
 			} else {
 				
-				self::pageRedirect($this->settings['general']['failedPid']);
+				$this->pageRedirect($this->settings['general']['failedPid']);
 			}
 		}
 	}
