@@ -1571,9 +1571,7 @@ class BaseController extends ActionController {
 		$uri = $this->controllerContext->getUriBuilder();
 		$uri->setTargetPageUid($pageId);
 		$uri->setUseCacheHash(FALSE);
-		if ($arguments) {
-			$uri->setArguments($arguments);
-		}
+		$uri->setArguments(($arguments ? $arguments : array()));
 		$uri = rawurldecode($uri->build());
 		if (strpos(substr($uri, 0, 1), '/') !== FALSE) {
 			return ($addHost ? GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST') : NULL).$uri;
