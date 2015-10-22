@@ -1,3 +1,14 @@
+2015-10-22  Arek van Schaijk <info@ucreation.nl>
+
+	* [BUG] - Replacement of "tslib_cObj"
+	* [BUG] - The getFrontendUri() did not reset the previous arguments
+	* [TASK] - Correct integration of FlashMessages
+	* [TASK] - Compatibility with TYPO3 6.2-7.5
+	* [TASK] - Language files converted to XLIFF
+	* [TASK] - Added "TemplateRootPaths" support
+	* [NEW FEATURE] - Success page for a cancellation can now be configured
+	* [IMPROVEMENT] - TCA to the configuration directory, clean up of some code
+
 2015-06-15  Arek van Schaijk <info@ucreation.nl>
 
 	* [BUGFIX]: #67476 - When cancelling an appointment the Initials are removed from the Appointment model
