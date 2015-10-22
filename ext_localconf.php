@@ -3,13 +3,13 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
+// Configures the front-end plugins
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 	'Ucreation.' . $_EXTKEY,
 	'Pi1',
 	array(
 		'Appointment' => 'form, addProduct, removeProduct, chooseLocation, defaultModeCalendarSelectMonth, defaultModeCalendarSelectDay, showAllModeCalendarSelectDay, chooseDateAndTime, postClientData, confirmAppointment, nextStep, previousStep'
 	),
-	// non-cacheable actions
 	array(
 		'Appointment' => 'form, addProduct, removeProduct, chooseLocation, defaultModeCalendarSelectMonth, defaultModeCalendarSelectDay, showAllModeCalendarSelectDay, chooseDateAndTime, postClientData, confirmAppointment, nextStep, previousStep'
 	)
@@ -21,7 +21,6 @@ if (!defined('TYPO3_MODE')) {
 	array(
 		'Appointment' => 'cancel'
 	),
-	// non-cacheable actions
 	array(
 		'Appointment' => 'cancel'
 	)
@@ -33,7 +32,6 @@ if (!defined('TYPO3_MODE')) {
 	array(
 		'TakeoutText' => 'show'
 	),
-	// non-cacheable actions
 	array(
 
 	)
@@ -41,3 +39,11 @@ if (!defined('TYPO3_MODE')) {
 
 // extbase commandController
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = 'Ucreation\JccAppointments\Command\ReminderCommandController';
+
+if (TYPO3_MODE == 'BE') {
+	// Icon Registry
+	$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(TYPO3\CMS\Core\Imaging\IconRegistry::class);
+	$iconRegistry->registerIcon('jcc_calendar', \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class, array(
+		'source' => 'EXT:jcc_appointments/Resources/Public/Icons/Calendar.png'
+	));
+}

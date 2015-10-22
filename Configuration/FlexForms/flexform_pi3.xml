@@ -6,13 +6,13 @@
     <General>
       <ROOT>
         <TCEforms>
-          <sheetTitle>LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_flexforms.xml:pi3.general</sheetTitle>
+          <sheetTitle>LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_flexforms.xlf:pi3.general</sheetTitle>
         </TCEforms>
         <type>array</type>
         <el>
           <settings.selection>
             <TCEforms>
-              <label>LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_flexforms.xml:pi3.general.selection</label>
+              <label>LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_flexforms.xlf:pi3.general.selection</label>
               <config>
                 <type>select</type>
 				<foreign_table>tx_jccappointments_domain_model_takeouttext</foreign_table>

@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2015-09-24T18:39:32T" product-name="jcc_appointments">
+    <header/>
+    <body>
+      <trans-unit id="day.0">
+        <source>Sunday</source>
+      </trans-unit>
+      <trans-unit id="day.1">
+        <source>Monday</source>
+      </trans-unit>
+      <trans-unit id="day.2">
+        <source>Tuesday</source>
+      </trans-unit>
+      <trans-unit id="day.3">
+        <source>Wednesday</source>
+      </trans-unit>
+      <trans-unit id="day.4">
+        <source>Thursday</source>
+      </trans-unit>
+      <trans-unit id="day.5">
+        <source>Friday</source>
+      </trans-unit>
+      <trans-unit id="day.6">
+        <source>Saturday</source>
+      </trans-unit>
+      <trans-unit id="month.01">
+        <source>January</source>
+      </trans-unit>
+      <trans-unit id="month.02">
+        <source>February</source>
+      </trans-unit>
+      <trans-unit id="month.03">
+        <source>March</source>
+      </trans-unit>
+      <trans-unit id="month.04">
+        <source>April</source>
+      </trans-unit>
+      <trans-unit id="month.05">
+        <source>May</source>
+      </trans-unit>
+      <trans-unit id="month.06">
+        <source>June</source>
+      </trans-unit>
+      <trans-unit id="month.07">
+        <source>July</source>
+      </trans-unit>
+      <trans-unit id="month.08">
+        <source>August</source>
+      </trans-unit>
+      <trans-unit id="month.09">
+        <source>September</source>
+      </trans-unit>
+      <trans-unit id="month.10">
+        <source>October</source>
+      </trans-unit>
+      <trans-unit id="month.11">
+        <source>November</source>
+      </trans-unit>
+      <trans-unit id="month.12">
+        <source>December</source>
+      </trans-unit>
+      <trans-unit id="progress.step1">
+        <source>Product selection</source>
+      </trans-unit>
+      <trans-unit id="progress.step2">
+        <source>Location</source>
+      </trans-unit>
+      <trans-unit id="progress.step3">
+        <source>Date &amp; Time</source>
+      </trans-unit>
+      <trans-unit id="progress.step4">
+        <source>Your data</source>
+      </trans-unit>
+      <trans-unit id="progress.step5">
+        <source>Confirmation</source>
+      </trans-unit>
+      <trans-unit id="available_products.header">
+        <source>Available products</source>
+      </trans-unit>
+      <trans-unit id="available_products.description">
+        <source>Select the products for this appointment.</source>
+      </trans-unit>
+      <trans-unit id="available_products.button_addproduct">
+        <source>Choose</source>
+      </trans-unit>
+      <trans-unit id="selected_products.header">
+        <source>Selected products</source>
+      </trans-unit>
+      <trans-unit id="selected_products.description">
+        <source>You can remove your selection by deleting the item.</source>
+      </trans-unit>
+      <trans-unit id="selected_products.button_removeproduct">
+        <source>Remove</source>
+      </trans-unit>
+      <trans-unit id="locations.header">
+        <source>Locations</source>
+      </trans-unit>
+      <trans-unit id="locations.header_openinghours">
+        <source>Opening hours</source>
+      </trans-unit>
+      <trans-unit id="locations.description">
+        <source>Select a location</source>
+      </trans-unit>
+      <trans-unit id="locations.button_addlocation">
+        <source>Choose</source>
+      </trans-unit>
+      <trans-unit id="locations.phone">
+        <source>Phone</source>
+      </trans-unit>
+      <trans-unit id="clientdata.header">
+        <source>Your data</source>
+      </trans-unit>
+      <trans-unit id="clientdata.description">
+        <source>Fill in your personal data</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientID">
+        <source>ID (BSN)</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientSex">
+        <source>Sex</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientSexMale">
+        <source>Male</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientSexFemale">
+        <source>Female</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientName">
+        <source>Name</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientMiddleName">
+        <source>Middle name</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientLastName">
+        <source>Last name</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientInitials">
+        <source>Initials</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientDateOfBirth">
+        <source>Date of birth (DD-MM-YYYY)</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientDateOfBirthConfirmation">
+        <source>Date of birth</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientDayOfBirth">
+        <source>Day of birth</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientDayOfBirthOption">
+        <source>Day</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientMonthOfBirth">
+        <source>Month of birth</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientMonthOfBirthOption">
+        <source>Month</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientYearOfBirth">
+        <source>Year of birth</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientYearOfBirthOption">
+        <source>Year</source>
+      </trans-unit>
+      <trans-unit id="clientdata.submit">
+        <source>Submit</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientStreet">
+        <source>Street</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientStreetNumber">
+        <source>number</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientAddress">
+        <source>Address (street + number)</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientAddressConfirmation">
+        <source>Address</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientPostalCode">
+        <source>Postal code (NNNNLL)</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientPostalCodeConfirmation">
+        <source>Postal code</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientCity">
+        <source>City</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientCountry">
+        <source>Country</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientTel">
+        <source>Phone</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientMobileTel">
+        <source>Mobile Phone</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientMail">
+        <source>Mail</source>
+      </trans-unit>
+      <trans-unit id="clientdata.clientSms">
+        <source>SMS Notification</source>
+      </trans-unit>
+      <trans-unit id="confirmation.header_clientdata">
+        <source>Your entered data</source>
+      </trans-unit>
+      <trans-unit id="confirmation.description_clientdata">
+        <source>Check the information you entered</source>
+      </trans-unit>
+      <trans-unit id="confirmation.header_selectedproducts">
+        <source>Selected products</source>
+      </trans-unit>
+      <trans-unit id="confirmation.header_appointmentdetails">
+        <source>Appointment details</source>
+      </trans-unit>
+      <trans-unit id="confirmation.description_appointmentdetails">
+        <source>Your appointment</source>
+      </trans-unit>
+      <trans-unit id="confirmation.header_takeouttexts">
+        <source>Takeout requisites</source>
+      </trans-unit>
+      <trans-unit id="confirmation.description_takeouttexts">
+        <source>Requisites description...</source>
+      </trans-unit>
+      <trans-unit id="confirmation.date">
+        <source>Date</source>
+      </trans-unit>
+      <trans-unit id="confirmation.time">
+        <source>Time</source>
+      </trans-unit>
+      <trans-unit id="confirmation.endTime">
+        <source>End Time</source>
+      </trans-unit>
+      <trans-unit id="confirmation.location">
+        <source>Location</source>
+      </trans-unit>
+      <trans-unit id="confirmation.location.name">
+        <source>Name</source>
+      </trans-unit>
+      <trans-unit id="confirmation.location.address">
+        <source>Address</source>
+      </trans-unit>
+      <trans-unit id="confirmation.location.postalcode">
+        <source>Postal code</source>
+      </trans-unit>
+      <trans-unit id="confirmation.location.city">
+        <source>City</source>
+      </trans-unit>
+      <trans-unit id="confirmation.location.phone">
+        <source>Phone</source>
+      </trans-unit>
+      <trans-unit id="confirmation.phone">
+        <source>Phone</source>
+      </trans-unit>
+      <trans-unit id="calendar.header_selectmonth">
+        <source>Month selection:</source>
+      </trans-unit>
+      <trans-unit id="calendar.header_selectday">
+        <source>Day selection:</source>
+      </trans-unit>
+      <trans-unit id="calendar.header_selecttime">
+        <source>Time selection:</source>
+      </trans-unit>
+      <trans-unit id="calendar.select">
+        <source>Select</source>
+      </trans-unit>
+      <trans-unit id="calendar.empty_selectbox_value">
+        <source>-- select --</source>
+      </trans-unit>
+      <trans-unit id="calendar.select_month">
+        <source>Select month</source>
+      </trans-unit>
+      <trans-unit id="calendar.select_day">
+        <source>Select day</source>
+      </trans-unit>
+      <trans-unit id="calendar.select_time">
+        <source>Select time</source>
+      </trans-unit>
+      <trans-unit id="message.no_available_days">
+        <source>There are no available days</source>
+      </trans-unit>
+      <trans-unit id="message.no_available_days_in_month">
+        <source>There are no available days in this month</source>
+      </trans-unit>
+      <trans-unit id="message.no_available_times_in_day">
+        <source>There is no time available this day</source>
+      </trans-unit>
+      <trans-unit id="validation.product_doesnt_exist">
+        <source>The selected product doesnt exist</source>
+      </trans-unit>
+      <trans-unit id="validation.product_amount_not_allowed">
+        <source>Invalid amount of products chosen</source>
+      </trans-unit>
+      <trans-unit id="validation.product_already_exists">
+        <source>This product is already chosen and can't be chosen more than once</source>
+      </trans-unit>
+      <trans-unit id="validation.no_product_selected">
+        <source>You have to select at least one product</source>
+      </trans-unit>
+      <trans-unit id="validation.no_location_selected">
+        <source>You have to select a location</source>
+      </trans-unit>
+      <trans-unit id="validation.no_day_or_time_selected">
+        <source>You have not selected a day or time</source>
+      </trans-unit>
+      <trans-unit id="validation.calendar_no_month_selected">
+        <source>You didnt select a month</source>
+      </trans-unit>
+      <trans-unit id="validation.calendar_no_day_selected">
+        <source>You didnt select a day</source>
+      </trans-unit>
+      <trans-unit id="validation.calendar_no_time_selected">
+        <source>You didnt select a time</source>
+      </trans-unit>
+      <trans-unit id="validation.calendar_invalid_month">
+        <source>The selected month is invalid</source>
+      </trans-unit>
+      <trans-unit id="validation.calendar_invalid_day">
+        <source>The selected day is invalid</source>
+      </trans-unit>
+      <trans-unit id="validation.calendar_invalid_time">
+        <source>The selected time is invalid</source>
+      </trans-unit>
+      <trans-unit id="validation.calendar_day_and_time_not_available">
+        <source>The selected day time is not available</source>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_clientdata_given">
+        <source>There is no client data given</source>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_id">
+        <source>You did not fill out your ID number</source>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.invalid_id">
+        <source>The BSN number is invalid</source>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_sex_checked">
+        <source>You did not select your sex</source>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.invalid_sex">
+        <source>The value of the given sex is invalid</source>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_initials">
+        <source>You did not fill out your initials</source>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_lastName">
+        <source>You did not fill out your last name</source>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_birthday">
+        <source>You did not fill out your birthday</source>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.invalid_birthday">
+        <source>You entered a wrong birthday</source>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_street">
+        <source>You did not fill in your street name</source>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_number">
+        <source>You did not enter your street number</source>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.invalid_number">
+        <source>You entered a wrong street number</source>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_address">
+        <source>You did not enter your address</source>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.invalid_address">
+        <source>You entered a wrong address</source>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_postalcode">
+        <source>You did not enter your postal code</source>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.invalid_postalcode">
+        <source>You entered a wrong postal code</source>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_city">
+        <source>You did not enter your city</source>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_tel">
+        <source>You did not enter your tel</source>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_mobile_tel">
+        <source>You did not enter your mobile tel</source>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.sms_no_mobile_tel">
+        <source>You did not enter your mobile tel (required for SMS notification)</source>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_mail">
+        <source>You did not fill in your mail address</source>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.invalid_mail">
+        <source>You entered a wrong mail address</source>
+      </trans-unit>
+      <trans-unit id="validation.clientdata.no_country">
+        <source>You did not fill in your country</source>
+      </trans-unit>
+      <trans-unit id="previous">
+        <source>Previous</source>
+      </trans-unit>
+      <trans-unit id="next">
+        <source>Next</source>
+      </trans-unit>
+      <trans-unit id="cancel.confirmationtext">
+        <source>Are you sure you would cancel the appointment?</source>
+      </trans-unit>
+      <trans-unit id="cancel.message.1">
+        <source>The url contains no appointment hash.</source>
+      </trans-unit>
+      <trans-unit id="cancel.message.2">
+        <source>The given appointment hash is invalid.</source>
+      </trans-unit>
+      <trans-unit id="cancel.message.3">
+        <source>The appointment is expired, its not possible to cancel it anymore.</source>
+      </trans-unit>
+      <trans-unit id="cancel.message.4">
+        <source>The appointment is already cancelled or expired.</source>
+      </trans-unit>
+      <trans-unit id="cancel.date">
+        <source>Date</source>
+      </trans-unit>
+      <trans-unit id="cancel.time">
+        <source>Time</source>
+      </trans-unit>
+      <trans-unit id="cancel.products">
+        <source>Products</source>
+      </trans-unit>
+      <trans-unit id="cancel.location">
+        <source>Location</source>
+      </trans-unit>
+      <trans-unit id="cancel.confirm">
+        <source>Click to confirm appointment cancelling</source>
+      </trans-unit>
+      <trans-unit id="cancel.succesfully">
+        <source>The appointment is cancelled succesfully.</source>
+      </trans-unit>
+      <trans-unit id="session.expired.message">
+        <source>Your session is expired. You can fill out the form again.</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

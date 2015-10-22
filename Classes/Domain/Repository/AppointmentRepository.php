@@ -39,7 +39,7 @@ class AppointmentRepository extends Repository {
 	/**
 	 * Find Unsend Sms
 	 *
-	 * @param integer $interval
+	 * @param int $interval
 	 * @param mixed $limit
 	 * @return array
 	 */

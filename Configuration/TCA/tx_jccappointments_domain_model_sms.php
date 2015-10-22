@@ -1,10 +1,30 @@
 <?php
-if (!defined ('TYPO3_MODE')) {
-	die ('Access denied.');
-}
-
-$TCA['tx_jccappointments_domain_model_sms'] = array(
-	'ctrl' => $TCA['tx_jccappointments_domain_model_sms']['ctrl'],
+return array(
+	'ctrl' => array(
+		'title'	=> 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_sms',
+		'label' => 'recipient_name',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'cruser_id' => 'cruser_id',
+		'dividers2tabs' => TRUE,
+		'versioningWS' => 2,
+		'versioning_followPages' => TRUE,
+		'origUid' => 't3_origuid',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l10n_parent',
+		'transOrigDiffSourceField' => 'l10n_diffsource',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+			'starttime' => 'starttime',
+			'endtime' => 'endtime',
+		),
+		'searchFields' => 'recipient_name,recipient_number,sender_name,message,app_id,status,send_date,',
+		'iconfile' => 'EXT:jcc_appointments/Resources/Public/Icons/Calendar.gif',
+		'typeicon_classes' => array(
+			'default' => 'jcc_calendar'
+		),
+	),
 	'interface' => array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, recipient_name, recipient_number, sender_name, message, app_id, status, send_date',
 	),
@@ -16,7 +36,7 @@ $TCA['tx_jccappointments_domain_model_sms'] = array(
 	),
 	'columns' => array(
 		'sys_language_uid' => array(
-			'exclude' => 1,
+			'exclude' => TRUE,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.language',
 			'config' => array(
 				'type' => 'select',
@@ -30,7 +50,7 @@ $TCA['tx_jccappointments_domain_model_sms'] = array(
 		),
 		'l10n_parent' => array(
 			'displayCond' => 'FIELD:sys_language_uid:>:0',
-			'exclude' => 1,
+			'exclude' => TRUE,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.l18n_parent',
 			'config' => array(
 				'type' => 'select',
@@ -55,14 +75,14 @@ $TCA['tx_jccappointments_domain_model_sms'] = array(
 			)
 		),
 		'hidden' => array(
-			'exclude' => 1,
+			'exclude' => TRUE,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
 			'config' => array(
 				'type' => 'check',
 			),
 		),
 		'starttime' => array(
-			'exclude' => 1,
+			'exclude' => TRUE,
 			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.starttime',
 			'config' => array(
@@ -78,7 +98,7 @@ $TCA['tx_jccappointments_domain_model_sms'] = array(
 			),
 		),
 		'endtime' => array(
-			'exclude' => 1,
+			'exclude' => TRUE,
 			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.endtime',
 			'config' => array(
@@ -94,8 +114,8 @@ $TCA['tx_jccappointments_domain_model_sms'] = array(
 			),
 		),
 		'recipient_name' => array(
-			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_sms.recipient_name',
+			'exclude' => FALSE,
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_sms.recipient_name',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -104,8 +124,8 @@ $TCA['tx_jccappointments_domain_model_sms'] = array(
 			),
 		),
 		'recipient_number' => array(
-			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_sms.recipient_number',
+			'exclude' => FALSE,
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_sms.recipient_number',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -114,8 +134,8 @@ $TCA['tx_jccappointments_domain_model_sms'] = array(
 			),
 		),
 		'sender_name' => array(
-			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_sms.sender_name',
+			'exclude' => FALSE,
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_sms.sender_name',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -124,8 +144,8 @@ $TCA['tx_jccappointments_domain_model_sms'] = array(
 			),
 		),
 		'message' => array(
-			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_sms.message',
+			'exclude' => FALSE,
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_sms.message',
 			'config' => array(
 				'type' => 'text',
 				'readOnly' => TRUE,
@@ -135,8 +155,8 @@ $TCA['tx_jccappointments_domain_model_sms'] = array(
 			),
 		),
 		'app_id' => array(
-			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_sms.app_id',
+			'exclude' => FALSE,
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_sms.app_id',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -145,8 +165,8 @@ $TCA['tx_jccappointments_domain_model_sms'] = array(
 			),
 		),
 		'status' => array(
-			'exclude' => 0,
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_sms.status',
+			'exclude' => FALSE,
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_sms.status',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,
@@ -155,9 +175,9 @@ $TCA['tx_jccappointments_domain_model_sms'] = array(
 			),
 		),
 		'send_date' => array(
-			'exclude' => 1,
+			'exclude' => TRUE,
 			'l10n_mode' => 'mergeIfNotBlank',
-			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xml:tx_jccappointments_domain_model_sms.send_date',
+			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_sms.send_date',
 			'config' => array(
 				'type' => 'input',
 				'readOnly' => TRUE,

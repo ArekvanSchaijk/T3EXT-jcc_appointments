@@ -36,7 +36,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 class TakeoutText extends AbstractEntity {
 
 	/**
-	 * @var integer
+	 * @var int
 	 */
 	protected $productId = 0;
 	
@@ -48,7 +48,7 @@ class TakeoutText extends AbstractEntity {
 	/**
 	 * Get Product Id
 	 *
-	 * @return integer
+	 * @return int
 	 */
 	public function getProductId() {
 		return $this->productId;	
@@ -57,7 +57,7 @@ class TakeoutText extends AbstractEntity {
 	/**
 	 * Set Product Id
 	 *
-	 * @param integer $productId
+	 * @param int $productId
 	 * @return void
 	 */
 	public function setProductId($productId) {
