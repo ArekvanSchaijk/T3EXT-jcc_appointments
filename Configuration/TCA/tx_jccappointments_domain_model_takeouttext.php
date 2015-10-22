@@ -1,10 +1,29 @@
 <?php
-if (!defined ('TYPO3_MODE')) {
-	die ('Access denied.');
-}
-
-$TCA['tx_jccappointments_domain_model_takeouttext'] = array(
-	'ctrl' => $TCA['tx_jccappointments_domain_model_takeouttext']['ctrl'],
+return array(
+	'ctrl' => array(
+		'title'	=> 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_takeouttext',
+		'label' => 'product_id',
+		'label_userFunc' => 'Ucreation\\JccAppointments\\Handler\\HookHandler->tcaProductName',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'cruser_id' => 'cruser_id',
+		'sortby' => 'sorting',
+		'dividers2tabs' => TRUE,
+		'versioningWS' => 2,
+		'versioning_followPages' => TRUE,
+		'origUid' => 't3_origuid',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l10n_parent',
+		'transOrigDiffSourceField' => 'l10n_diffsource',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+			'starttime' => 'starttime',
+			'endtime' => 'endtime',
+		),
+		'searchFields' => 'text',
+		'iconfile' => 'EXT:jcc_appointments/Resources/Public/Icons/tx_jccappointments_domain_model_takeouttext.gif'
+	),
 	'interface' => array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, product_id, text',
 	),
@@ -16,7 +35,7 @@ $TCA['tx_jccappointments_domain_model_takeouttext'] = array(
 	),
 	'columns' => array(
 		'sys_language_uid' => array(
-			'exclude' => 1,
+			'exclude' => TRUE,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.language',
 			'config' => array(
 				'type' => 'select',
@@ -30,7 +49,7 @@ $TCA['tx_jccappointments_domain_model_takeouttext'] = array(
 		),
 		'l10n_parent' => array(
 			'displayCond' => 'FIELD:sys_language_uid:>:0',
-			'exclude' => 1,
+			'exclude' => TRUE,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.l18n_parent',
 			'config' => array(
 				'type' => 'select',
@@ -55,14 +74,14 @@ $TCA['tx_jccappointments_domain_model_takeouttext'] = array(
 			)
 		),
 		'hidden' => array(
-			'exclude' => 1,
+			'exclude' => TRUE,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
 			'config' => array(
 				'type' => 'check',
 			),
 		),
 		'starttime' => array(
-			'exclude' => 1,
+			'exclude' => TRUE,
 			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.starttime',
 			'config' => array(
@@ -78,7 +97,7 @@ $TCA['tx_jccappointments_domain_model_takeouttext'] = array(
 			),
 		),
 		'endtime' => array(
-			'exclude' => 1,
+			'exclude' => TRUE,
 			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.endtime',
 			'config' => array(
@@ -94,7 +113,7 @@ $TCA['tx_jccappointments_domain_model_takeouttext'] = array(
 			),
 		),
 		'product_id' => array(
-			'exclude' => 0,
+			'exclude' => FALSE,
 			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_takeouttext.product_id',
 			'config' => array(
 				'type' => 'select',
@@ -108,7 +127,7 @@ $TCA['tx_jccappointments_domain_model_takeouttext'] = array(
 			),
 		),
 		'text' => array(
-			'exclude' => 0,
+			'exclude' => FALSE,
 			'label' => 'LLL:EXT:jcc_appointments/Resources/Private/Language/locallang_db.xlf:tx_jccappointments_domain_model_takeouttext.text',
              'config' => array(
 				'type' => 'text',
