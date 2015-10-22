@@ -40,7 +40,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 class BaseController extends ActionController {
 	
 	/**
-	 * @const integer
+	 * @const int
 	 */
 	const	CANCEL_NO_SECRETHASH_GIVEN	= 1,
 			CANCEL_INVALID_SECRETHASH	= 2,
@@ -73,12 +73,12 @@ class BaseController extends ActionController {
 	static protected $extName = 'JccAppointments';
 	
 	/**
-	 * @var integer
+	 * @var int
 	 */
 	protected $steps = 5;
 	
 	/**
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $stepValidation = TRUE;
 	
@@ -144,7 +144,7 @@ class BaseController extends ActionController {
 	/**
 	 * Is Session Expired
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	protected function isUserSessionExpired() {	
 		// checks if the setting is set
@@ -242,7 +242,7 @@ class BaseController extends ActionController {
 	/**
 	 * Add Product To Session
 	 *
-	 * @param integer $productId
+	 * @param int $productId
 	 * @param object $product
 	 * @return void
 	 */
@@ -263,8 +263,8 @@ class BaseController extends ActionController {
 	/**
 	 * Check Products That Cant Be Selected More Than Once
 	 *
-	 * @param integer $productId
-	 * @return boolean
+	 * @param int $productId
+	 * @return bool
 	 */
 	protected function checkProductsThatCantBeSelectedMoreThanOnce($productId) {
 		
@@ -288,7 +288,7 @@ class BaseController extends ActionController {
 	/**
 	 * Render Product Detail Array
 	 *
-	 * @param integer $productId
+	 * @param int $productId
 	 * @param object $product
 	 * @return array
 	 */
@@ -380,7 +380,7 @@ class BaseController extends ActionController {
 	/**
 	 * Remove Product Key From Session
 	 *
-	 * @param integer $key
+	 * @param int $key
 	 * @return void
 	 */
 	protected function removeProductKeyFromSession($key) {
@@ -391,7 +391,7 @@ class BaseController extends ActionController {
 	/**
 	 * Is Products In Session
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	protected function isProductsInSession() {
 		if ($this->session['products'] && count($this->session['products']) > 0) {
@@ -423,7 +423,7 @@ class BaseController extends ActionController {
 	/**
 	 * Get First Product From Session
 	 * 
-	 * @return integer
+	 * @return int
 	 */
 	protected function getFirstProductFromSession() {		
 		return array_shift(array_values($this->session['products']));
@@ -441,7 +441,7 @@ class BaseController extends ActionController {
 	/**
 	 * Get Products Duration
 	 *
-	 * @return integer
+	 * @return int
 	 */
 	protected function getProductsDuration() {
 
@@ -460,7 +460,7 @@ class BaseController extends ActionController {
 	/**
 	 * Add Location To Session
 	 *
-	 * @param integer $locationUid
+	 * @param int $locationUid
 	 * @return void
 	 */
 	protected function addLocationToSession($locationUid) {
@@ -471,7 +471,7 @@ class BaseController extends ActionController {
 	/**
 	 * Is Location In Session
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	protected function isLocationInSession() {
 		if ($this->session['location']) {
@@ -483,7 +483,7 @@ class BaseController extends ActionController {
 	/**
 	 * Get Location
 	 *
-	 * @return integer
+	 * @return int
 	 */
 	protected function getLocation() {		
 		return $this->session['location'];
@@ -503,7 +503,7 @@ class BaseController extends ActionController {
 	/**
 	 * Is Day In Session
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	protected function isDayInSession() {
 		if ($this->session['day']) {
@@ -559,7 +559,7 @@ class BaseController extends ActionController {
 	/**
 	 * Is Day Time In Session
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	protected function isDayTimeInSession() {
 		if ($this->session['time']) {
@@ -600,7 +600,7 @@ class BaseController extends ActionController {
 	/**
 	 * Is Client Data In Session
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	protected function isClientDataInSession() {	
 		if ($this->session['clientData']) {
@@ -621,7 +621,7 @@ class BaseController extends ActionController {
 	/**
 	 * Add Secret Hash In Session
 	 *
-	 * @param integer $secretHash
+	 * @param int $secretHash
 	 * @return void
 	 */	
 	protected function addSecretHashInSession($secretHash) {
@@ -632,7 +632,7 @@ class BaseController extends ActionController {
 	/**
 	 * Get Secret Hash
 	 *
-	 * @return integer
+	 * @return int
 	 */
 	protected function getSecretHash() {
 		return $this->session['secretHash'];
@@ -679,7 +679,7 @@ class BaseController extends ActionController {
 	/**
 	 * Get Current Step
 	 *
-	 * @return integer
+	 * @return int
 	 */
 	protected function getCurrentStep() {
 		return ($this->session['step'] ? $this->session['step'] : 1);
@@ -856,7 +856,7 @@ class BaseController extends ActionController {
 	 *
 	 * @param string $key
 	 * @param mixed $monthArray
-	 * @return boolean
+	 * @return bool
 	 */
 	protected function isMonthAllowed($key, $monthArray = NULL) {
 		
@@ -1032,7 +1032,7 @@ class BaseController extends ActionController {
 	/**
 	 * Is Location
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	protected function isLocation() {
 		if ($this->settings['location']['disable'] && !empty($this->settings['location']['locationID'])) {
@@ -1372,7 +1372,7 @@ class BaseController extends ActionController {
 	/**
 	 * Is Step Validated
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	protected function isStepValidated() {
 		return $this->stepValidation;
@@ -1382,7 +1382,7 @@ class BaseController extends ActionController {
 	 * Validate Date
 	 *
 	 * @param string $date
-	 * @return boolean
+	 * @return bool
 	 */
 	static protected function validateDate($date) {
 		if ($date && strlen($date) == 10 && strtotime($date)) {
@@ -1395,7 +1395,7 @@ class BaseController extends ActionController {
 	 * Validate Year
 	 *
 	 * @param string $year
-	 * @return boolean
+	 * @return bool
 	 */
 	static protected function validateYear($year) {
 		if ($year && ctype_digit($year) && strlen($year) == 4) {
@@ -1408,7 +1408,7 @@ class BaseController extends ActionController {
 	 * Validate Month
 	 *
 	 * @param string $month
-	 * @return boolean
+	 * @return bool
 	 */
 	static protected function validateMonth($month) {
 		if ($month && ctype_digit($month) && strlen($month) == 2) {
@@ -1421,7 +1421,7 @@ class BaseController extends ActionController {
 	 * Validate Year Month
 	 *
 	 * @param string $yearMonth
-	 * @return boolean
+	 * @return bool
 	 */
 	static protected function validateYearMonth($yearMonth) {
 		if ($yearMonth && ctype_digit($yearMonth) && strlen($yearMonth) == 6) {
@@ -1463,7 +1463,7 @@ class BaseController extends ActionController {
 	 *
 	 * @param string $field
 	 * @param string $value
-	 * @return boolean
+	 * @return bool
 	 */
 	protected function isValidation($field, $value) {
 		if ($this->settings['clientdata']['requirements'][$field] || (!$this->settings['clientdata']['requirements'][$field] && !empty($value))) {
@@ -1475,7 +1475,7 @@ class BaseController extends ActionController {
 	/**
 	 * Page Redirect
 	 *
-	 * @param integer $pid
+	 * @param int $pid
 	 * @return void
 	 */
 	protected function pageRedirect($pid) {
@@ -1510,7 +1510,7 @@ class BaseController extends ActionController {
 	 * Make Secret Hash
 	 *
 	 * @param string $string
-	 * @param integer $length
+	 * @param int $length
 	 * @return string
 	 */
 	static protected function makeSecretHash($string, $length = 14) {
@@ -1530,7 +1530,7 @@ class BaseController extends ActionController {
 	 * @param string $subject
 	 * @param string $templatePath
 	 * @param array $variables
-	 * @return boolean 
+	 * @return bool 
 	 */
     protected function sendMail(array $sender, array $recipients, $subject, $templatePath, array $variables) {
 		

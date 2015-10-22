@@ -36,12 +36,12 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 class Appointment extends AbstractEntity {
 
 	/**
-	 * @var integer
+	 * @var int
 	 */
 	protected $appId;
 	
 	/**
-	 * @var integer
+	 * @var int
 	 */
 	protected $appTime;
 	
@@ -51,12 +51,12 @@ class Appointment extends AbstractEntity {
 	protected $secretHash;
 
 	/**
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $sms = FALSE;
 	
 	/**
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $smsSend = FALSE;
 	
@@ -66,12 +66,12 @@ class Appointment extends AbstractEntity {
 	protected $smsSendDate;
 	
 	/**
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $mailSend = FALSE;
 	
 	/**
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $closed = FALSE;
 	
@@ -101,7 +101,7 @@ class Appointment extends AbstractEntity {
 	protected $clientSex;
 	
 	/**
-	 * @var integer
+	 * @var int
 	 */
 	protected $clientDateOfBirth;
 	
@@ -163,7 +163,7 @@ class Appointment extends AbstractEntity {
 	/**
 	 * Get App Id
 	 *
-	 * @return integer
+	 * @return int
 	 */
 	public function getAppId() {
 		return $this->appId;
@@ -172,7 +172,7 @@ class Appointment extends AbstractEntity {
 	/**
 	 * Set App Id
 	 *
-	 * @param integer $appId
+	 * @param int $appId
 	 * @return void
 	 */
 	public function setAppId($appId) {
@@ -182,7 +182,7 @@ class Appointment extends AbstractEntity {
 	/**
 	 * Get App Time
 	 *
-	 * @return integer
+	 * @return int
 	 */
 	public function getAppTime() {
 		return $this->appTime;
@@ -191,7 +191,7 @@ class Appointment extends AbstractEntity {
 	/**
 	 * Set App Time
 	 *
-	 * @param integer $appTime
+	 * @param int $appTime
 	 * @return void
 	 */
 	public function setAppTime($appTime) {
@@ -220,7 +220,7 @@ class Appointment extends AbstractEntity {
 	/**
 	 * Get Sms
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function getSms() {
 		return $this->sms;
@@ -229,7 +229,7 @@ class Appointment extends AbstractEntity {
 	/**
 	 * Set Sms
 	 *
-	 * @param boolean $sms
+	 * @param bool $sms
 	 * @return void
 	 */
 	public function setSms($sms) {
@@ -239,7 +239,7 @@ class Appointment extends AbstractEntity {
 	/**
 	 * Is Sms
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function isSms() {
 		return $this->getSms();
@@ -248,7 +248,7 @@ class Appointment extends AbstractEntity {
 	/**
 	 * Get Sms Send
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function getSmsSend() {
 		return $this->smsSend;
@@ -257,7 +257,7 @@ class Appointment extends AbstractEntity {
 	/**
 	 * Set Sms Send
 	 *
-	 * @param boolean $smsSend
+	 * @param bool $smsSend
 	 * @return void
 	 */
 	public function setSmsSend($smsSend) {
@@ -267,7 +267,7 @@ class Appointment extends AbstractEntity {
 	/**
 	 * Is Sms Send
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function isSmsSend() {
 		return $this->getSmsSend();
@@ -276,7 +276,7 @@ class Appointment extends AbstractEntity {
 	/**
 	 * Get Sms Send Date
 	 *
-	 * @return integer
+	 * @return int
 	 */
 	public function getSmsSendDate() {
 		return $this->smsSendDate;
@@ -285,7 +285,7 @@ class Appointment extends AbstractEntity {
 	/**
 	 * Set Sms Send Date
 	 *
-	 * @param integer $smsSendDate
+	 * @param int $smsSendDate
 	 * @return void
 	 */
 	public function setSmsSendDate($smsSendDate) {
@@ -295,7 +295,7 @@ class Appointment extends AbstractEntity {
 	/**
 	 * Get Mail Send
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function getMailSend() {
 		return $this->mailSend;
@@ -304,7 +304,7 @@ class Appointment extends AbstractEntity {
 	/**
 	 * Set Mail Send
 	 *
-	 * @param boolean $mailSend
+	 * @param bool $mailSend
 	 * @return void
 	 */
 	public function setMailSend($mailSend) {
@@ -314,7 +314,7 @@ class Appointment extends AbstractEntity {
 	/**
 	 * Is Mail Send
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function isMailSend() {
 		return $this->getMailSend();
@@ -323,7 +323,7 @@ class Appointment extends AbstractEntity {
 	/**
 	 * Get Closed
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function getClosed() {
 		return $this->closed;
@@ -332,7 +332,7 @@ class Appointment extends AbstractEntity {
 	/**
 	 * Set Closed
 	 *
-	 * @param boolean $closed
+	 * @param bool $closed
 	 * @return void
 	 */
 	public function setClosed($closed) {
@@ -342,7 +342,7 @@ class Appointment extends AbstractEntity {
 	/**
 	 * Is Closed
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function isClosed() {
 		return $this->getClosed();
@@ -446,7 +446,7 @@ class Appointment extends AbstractEntity {
 	/**
 	 * Get Client Date Of Birth
 	 *
-	 * @return integer
+	 * @return int
 	 */
 	public function getClientDateOfBirth() {
 		return $this->clientDateOfBirth;
@@ -455,7 +455,7 @@ class Appointment extends AbstractEntity {
 	/**
 	 * Set Client Date Of Birth
 	 *
-	 * @param integer $clientDateOfbirth
+	 * @param int $clientDateOfbirth
 	 * @return void
 	 */
 	public function setClientDateOfBirth($clientDateOfBirth) {

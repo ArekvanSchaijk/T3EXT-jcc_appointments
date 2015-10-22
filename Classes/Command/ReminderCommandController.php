@@ -137,7 +137,7 @@ class ReminderCommandController extends CommandController {
 	 *
 	 * @param object $appointment
 	 * @param string $message
-	 * @return boolean
+	 * @return bool
 	 */
 	private function _sendSms($appointment, $message) {
 		

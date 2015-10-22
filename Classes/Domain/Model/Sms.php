@@ -56,7 +56,7 @@ class Sms extends AbstractEntity {
 	protected $message;
 
 	/**
-	 * @var integer
+	 * @var int
 	 */
 	protected $appId;
 
@@ -66,7 +66,7 @@ class Sms extends AbstractEntity {
 	protected $status;
 
 	/**
-	 * @var integer
+	 * @var int
 	 */
 	protected $sendDate;
 
@@ -149,7 +149,7 @@ class Sms extends AbstractEntity {
 	/**
 	 * Get App Id
 	 *
-	 * @return integer
+	 * @return int
 	 */
 	public function getAppId() {
 		return $this->appId;
@@ -158,7 +158,7 @@ class Sms extends AbstractEntity {
 	/**
 	 * Set App Id
 	 *
-	 * @param integer $appId
+	 * @param int $appId
 	 * @return void
 	 */
 	public function setAppId($appId) {
@@ -187,7 +187,7 @@ class Sms extends AbstractEntity {
 	/**
 	 * Get Send Date
 	 *
-	 * @return integer
+	 * @return int
 	 */
 	public function getSendDate() {
 		return $this->sendDate;
@@ -196,7 +196,7 @@ class Sms extends AbstractEntity {
 	/**
 	 * Set Send Date
 	 *
-	 * @param integer $sendDate
+	 * @param int $sendDate
 	 * @return void
 	 */
 	public function setSendDate($sendDate) {

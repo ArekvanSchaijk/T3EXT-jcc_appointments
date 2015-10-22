@@ -51,7 +51,6 @@ class AppointmentController extends BaseController {
 		// prepare current step
 		$this->prepareCurrentStep();
 		
-
 		// view allocations
 		$this->view->assign('step', $this->getCurrentStep());
 		$this->view->assign('data', $this->getData());
