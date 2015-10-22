@@ -14,7 +14,10 @@ return array(
 		'transOrigPointerField' => 'l10n_parent',
 		'transOrigDiffSourceField' => 'l10n_diffsource',
 		'searchFields' => 'app_id,sms,sms_send,sms_send_date,client_id,client_initials,client_insertions,client_last_name,client_sex,client_date_of_birth,client_street,client_street_number,client_postal_code,client_city,client_phone,client_mobile_phone,client_email,location_name,location_address,location_postal_code,location_phone',
-		'iconfile' => 'EXT:jcc_appointments/Resources/Public/Icons/tx_jccappointments_domain_model_appointment.gif'
+		'iconfile' => 'EXT:jcc_appointments/Resources/Public/Icons/Calendar.gif',
+		'typeicon_classes' => array(
+			'default' => 'jcc_calendar'
+		),
 	),
 	'interface' => array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, app_id, app_time, secret_hash, sms, sms_send, mail_send, closed, client_id, client_initials, client_insertions, client_last_name, client_sex, client_date_of_birth, client_street, client_street_number, client_postal_code, client_city, client_phone, client_mobile_phone, client_email, location_name, location_address, location_postal_code, location_phone',

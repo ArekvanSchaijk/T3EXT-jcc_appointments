@@ -39,3 +39,11 @@ if (!defined('TYPO3_MODE')) {
 
 // extbase commandController
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = 'Ucreation\JccAppointments\Command\ReminderCommandController';
+
+if (TYPO3_MODE == 'BE') {
+	// Icon Registry
+	$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(TYPO3\CMS\Core\Imaging\IconRegistry::class);
+	$iconRegistry->registerIcon('jcc_calendar', \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class, array(
+		'source' => 'EXT:jcc_appointments/Resources/Public/Icons/Calendar.png'
+	));
+}

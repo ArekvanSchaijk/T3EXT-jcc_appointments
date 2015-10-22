@@ -22,7 +22,10 @@ return array(
 			'endtime' => 'endtime',
 		),
 		'searchFields' => 'text',
-		'iconfile' => 'EXT:jcc_appointments/Resources/Public/Icons/tx_jccappointments_domain_model_takeouttext.gif'
+		'iconfile' => 'EXT:jcc_appointments/Resources/Public/Icons/Calendar.gif',
+		'typeicon_classes' => array(
+			'default' => 'jcc_calendar'
+		),
 	),
 	'interface' => array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, product_id, text',
