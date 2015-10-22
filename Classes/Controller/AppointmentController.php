@@ -1234,6 +1234,12 @@ class AppointmentController extends BaseController {
 				if ($this->settings['confirmation']['cancellation']['enable'] && $appointment->getClientEmail()) {
 					$this->sendCancelledConfirmationMail($appointment);
 				}
+				
+				// Redirect to the success page id if given
+				if ((int)$this->settings['general']['cancelSuccessPid']) {
+					$this->persistenceManager->persistAll();
+					$this->pageRedirect((int)$this->settings['general']['cancelSuccessPid']);
+				}
 								
 			// cancelling not confirmed
 			} else {

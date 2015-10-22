@@ -93,6 +93,7 @@ plugin.tx_jccappointments {
 			sessionExpiredMessage = {$plugin.tx_jccappointments.settings.general.sessionExpiredMessage}
 			enableCancelling = {$plugin.tx_jccappointments.settings.general.enableCancelling}
 			cancelPid = {$plugin.tx_jccappointments.settings.general.cancelPid}
+			cancelSuccessPid = {$plugin.tx_jccappointments.settings.general.cancelSuccessPid}
 			successPid = {$plugin.tx_jccappointments.settings.general.successPid}
 			failedPid = {$plugin.tx_jccappointments.settings.general.failedPid}
 		}

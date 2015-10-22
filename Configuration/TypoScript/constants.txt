@@ -156,6 +156,8 @@ plugin.tx_jccappointments {
 			enableCancelling = 
 			# cat=plugin.tx_jccappointments_general/a/040; type=int; label=Cancel Pid:Page ID where the cancel form is configured
 			cancelPid = 
+			# cat=plugin.tx_jccappointments_general/a/045; type=int; label=Cancel Success Pid:Page ID where to redirect to after a cancel is succeed
+			cancelSuccessPid = 
 			# cat=plugin.tx_jccappointments_general/a/050; type=int; label=Succes Pid:Page ID where to redirect to if the booking is succeed
 			successPid = 
 			# cat=plugin.tx_jccappointments_general/a/060; type=int; label=Failed Pid:Page ID where to redirect to if the booking is failed
