@@ -42,8 +42,8 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = '
 
 // TYPO3 >= 7.5 Icon Registry
 if (version_compare(TYPO3_branch, '7.5', '>=') && TYPO3_MODE == 'BE') {
-	$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(TYPO3\CMS\Core\Imaging\IconRegistry::class);
-	$iconRegistry->registerIcon('jcc_calendar', \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class, array(
+	$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Imaging\\IconRegistry');
+	$iconRegistry->registerIcon('jcc_calendar', 'TYPO3\\CMS\\Core\\Imaging\\IconProvider\\BitmapIconProvider', array(
 		'source' => 'EXT:jcc_appointments/Resources/Public/Icons/Calendar.png'
 	));
 }
