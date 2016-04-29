@@ -82,7 +82,12 @@ class AppointmentController extends BaseController {
 			
 			$firstAddedProduct = $this->getFirstProductFromSession();
 			$availableProducts = $this->api()->getGovAvailableProductsByProduct(array('ProductNr' => $firstAddedProduct['uid']));
-			
+
+			// Converts single product to an array
+			if (!is_array($availableProducts->products)) {
+				$availableProducts->products = array($availableProducts->products);
+			}
+
 			// validate if we have products returned
 			if ($availableProducts->products && count($availableProducts->products) > 0) {
 				$availableProducts = $this->renderProductArray($availableProducts->products);
